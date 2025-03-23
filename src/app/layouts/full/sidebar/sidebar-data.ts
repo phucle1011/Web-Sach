@@ -39,7 +39,7 @@ export const navItems: NavItem[] = [
     route: '/ui-components/tables',
   },
   {
-    displayName: 'bình luận',
+    displayName: 'Bình luận',
     iconName: 'table',
     route: '/ui-components/comments',
   },
