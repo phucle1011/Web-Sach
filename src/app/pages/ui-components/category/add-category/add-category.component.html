@@ -1,0 +1,23 @@
+<div class="container mt-4">
+    <h2 class="text-center">Thêm Loại Sản Phẩm</h2>
+  
+    <form (submit)="onSubmit()">
+      <div class="mb-3">
+        <label class="form-label">Tên Loại Sản Phẩm</label>
+        <input type="text" class="form-control" required />
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Trạng Thái</label>
+        <select class="form-select">
+          <option value="hiện">Hiện</option>
+          <option value="ẩn">Ẩn</option>
+        </select>
+      </div>
+  
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-success">Lưu</button>
+      </div>
+    </form>
+  </div>
+  
