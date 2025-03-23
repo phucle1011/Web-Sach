@@ -1,161 +1,28 @@
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { ThemePalette } from '@angular/material/core';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  signal,
-} from '@angular/core';
-import {
-  CdkDrag,
-  CdkDragDrop,
-  CdkDropList,
-  moveItemInArray,
-} from '@angular/cdk/drag-drop';
+import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import {
-  MatChipEditedEvent,
-  MatChipInputEvent,
-  MatChipsModule,
-} from '@angular/material/chips';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
 
-export interface ChipColor {
-  name: string;
-  color: ThemePalette;
+export interface Book {
+  title: string;
+  author: string;
+  price: number;
+  image: string;
 }
 
-export interface Fruit {
-  name: string;
-}
-
-export interface Vegetable {
-  name: string;
-}
+const BOOK_DATA: Book[] = [
+  { title: 'Đắc Nhân Tâm', author: 'Dale Carnegie', price: 120000, image: 'assets/images/products/datnhantam.png' },
+  { title: 'Nhà Giả Kim', author: 'Paulo Coelho', price: 95000, image: 'assets/images/products/nhakim.png' },
+  { title: 'Hạt Giống Tâm Hồn', author: 'Nhiều Tác Giả', price: 80000, image: 'assets/images/products/hatgiongtamhon.png' },
+  { title: 'Tuổi Trẻ Đáng Giá Bao Nhiêu', author: 'Rosie Nguyễn', price: 105000, image: 'assets/images/products/tuoitre.png' }
+];
 
 @Component({
   selector: 'app-chips',
+  standalone: true,
+  imports: [MatCardModule, CommonModule],
   templateUrl: './chips.component.html',
   styleUrls: ['./chips.component.scss'],
-  imports: [
-    MatFormFieldModule,
-    MatChipsModule,
-    MatIconModule,
-    MatCardModule,
-    CdkDropList,
-    CdkDrag,
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonModule
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppChipsComponent {
-  // drag n drop
-  readonly vegetables = signal<Vegetable[]>([
-    { name: 'apple' },
-    { name: 'banana' },
-    { name: 'strawberry' },
-    { name: 'orange' },
-    { name: 'kiwi' },
-    { name: 'cherry' },
-  ]);
-
-  drop(event: CdkDragDrop<Vegetable[]>) {
-    this.vegetables.update((vegetables) => {
-      moveItemInArray(vegetables, event.previousIndex, event.currentIndex);
-      return [...vegetables];
-    });
-  }
-
-  //
-  // Stacked
-  //
-  availableColors: ChipColor[] = [
-    { name: 'Primary', color: 'primary' },
-    { name: 'Accent', color: 'accent' },
-    { name: 'Warn', color: 'warn' },
-  ];
-
-  //
-  //  chips with input
-  //
-  addOnBlur = true;
-  readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  fruits: Fruit[] = [{ name: 'Lemon' }, { name: 'Lime' }, { name: 'Apple' }];
-
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-
-    // Add our fruit
-    if (value) {
-      this.fruits.push({ name: value });
-    }
-
-    // Clear the input value
-    event.chipInput!.clear();
-  }
-
-  remove(fruit: Fruit): void {
-    const index = this.fruits.indexOf(fruit);
-
-    if (index >= 0) {
-      this.fruits.splice(index, 1);
-    }
-  }
-
-  edit(fruit: Fruit, event: MatChipEditedEvent) {
-    const value = event.value.trim();
-
-    // Remove fruit if it no longer has a name
-    if (!value) {
-      this.remove(fruit);
-      return;
-    }
-
-    // Edit existing fruit
-    const index = this.fruits.indexOf(fruit);
-    if (index >= 0) {
-      this.fruits[index].name = value;
-    }
-  }
-
-  // form control
-
-  readonly keywords = signal(['angular', 'how-to', 'tutorial', 'accessibility']);
-  readonly formControl = new FormControl(['angular']);
-
-  announcer = inject(LiveAnnouncer);
-
-  removeKeyword(keyword: string) {
-    this.keywords.update(keywords => {
-      const index = keywords.indexOf(keyword);
-      if (index < 0) {
-        return keywords;
-      }
-
-      keywords.splice(index, 1);
-      this.announcer.announce(`removed ${keyword}`);
-      return [...keywords];
-    });
-  }
-
-  addForm(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-
-    // Add our keyword
-    if (value) {
-      this.keywords.update(keywords => [...keywords, value]);
-    }
-
-    // Clear the input value
-    event.chipInput!.clear();
-  }
-}
-function isDragDrop(object: any): object is CdkDragDrop<string[]> {
-  return 'previousIndex' in object;
+  dataSource = BOOK_DATA;
 }

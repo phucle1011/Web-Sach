@@ -15,27 +15,56 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Loại sản phẩm',
     iconName: 'adjustments-minus',
-    route: '/ui-components/categories',
+    route: '/admin/categories',
   },
   {
     displayName: 'Sản phẩm',
     iconName: 'info-circle',
-    route: '/ui-components/chips',
+    route: '/ui-component',
+    children: [
+      {
+        displayName: 'Danh sách sản phẩm',
+        iconName: 'point',
+        route: '/admin/chips',
+      },
+      {
+        displayName: 'Thêm sản phẩm',
+        iconName: 'point',
+        route: '/admin/add-product',
+      },
+    ],
   },
+  // {
+  //   displayName: 'Người dùng',
+  //   iconName: 'list-details',
+  //   route: '/admin/users',
+  // },
   {
     displayName: 'Người dùng',
-    iconName: 'list-details',
-    route: '/ui-components/lists',
+    iconName: 'info-circle',
+    route: '/ui-component',
+    children: [
+      {
+        displayName: 'Danh sách người dùng',
+        iconName: 'point',
+        route: '/admin/users',
+      },
+      {
+        displayName: 'Thêm người dùng',
+        iconName: 'point',
+        route: '/admin/add-user',
+      },
+    ],
   },
   {
     displayName: 'Bình luận',
     iconName: 'clipboard-text',
-    route: '/ui-components/forms',
+    route: '/admin/forms',
   },
   {
     displayName: 'Đơn hàng',
     iconName: 'table',
-    route: '/ui-components/tables',
+    route: '/admin/tables',
   },
   {
     navCap: 'Xác thực',
