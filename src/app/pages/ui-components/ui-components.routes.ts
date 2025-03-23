@@ -6,6 +6,8 @@ import { AppListsComponent } from './lists/lists.component';
 import { AppFormsComponent } from './forms/forms.component';
 import { AppTablesComponent } from './tables/tables.component';
 import { CategoryComponent } from './category/category.component'
+import { CommentsComponent } from './comments/comments.component';
+import { EditComponent } from './comments/edit/edit.component';
 
 export const UiComponentsRoutes: Routes = [
   {
@@ -31,6 +33,14 @@ export const UiComponentsRoutes: Routes = [
         path: 'tables',
         component: AppTablesComponent,
       },
+      {
+        path: 'comments',
+        component: CommentsComponent,
+      },
+      {
+        path: 'edit-comments',
+        component: EditComponent,
+      }
     ],
   },
 ];

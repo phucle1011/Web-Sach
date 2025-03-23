@@ -1,0 +1,28 @@
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <span>Chỉnh Sửa Bình Luận</span>
+        </div>
+        <div class="card-body">
+            <form id="editCommentForm">
+                <div class="mb-3">
+                    <label for="commentStatus" class="form-label">Trạng thái bình luận</label>
+                    <select class="form-select" id="commentStatus">
+                        <option value="visible" selected>Hiển thị</option>
+                        <option value="hidden">Ẩn</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="commentContent" class="form-label">Nội dung bình luận</label>
+                    <textarea class="form-control" id="commentContent" rows="4">Bình luận mẫu...</textarea>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-secondary me-2">Hủy</button>
+                    <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

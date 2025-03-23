@@ -31,11 +31,17 @@ export const navItems: NavItem[] = [
     displayName: 'Bình luận',
     iconName: 'clipboard-text',
     route: '/ui-components/forms',
+    
   },
   {
     displayName: 'Đơn hàng',
     iconName: 'table',
     route: '/ui-components/tables',
+  },
+  {
+    displayName: 'bình luận',
+    iconName: 'table',
+    route: '/ui-components/comments',
   },
   {
     navCap: 'Xác thực',
