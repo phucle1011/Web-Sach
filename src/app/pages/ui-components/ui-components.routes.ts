@@ -1,19 +1,22 @@
 import { Routes } from '@angular/router';
-
-// ui
+import { CategoryComponent } from './category/category.component';
+import { AddCategoryComponent } from './category/add-category/add-category.component';
 import { AppChipsComponent } from './chips/chips.component';
 import { AppListsComponent } from './lists/lists.component';
 import { AppFormsComponent } from './forms/forms.component';
 import { AppTablesComponent } from './tables/tables.component';
-import { CategoryComponent } from './category/category.component'
 
-export const UiComponentsRoutes: Routes = [
+const routes: Routes = [
   {
     path: '',
     children: [
       {
         path: 'categories',
         component: CategoryComponent,
+      },
+      {
+        path: 'categories/add',
+        component: AddCategoryComponent,
       },
       {
         path: 'chips',
@@ -34,3 +37,5 @@ export const UiComponentsRoutes: Routes = [
     ],
   },
 ];
+
+export default routes;

@@ -1,4 +1,4 @@
-import { NavItem } from './nav-item/nav-item';
+import { NavItem } from "./nav-item/nav-item";
 
 export const navItems: NavItem[] = [
   {
@@ -10,32 +10,32 @@ export const navItems: NavItem[] = [
     route: '/dashboard',
   },
   {
-    navCap: 'Ui Components',
+    navCap: 'Quản lý',
   },
   {
     displayName: 'Loại sản phẩm',
     iconName: 'adjustments-minus',
-    route: '/ui-components/categories',
+    route: '/admin/categories', // Cập nhật
   },
   {
     displayName: 'Sản phẩm',
     iconName: 'info-circle',
-    route: '/ui-components/chips',
+    route: '/admin/chips', // Cập nhật
   },
   {
     displayName: 'Người dùng',
     iconName: 'list-details',
-    route: '/ui-components/lists',
+    route: '/admin/lists', // Cập nhật
   },
   {
     displayName: 'Bình luận',
     iconName: 'clipboard-text',
-    route: '/ui-components/forms',
+    route: '/admin/forms', // Cập nhật
   },
   {
     displayName: 'Đơn hàng',
     iconName: 'table',
-    route: '/ui-components/tables',
+    route: '/admin/tables', // Cập nhật
   },
   {
     navCap: 'Xác thực',
