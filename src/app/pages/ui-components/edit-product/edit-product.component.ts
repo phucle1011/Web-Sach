@@ -29,10 +29,11 @@ interface Food {
     MatCheckboxModule,
     RouterModule,
   ],
-  templateUrl: './add-product.component.html',
-  styleUrls: ['./add-product.component.scss'],
+  templateUrl: './edit-product.component.html',
+  styleUrls: ['./edit-product.component.scss'],
+
 })
-export class AddProductComponent {
+export class EditProductComponent {
   country: Food[] = [
     { value: 'steak-0', viewValue: 'USA' },
     { value: 'pizza-1', viewValue: 'India' },

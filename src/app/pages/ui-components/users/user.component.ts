@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
 
 export interface User {
   name: string;
@@ -19,7 +21,7 @@ const USER_DATA: User[] = [
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [MatCardModule, CommonModule],
+  imports: [MatCardModule, CommonModule, RouterModule],
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
 })

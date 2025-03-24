@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
 
 export interface Book {
   title: string;
@@ -17,12 +19,12 @@ const BOOK_DATA: Book[] = [
 ];
 
 @Component({
-  selector: 'app-chips',
+  selector: 'app-product',
   standalone: true,
-  imports: [MatCardModule, CommonModule],
-  templateUrl: './chips.component.html',
-  styleUrls: ['./chips.component.scss'],
+  imports: [MatCardModule, CommonModule, RouterModule],
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.scss'],
 })
-export class AppChipsComponent {
+export class AppProductComponent {
   dataSource = BOOK_DATA;
 }

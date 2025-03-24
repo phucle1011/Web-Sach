@@ -25,7 +25,7 @@ export const navItems: NavItem[] = [
       {
         displayName: 'Danh sách sản phẩm',
         iconName: 'point',
-        route: '/admin/chips',
+        route: '/admin/product',
       },
       {
         displayName: 'Thêm sản phẩm',
@@ -34,11 +34,6 @@ export const navItems: NavItem[] = [
       },
     ],
   },
-  // {
-  //   displayName: 'Người dùng',
-  //   iconName: 'list-details',
-  //   route: '/admin/users',
-  // },
   {
     displayName: 'Người dùng',
     iconName: 'info-circle',

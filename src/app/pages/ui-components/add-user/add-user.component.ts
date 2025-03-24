@@ -7,7 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
-
+import { RouterModule } from '@angular/router';
 interface Food {
   value: string;
   viewValue: string;
@@ -25,8 +25,11 @@ interface Food {
     MatCardModule,
     MatInputModule,
     MatCheckboxModule,
+    RouterModule,
   ],
   templateUrl: './add-user.component.html',
+  styleUrls: ['./add-user.component.scss'],
+
 })
 export class AddUserComponent {
   country: Food[] = [

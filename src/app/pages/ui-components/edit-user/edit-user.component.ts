@@ -8,8 +8,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { RouterModule } from '@angular/router';
-
-
 interface Food {
   value: string;
   viewValue: string;
@@ -29,10 +27,11 @@ interface Food {
     MatCheckboxModule,
     RouterModule,
   ],
-  templateUrl: './add-product.component.html',
-  styleUrls: ['./add-product.component.scss'],
+  templateUrl: './edit-user.component.html',
+  styleUrls: ['./edit-user.component.scss'],
+
 })
-export class AddProductComponent {
+export class EditUserComponent {
   country: Food[] = [
     { value: 'steak-0', viewValue: 'USA' },
     { value: 'pizza-1', viewValue: 'India' },

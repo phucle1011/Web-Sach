@@ -1,13 +1,15 @@
 import { Routes } from '@angular/router';
 
 // ui
-import { AppChipsComponent } from './chips/chips.component';
+import { AppProductComponent } from './product/product.component';
 import { UserComponent} from './users/user.component';
 import { AppFormsComponent } from './forms/forms.component';
 import { AppTablesComponent } from './tables/tables.component';
 import { CategoryComponent } from './category/category.component'
 import { AddProductComponent } from './add-product/add-product.component';
-import {AddUserComponent} from './add-user/add-user.component'
+import {AddUserComponent} from './add-user/add-user.component';
+import {EditProductComponent} from './edit-product/edit-product.component';
+import {EditUserComponent} from './edit-user/edit-user.component'
 
 export const UiComponentsRoutes: Routes = [
   {
@@ -18,8 +20,8 @@ export const UiComponentsRoutes: Routes = [
         component: CategoryComponent,
       },
       {
-        path: 'chips',
-        component: AppChipsComponent,
+        path: 'product',
+        component: AppProductComponent,
       },
       {
         path: 'users',
@@ -39,7 +41,15 @@ export const UiComponentsRoutes: Routes = [
       },
       {
         path: 'add-user',
-        component: AddUserComponent
+        component: AddUserComponent,
+      },
+      {
+        path: 'edit-product',
+        component: EditProductComponent,
+      },
+      {
+        path: 'edit-user',
+        component: EditUserComponent,
       },
       
     ],
