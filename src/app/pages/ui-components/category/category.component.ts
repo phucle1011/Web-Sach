@@ -4,9 +4,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { Router, RouterModule } from '@angular/router';
+import {  RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -14,9 +15,11 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Tình Cảm', status: 'ẩn' },
-  { position: 2, name: '18+', status: 'ẩn' },
-  { position: 3, name: 'Truyện', status: 'hiện' },
+  { position: 1, name: 'Tiểu thuyết', status: 'ẩn' },
+  { position: 2, name: 'Khoa học', status: 'ẩn' },
+  { position: 3, name: 'Kinh dị', status: 'hiện' },
+  { position: 3, name: 'Khám phá', status: 'hiện' },
+  { position: 3, name: 'Tư duy ngược', status: 'hiện' },
 ];
 
 @Component({
@@ -31,16 +34,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
     RouterModule, 
     FormsModule,
     CommonModule,
+ 
   ],
   templateUrl: './category.component.html',
   styleUrl: './category.component.scss',
 })
 export class CategoryComponent {
-  constructor(private router: Router) {}
+ 
 
-  goToAddCategory() {
-    this.router.navigate(['/admin/categories/add']);
-  }
 
   displayedColumns: string[] = ['position', 'name', 'status', 'actions'];
   dataSource = ELEMENT_DATA;

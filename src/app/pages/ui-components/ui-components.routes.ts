@@ -5,6 +5,7 @@ import { AppChipsComponent } from './chips/chips.component';
 import { AppListsComponent } from './lists/lists.component';
 import { AppFormsComponent } from './forms/forms.component';
 import { AppTablesComponent } from './tables/tables.component';
+import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: 'categories/add',
         component: AddCategoryComponent,
+      },
+      {
+        path: 'categories/edit',
+        component: EditCategoryComponent,
       },
       {
         path: 'chips',
