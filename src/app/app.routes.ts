@@ -9,16 +9,16 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: '/admin',
         pathMatch: 'full',
       },
       {
-        path: 'dashboard',
+        path: 'admin',
         loadChildren: () =>
           import('./pages/pages.routes').then((m) => m.PagesRoutes),
       },
       {
-        path: 'ui-components',
+        path: 'admin',
         loadChildren: () =>
           import('./pages/ui-components/ui-components.routes').then(
             (m) => m.UiComponentsRoutes

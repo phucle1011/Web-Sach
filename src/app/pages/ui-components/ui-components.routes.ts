@@ -1,11 +1,13 @@
 import { Routes } from '@angular/router';
 
-// ui
 import { AppChipsComponent } from './chips/chips.component';
 import { AppListsComponent } from './lists/lists.component';
 import { AppFormsComponent } from './forms/forms.component';
-import { AppTablesComponent } from './tables/tables.component';
-import { CategoryComponent } from './category/category.component'
+import { AppOrdersComponent } from './orders/orders.component';
+import { CategoryComponent } from './category/category.component';
+import { OrdersDeatailComponent } from './orders/orders-deatail/orders-deatail.component';
+import { OrdersHistoryComponent } from './orders/orders-history/orders-history.component';
+import { OrdersHistoryDetailComponent } from './orders/orders-history-detail/orders-history-detail.component';
 
 export const UiComponentsRoutes: Routes = [
   {
@@ -28,8 +30,20 @@ export const UiComponentsRoutes: Routes = [
         component: AppFormsComponent,
       },
       {
-        path: 'tables',
-        component: AppTablesComponent,
+        path: 'orders',
+        component: AppOrdersComponent,
+      },
+      {
+        path: 'orders_detail',
+        component: OrdersDeatailComponent,
+      },
+      {
+        path: 'orders_history',
+        component: OrdersHistoryComponent,
+      },
+      {
+        path: 'orders_history_detail',
+        component: OrdersHistoryDetailComponent,
       },
     ],
   },

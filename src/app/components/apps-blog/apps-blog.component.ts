@@ -19,6 +19,7 @@ interface productcards {
     selector: 'app-blog',
     imports: [MatCardModule, MatChipsModule, TablerIconsModule, MatButtonModule, MatIconModule],
     templateUrl: './apps-blog.component.html',
+    styleUrl: './apps-blog.component.scss'
 })
 export class AppBlogComponent {
     constructor() { }

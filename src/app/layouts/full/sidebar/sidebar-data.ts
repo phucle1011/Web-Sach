@@ -5,60 +5,72 @@ export const navItems: NavItem[] = [
     navCap: 'Home',
   },
   {
-    displayName: 'Dashboard',
+    displayName: 'Thống kê',
     iconName: 'layout-grid-add',
-    route: '/dashboard',
+    route: '/admin',
   },
   {
-    navCap: 'Ui Components',
+    navCap: 'Quản lí',
   },
   {
-    displayName: 'Categories',
+    displayName: 'Loại sản phẩm',
     iconName: 'adjustments-minus',
-    route: '/ui-components/categories',
+    route: '/admin/categories',
   },
   {
-    displayName: 'Chips',
+    displayName: 'Sản phẩm',
     iconName: 'info-circle',
-    route: '/ui-components/chips',
+    route: '/admin/chips',
   },
   {
-    displayName: 'Lists',
+    displayName: 'Người dùng',
     iconName: 'list-details',
-    route: '/ui-components/lists',
+    route: '/admin/lists',
   },
   {
-    displayName: 'Forms',
+    displayName: 'Bình luận',
     iconName: 'clipboard-text',
-    route: '/ui-components/forms',
+    route: '/admin/forms',
   },
   {
-    displayName: 'Tables',
+    displayName: 'Đơn hàng',
     iconName: 'table',
-    route: '/ui-components/tables',
+    route: '/admin/orders',
+    children: [
+      {
+        displayName: 'Danh sách đơn hàng',
+        iconName: 'point',
+        route: '/admin/orders',
+      },
+      {
+        displayName: 'Lịch sử đơn hàng',
+        iconName: 'point',
+        route: '/admin/orders_history',
+      },
+    ],
   },
   {
-    navCap: 'Auth',
+    navCap: 'Xác thực',
   },
   {
-    displayName: 'Login',
+    displayName: 'Đăng nhập',
     iconName: 'login',
     route: '/authentication',
     children: [
       {
-        displayName: 'Login',
+        displayName: 'Đăng nhập',
         iconName: 'point',
         route: '/authentication/login',
       },
     ],
   },
   {
-    displayName: 'Register',
+    displayName: 'Đăng ký',
     iconName: 'user-plus',
     route: '/authentication',
     children: [
       {
-        displayName: 'Register',
+        displayName: 'Đăng ký',
         iconName: 'point',
         route: '/authentication/register',
       },
