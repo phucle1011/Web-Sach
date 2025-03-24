@@ -15,6 +15,8 @@ import { AppOrdersComponent } from './orders/orders.component';
 import { OrdersDeatailComponent } from './orders/orders-deatail/orders-deatail.component';
 import { OrdersHistoryComponent } from './orders/orders-history/orders-history.component';
 import { OrdersHistoryDetailComponent } from './orders/orders-history-detail/orders-history-detail.component';
+import { CommentsComponent } from './comments/comments.component';
+import { EditComponent } from './comments/edit/edit.component';
 
 const routes: Routes = [
   {
@@ -76,7 +78,14 @@ const routes: Routes = [
         path: 'edit-user',
         component: EditUserComponent,
       },
-      
+      {
+        path: 'comments',
+        component: CommentsComponent,
+      },
+      {
+        path: 'edit-comments',
+        component: EditComponent,
+      }
     ],
   },
 ];

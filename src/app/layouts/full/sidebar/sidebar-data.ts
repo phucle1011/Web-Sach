@@ -57,11 +57,11 @@ export const navItems: NavItem[] = [
       },
     ],
   },
-  {
-    displayName: 'Bình luận',
-    iconName: 'clipboard-text',
-    route: '/admin/forms',
-  },
+    {
+      displayName: 'Bình luận',
+      iconName: 'table',
+      route: '/ui-components/comments',
+    },
   {
     displayName: 'Đơn hàng',
     iconName: 'table',
