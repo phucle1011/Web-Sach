@@ -18,11 +18,9 @@ export const routes: Routes = [
           import('./pages/pages.routes').then((m) => m.PagesRoutes),
       },
       {
-        path: 'admin',
+        path: 'admin', 
         loadChildren: () =>
-          import('./pages/ui-components/ui-components.routes').then(
-            (m) => m.UiComponentsRoutes
-          ),
+          import('./pages/ui-components/ui-components.routes').then((m) => m.default), 
       },
       {
         path: 'extra',

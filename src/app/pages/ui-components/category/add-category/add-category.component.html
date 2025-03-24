@@ -1,0 +1,24 @@
+<div class="container mt-4">
+  <div class="card p-4 shadow rounded-3"> 
+    <h4 class="text-center">Thêm Loại Sản Phẩm</h4>
+
+    <form (submit)="onSubmit()">
+      <div class="mb-3">
+        <label class="form-label">Tên Loại Sản Phẩm</label>
+        <input type="text" class="form-control" required />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Trạng Thái</label>
+        <select class="form-select">
+          <option value="hiện">Hiện</option>
+          <option value="ẩn">Ẩn</option>
+        </select>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+      </div>
+    </form>
+  </div>
+</div>

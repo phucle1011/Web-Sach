@@ -42,12 +42,16 @@ export class AppNavItemComponent implements OnChanges {
   }
 
   onItemSelected(item: NavItem) {
-    if (!item.children || !item.children.length) {
-      this.router.navigate([item.route]);
+    if (item.route) {
+      this.router.navigate([item.route]); 
     }
     if (item.children && item.children.length) {
       this.expanded = !this.expanded;
+    } else if (item.route) {
+      this.router.navigate([item.route]);
     }
+    
+    
     //scroll
     window.scroll({
       top: 0,

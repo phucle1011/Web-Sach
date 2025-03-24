@@ -1,4 +1,4 @@
-import { NavItem } from './nav-item/nav-item';
+import { NavItem } from "./nav-item/nav-item";
 
 export const navItems: NavItem[] = [
   {
@@ -10,12 +10,20 @@ export const navItems: NavItem[] = [
     route: '/admin',
   },
   {
-    navCap: 'Quản lí',
+    navCap: 'Quản lý',
   },
   {
     displayName: 'Loại sản phẩm',
     iconName: 'adjustments-minus',
-    route: '/admin/categories',
+    route: '/admin/categories', 
+    children: [
+      {
+        displayName: 'Thêm loại sản phẩm',
+        iconName: 'plus-circle', 
+        route: '/admin/categories/add',
+      }
+    ],
+
   },
   {
     displayName: 'Sản phẩm',
