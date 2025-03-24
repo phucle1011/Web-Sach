@@ -1,0 +1,91 @@
+<mat-card class="cardWithShadow">
+    <mat-card-content>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title fw-bold">Thông tin khách hàng</h3>
+                                <form>
+                                    <div class="form">
+                                        <label class="form-label fw-bold">ID Đơn hàng:</label>
+                                        <input type="text" class="form-control" value="123456" readonly>
+                                    </div>
+                                    <div class="form">
+                                        <label class="form-label fw-bold">Họ và Tên:</label>
+                                        <input type="text" class="form-control" value="Nguyễn Văn A" readonly>
+                                    </div>
+                                    <div class="form">
+                                        <label class="form-label fw-bold">Số điện thoại:</label>
+                                        <input type="text" class="form-control" value="0123456789" readonly>
+                                    </div>
+                                    <div class="form">
+                                        <label class="form-label fw-bold">Email:</label>
+                                        <input type="text" class="form-control" value="email@example.com" readonly>
+                                    </div>
+                                    <div class="form">
+                                        <label class="form-label fw-bold">Địa chỉ:</label>
+                                        <input type="text" class="form-control" value="123 Đường ABC, Quận 1, TP.HCM" readonly>
+                                    </div>
+                                    <div class="form">
+                                        <label class="form-label fw-bold">Phương thức thanh toán:</label>
+                                        <input type="text" class="form-control" value="Thanh toán khi nhận hàng" readonly>
+                                    </div>
+                                    <div class="form">
+                                        <label class="form-label fw-bold">Ngày tạo đơn hàng:</label>
+                                        <input type="text" class="form-control" value="2025-03-23" readonly>
+                                    </div>
+                                </form>                                
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Chi tiết đơn hàng</h5>
+                                <table class="table table-bordered table-hover text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>Trạng thái</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th class="text-end">Giá tiền (Đơn hàng)</th>
+                                            <th class="text-end">Thành tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="align-middle">Đang xử lý</td>
+                                            <td class="align-middle">Sản phẩm 1</td>
+                                            <td class="align-middle">2</td>
+                                            <td class="text-end align-middle">500,000 đ</td>
+                                            <td class="text-end align-middle">1,000,000 đ</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">Hoàn thành</td>
+                                            <td class="align-middle">Sản phẩm 2</td>
+                                            <td class="align-middle">1</td>
+                                            <td class="text-end align-middle">700,000 đ</td>
+                                            <td class="text-end align-middle">700,000 đ</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="4" class="text-end">Tổng cộng:</th>
+                                            <th class="text-end">1,700,000 đ</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <div class="d-flex justify-content-between">
+                                    <a [routerLink]="['/admin/orders_history']" class="btn btn-outline-primary btn-sm custom-btn">
+                                        <i class="bi bi-pencil-square"></i> Quay lại
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

@@ -7,7 +7,7 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Thống kê',
     iconName: 'layout-grid-add',
-    route: '/dashboard',
+    route: '/admin',
   },
   {
     navCap: 'Quản lý',
