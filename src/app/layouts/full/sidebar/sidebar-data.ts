@@ -27,7 +27,7 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Sản phẩm',
     iconName: 'info-circle',
-    route: '/ui-component',
+    route: '/admin/product',
     children: [
       {
         displayName: 'Danh sách sản phẩm',
@@ -43,7 +43,7 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Người dùng',
     iconName: 'info-circle',
-    route: '/ui-component',
+    route: '/admin/users',
     children: [
       {
         displayName: 'Danh sách người dùng',
@@ -78,31 +78,31 @@ export const navItems: NavItem[] = [
         route: '/admin/orders_history',
       },
     ],  },
-  {
-    navCap: 'Xác thực',
-  },
-  {
-    displayName: 'Đăng nhập',
-    iconName: 'login',
-    route: '/authentication',
-    children: [
-      {
-        displayName: 'Đăng nhập',
-        iconName: 'point',
-        route: '/authentication/login',
-      },
-    ],
-  },
-  {
-    displayName: 'Đăng ký',
-    iconName: 'user-plus',
-    route: '/authentication',
-    children: [
-      {
-        displayName: 'Đăng ký',
-        iconName: 'point',
-        route: '/authentication/register',
-      },
-    ],
-  },
+    {
+      navCap: 'Xác thực',
+    },
+    {
+      displayName: 'Đăng nhập',
+      iconName: 'login',
+      route: '/authentication/login',
+      children: [
+        {
+          displayName: 'Đăng nhập',
+          iconName: 'point',
+          route: '/authentication/login',
+        },
+      ],
+    },
+    {
+      displayName: 'Đăng ký',
+      iconName: 'user-plus',
+      route: '/authentication/register',
+      children: [
+        {
+          displayName: 'Đăng ký',
+          iconName: 'point',
+          route: '/authentication/register',
+        },
+      ],
+    },
 ];
