@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-comments',
   imports: [MaterialModule, RouterModule],
   templateUrl: './comments.component.html',
+ styleUrls: ['./comments.component.scss']
 })
 export class CommentsComponent {
 
