@@ -15,7 +15,15 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Loại sản phẩm',
     iconName: 'adjustments-minus',
-    route: '/admin/categories', // Cập nhật
+    route: '/admin/categories', 
+    children: [
+      {
+        displayName: 'Thêm loại sản phẩm',
+        iconName: 'plus-circle', 
+        route: '/admin/categories/add',
+      }
+    ],
+
   },
   {
     displayName: 'Sản phẩm',

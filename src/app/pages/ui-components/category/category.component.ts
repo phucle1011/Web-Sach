@@ -5,7 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
-
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -28,6 +29,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
     MatButtonModule,
     MatSelectModule,
     RouterModule, 
+    FormsModule,
+    CommonModule,
   ],
   templateUrl: './category.component.html',
   styleUrl: './category.component.scss',

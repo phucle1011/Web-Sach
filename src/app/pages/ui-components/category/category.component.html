@@ -1,63 +1,45 @@
 <mat-card class="cardWithShadow">
   <mat-card-content>
-    <mat-card-title class="text-center">
-      <h1>
-        <strong>Loại Sản Phẩm</strong>
-      </h1>
-      
-    </mat-card-title>
-    <button  class="btn btn-success" [routerLink]="['/admin/categories/add']">
-      Thêm danh mục
-    </button>
-    
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-      <!-- Cột STT -->
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef> No. </th>
-        <td mat-cell *matCellDef="let element"> {{ element.position }} </td>
-      </ng-container>
-
-      <!-- Cột Tên Sản Phẩm -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Tên </th>
-        <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
-      </ng-container>
-
-      <!-- Cột Trạng Thái -->
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Trạng Thái </th>
-        <td mat-cell *matCellDef="let element">
-          <mat-select [value]="element.status" (selectionChange)="changeStatus(element, $event)" disableRipple
-            disableOptionCentering>
-            <mat-option value="hiện">Hiện</mat-option>
-            <mat-option value="ẩn">Ẩn</mat-option>
-          </mat-select>
-        </td>
-      </ng-container>
-      <!-- Cột Hoạt Động -->
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Hoạt Động </th>
-        <td mat-cell *matCellDef="let element">
-          <div class="d-flex justify-content-start">
-            <button class="btn btn-outline-primary btn-sm" (click)="onEdit(element)">
-              <i class="bi bi-pencil-square"></i> Sửa
-            </button>
-            <button class="btn btn-outline-danger btn-sm ms-2" (click)="onDelete(element)">
-              <i class="bi bi-trash"></i> Xóa
-            </button>
+    <div class="container mt-4">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title fw-bold text-center">Loại Sản Phẩm</h1>
+          <div class="table-responsive">
+            <table class="table table-striped table-hover custom-table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Tên</th>
+                  <th scope="col">Trạng thái</th>
+                  <th scope="col">Hoạt động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let element of dataSource">
+                  <td>{{ element.position }}</td>
+                  <td>{{ element.name }}</td>
+                  <td>
+                    <select class="form-control" [(ngModel)]="element.status" (change)="changeStatus(element, $event)">
+                      <option value="hiện">Hiện</option>
+                      <option value="ẩn">Ẩn</option>
+                    </select>
+                  </td>
+                  <td class="text-center">
+                    <div class="d-flex">
+                      <button class="btn btn-outline-primary btn-sm me-2" (click)="onEdit(element)">
+                        <i class="bi bi-pencil-square"></i> Sửa
+                      </button>
+                      <button class="btn btn-outline-danger btn-sm" (click)="onDelete(element)">
+                        <i class="bi bi-trash"></i> Xóa
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-        </td>
-        
-      </ng-container>
-      
-
-      <!-- Header Row -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-          <!-- Nút thêm loại sản phẩm -->
-      
-    </table>
+        </div>
+      </div>
+    </div>
   </mat-card-content>
 </mat-card>
