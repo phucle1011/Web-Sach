@@ -25,8 +25,6 @@ export const navItems: NavItem[] = [
         route: '/admin/categories/add',
       }
     ],
-
-    route: '/admin/categories',
   },
   {
     displayName: 'Sản phẩm',
