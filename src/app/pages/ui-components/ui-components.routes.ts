@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
 import { AddCategoryComponent } from './category/add-category/add-category.component';
 
-import { AppChipsComponent } from './chips/chips.component';
-import { AppListsComponent } from './lists/lists.component';
+// ui
+import { AppProductComponent } from './product/product.component';
+import { UserComponent} from './users/user.component';
 import { AppFormsComponent } from './forms/forms.component';
 import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 import { AppOrdersComponent } from './orders/orders.component';
@@ -28,12 +29,12 @@ const routes: Routes = [
         component: EditCategoryComponent,
       },
       {
-        path: 'chips',
-        component: AppChipsComponent,
+        path: 'product',
+        component: AppProductComponent,
       },
       {
-        path: 'lists',
-        component: AppListsComponent,
+        path: 'users',
+        component: UserComponent,
       },
       {
         path: 'forms',
@@ -67,6 +68,23 @@ const routes: Routes = [
         path: 'orders_history_detail',
         component: OrdersHistoryDetailComponent,
       },
+      {
+        path: 'add-product',
+        component: AddProductComponent,
+      },
+      {
+        path: 'add-user',
+        component: AddUserComponent,
+      },
+      {
+        path: 'edit-product',
+        component: EditProductComponent,
+      },
+      {
+        path: 'edit-user',
+        component: EditUserComponent,
+      },
+      
     ],
   },
 ];
