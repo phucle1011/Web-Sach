@@ -1,0 +1,57 @@
+<mat-card class="cardWithShadow theme-card">
+    <mat-card-header>
+      <mat-card-title class="m-b-0">Sửa Thông Tin Sản Phẩm</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="b-t-1">
+      <form>
+        <div class="row">
+          <div class="col-lg-6">
+            <mat-label class="f-w-600 m-b-8 d-block">Tên Sản Phẩm</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput placeholder="Nhập tên sản phẩm" />
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6">
+            <mat-label class="f-w-600 m-b-8 d-block">Nhà Sản Xuất</mat-label>
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput placeholder="Nhập tên nhà sản xuất" />
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6">
+            <mat-label class="f-w-600 m-b-8 d-block">Giá</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="number" placeholder="Nhập giá sản phẩm" />
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6">
+            <mat-label class="f-w-600 m-b-8 d-block">Danh Mục</mat-label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select>
+                <mat-option value="electronics">Điện tử</mat-option>
+                <mat-option value="fashion">Thời trang</mat-option>
+                <mat-option value="home">Đồ gia dụng</mat-option>
+                <mat-option value="books">Sách</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6">
+            <mat-label class="f-w-600 m-b-8 d-block">Số Lượng</mat-label>
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput type="number" placeholder="Nhập số lượng" />
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6">
+            <mat-label class="f-w-600 m-b-8 d-block">Mô Tả</mat-label>
+            <mat-form-field appearance="outline" class="w-100">
+              <textarea matInput placeholder="Nhập mô tả sản phẩm"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="m-t-12">
+            <a class="btn btn-primary m-r-8">Lưu thay đổi</a>
+            <a [routerLink]="['/admin/product']"  class="btn btn-danger m-r-8">Hủy</a>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  

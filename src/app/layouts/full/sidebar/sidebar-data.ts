@@ -23,17 +23,39 @@ export const navItems: NavItem[] = [
         route: '/admin/categories/add',
       }
     ],
-
   },
   {
     displayName: 'Sản phẩm',
     iconName: 'info-circle',
-    route: '/admin/chips',
-  },
+    route: '/ui-component',
+    children: [
+      {
+        displayName: 'Danh sách sản phẩm',
+        iconName: 'point',
+        route: '/admin/product',
+      },
+      {
+        displayName: 'Thêm sản phẩm',
+        iconName: 'point',
+        route: '/admin/add-product',
+      },
+    ],  },
   {
     displayName: 'Người dùng',
-    iconName: 'list-details',
-    route: '/admin/lists',
+    iconName: 'info-circle',
+    route: '/ui-component',
+    children: [
+      {
+        displayName: 'Danh sách người dùng',
+        iconName: 'point',
+        route: '/admin/users',
+      },
+      {
+        displayName: 'Thêm người dùng',
+        iconName: 'point',
+        route: '/admin/add-user',
+      },
+    ],
   },
   {
     displayName: 'Bình luận',
@@ -55,8 +77,7 @@ export const navItems: NavItem[] = [
         iconName: 'point',
         route: '/admin/orders_history',
       },
-    ],
-  },
+    ],  },
   {
     navCap: 'Xác thực',
   },
