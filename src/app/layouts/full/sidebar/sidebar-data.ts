@@ -60,7 +60,7 @@ export const navItems: NavItem[] = [
     {
       displayName: 'Bình luận',
       iconName: 'table',
-      route: '/ui-components/comments',
+      route: '/admin/comments',
     },
   {
     displayName: 'Đơn hàng',
