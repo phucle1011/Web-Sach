@@ -6,7 +6,9 @@ export const navItems: NavItem[] = [
   },
   {
     displayName: 'Thống kê',
+    displayName: 'Thống kê',
     iconName: 'layout-grid-add',
+    route: '/admin',
     route: '/admin',
   },
   {
@@ -41,7 +43,6 @@ export const navItems: NavItem[] = [
     route: '/admin/forms', // Cập nhật
   },
   {
-    displayName: 'Đơn hàng',
     iconName: 'table',
     route: '/admin/tables', // Cập nhật
   },

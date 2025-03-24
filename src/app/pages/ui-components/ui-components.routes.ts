@@ -55,6 +55,18 @@ const routes: Routes = [
         path: 'orders_history_detail',
         component: OrdersHistoryDetailComponent,
       },
+      {
+        path: 'orders_detail',
+        component: OrdersDeatailComponent,
+      },
+      {
+        path: 'orders_history',
+        component: OrdersHistoryComponent,
+      },
+      {
+        path: 'orders_history_detail',
+        component: OrdersHistoryDetailComponent,
+      },
     ],
   },
 ];
