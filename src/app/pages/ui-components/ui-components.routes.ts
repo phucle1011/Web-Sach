@@ -12,6 +12,7 @@ import { OrdersDeatailComponent } from './orders/orders-deatail/orders-deatail.c
 import { OrdersHistoryComponent } from './orders/orders-history/orders-history.component';
 import { OrdersHistoryDetailComponent } from './orders/orders-history-detail/orders-history-detail.component';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -67,23 +68,7 @@ const routes: Routes = [
       {
         path: 'orders_history_detail',
         component: OrdersHistoryDetailComponent,
-      },
-      {
-        path: 'add-product',
-        component: AddProductComponent,
-      },
-      {
-        path: 'add-user',
-        component: AddUserComponent,
-      },
-      {
-        path: 'edit-product',
-        component: EditProductComponent,
-      },
-      {
-        path: 'edit-user',
-        component: EditUserComponent,
-      },
+      }
       
     ],
   },
