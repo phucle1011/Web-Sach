@@ -40,8 +40,6 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrl: './category.component.scss',
 })
 export class CategoryComponent {
- 
-
 
   displayedColumns: string[] = ['position', 'name', 'status', 'actions'];
   dataSource = ELEMENT_DATA;
@@ -57,4 +55,12 @@ export class CategoryComponent {
   changeStatus(element: PeriodicElement, event: any) {
     element.status = event.value;
   }
+  confirmAndDelete(element: any) {
+    if (window.confirm('Bạn có chắc chắn muốn xóa không?')) {
+      this.onDelete(element);
+      alert('Xóa thành công!');
+    }
+  }
+  
+  
 }

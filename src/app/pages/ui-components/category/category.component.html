@@ -28,9 +28,12 @@
                     <div class="d-flex">
                       <button [routerLink]="['/admin/categories/edit']" mat-stroked-button class="btn btn-outline-primary btn-sm">Sửa</button>
                       
-                      <button class="btn btn-outline-danger btn-sm" (click)="onDelete(element)">
-                        <i class="bi bi-trash"></i> Xóa
-                      </button>
+                      <button 
+                      class="btn btn-outline-danger btn-sm" 
+                      (click)="confirmAndDelete(element)">
+                      <i class="bi bi-trash"></i> Xóa
+                    </button>
+                    
                     </div>
                   </td>
                 </tr>
