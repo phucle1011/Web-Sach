@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,10 +8,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { RouterModule } from '@angular/router';
-interface Food {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-forms',
@@ -32,30 +28,51 @@ interface Food {
 
 })
 export class AddUserComponent {
-  country: Food[] = [
-    { value: 'steak-0', viewValue: 'USA' },
-    { value: 'pizza-1', viewValue: 'India' },
-    { value: 'tacos-2', viewValue: 'France' },
-    { value: 'tacos-3', viewValue: 'UK' },
-  ];
-
-  selectedCountry = this.country[2].value;
-
-  city: Food[] = [
-    { value: 'steak-0', viewValue: 'Mexico' },
-    { value: 'pizza-1', viewValue: 'Mumbai' },
-    { value: 'tacos-2', viewValue: 'Tokyo' },
-    { value: 'tacos-3', viewValue: 'New York' },
-  ];
-
-  selectedCity = this.city[1].value;
-
-  state: Food[] = [
-    { value: 'steak-0', viewValue: 'Cuba' },
-    { value: 'pizza-1', viewValue: 'Djibouti' },
-    { value: 'tacos-2', viewValue: 'Bulgaria' },
-    { value: 'tacos-3', viewValue: 'Cabo Verde' },
-  ];
-
-  selectedState = this.state[3].value;
+  fromData = new FormGroup({
+    name: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5)
+    ]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5)
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5)
+    ]),
+    vaitro: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5)
+    ]),
+    phone: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5)
+    ]),
+    address: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5)
+    ]),
+  });
+  onSubmit() {
+    console.warn(this.fromData.value);
+  }
+  get name() {
+    return this.fromData.get('name');
+  }
+  get email() {
+    return this.fromData.get('email');
+  }
+  get password() {
+    return this.fromData.get('password');
+  }
+  get vaitro() {
+    return this.fromData.get('vaitro');
+  }
+  get phone() {
+    return this.fromData.get('phone');
+  }
+  get address() {
+    return this.fromData.get('address');
+  }
 }

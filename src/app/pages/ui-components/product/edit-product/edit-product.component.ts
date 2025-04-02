@@ -8,12 +8,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { RouterModule } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
-
-interface Food {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-forms',
@@ -28,36 +25,74 @@ interface Food {
     MatInputModule,
     MatCheckboxModule,
     RouterModule,
+    CommonModule,
   ],
   templateUrl: './edit-product.component.html',
   styleUrls: ['./edit-product.component.scss'],
 
 })
 export class EditProductComponent {
-  country: Food[] = [
-    { value: 'steak-0', viewValue: 'USA' },
-    { value: 'pizza-1', viewValue: 'India' },
-    { value: 'tacos-2', viewValue: 'France' },
-    { value: 'tacos-3', viewValue: 'UK' },
-  ];
+  fromData = new FormGroup({
+    tensanpham: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5)
+    ]),
+    nhasanxuat: new FormControl('', [
+      Validators.required,
+      Validators.minLength(1)
+    ]),
+    gia: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[0-9]+$')
+    ]),
+    soluong: new FormControl('', [
+      Validators.required,
+      Validators.minLength(1)
+    ]),
+    danhmuc: new FormControl('', [
+      Validators.required,
+      Validators.minLength(1)
+    ]),
+    tacgia: new FormControl('', [
+      Validators.required,
+      Validators.minLength(1)
+    ]),
+    images: new FormControl('', [
+      Validators.required,
+      Validators.minLength(1)
+    ]),
+    motangan: new FormControl('', [
+      Validators.required,
+      Validators.minLength(1)
+    ]),
+  });
+  onSubmit() {
+    console.warn(this.fromData.value);
+  }
 
-  selectedCountry = this.country[2].value;
+  get tensanpham() {
+    return this.fromData.get('tensanpham');
+  }
 
-  city: Food[] = [
-    { value: 'steak-0', viewValue: 'Mexico' },
-    { value: 'pizza-1', viewValue: 'Mumbai' },
-    { value: 'tacos-2', viewValue: 'Tokyo' },
-    { value: 'tacos-3', viewValue: 'New York' },
-  ];
-
-  selectedCity = this.city[1].value;
-
-  state: Food[] = [
-    { value: 'steak-0', viewValue: 'Cuba' },
-    { value: 'pizza-1', viewValue: 'Djibouti' },
-    { value: 'tacos-2', viewValue: 'Bulgaria' },
-    { value: 'tacos-3', viewValue: 'Cabo Verde' },
-  ];
-
-  selectedState = this.state[3].value;
+  get nhasanxuat() {
+    return this.fromData.get('nhasanxuat');
+  }
+  get gia() {
+    return this.fromData.get('gia');
+  }
+  get soluong() {
+    return this.fromData.get('soluong');
+  }
+  get danhmuc() {
+    return this.fromData.get('danhmuc');
+  }
+  get tacgia() {
+    return this.fromData.get('tacgia');
+  }
+  get images() {
+    return this.fromData.get('images');
+  }
+  get motangan() {
+    return this.fromData.get('motangan');
+  }
 }
