@@ -16,7 +16,6 @@ import { OrdersDeatailComponent } from './orders/orders-deatail/orders-deatail.c
 import { OrdersHistoryComponent } from './orders/orders-history/orders-history.component';
 import { OrdersHistoryDetailComponent } from './orders/orders-history-detail/orders-history-detail.component';
 import { CommentsComponent } from './comments/comments.component';
-import { EditComponent } from './comments/edit/edit.component';
 import { ProfilesComponent } from 'src/app/layouts/full/top-strip/profiles/profiles.component';
 
 const routes: Routes = [
@@ -82,10 +81,6 @@ const routes: Routes = [
       {
         path: 'comments',
         component: CommentsComponent,
-      },
-      {
-        path: 'edit-comments',
-        component: EditComponent,
       },
       {
         path: 'profiles',

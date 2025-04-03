@@ -35,11 +35,9 @@ export class AddProductComponent {
   fromData = new FormGroup({
     tensach: new FormControl('', [
       Validators.required,
-      Validators.minLength(5)
     ]),
     tacgia: new FormControl('', [
       Validators.required,
-      Validators.minLength(1)
     ]),
     gia: new FormControl('', [
       Validators.required,
@@ -47,11 +45,9 @@ export class AddProductComponent {
     ]),
     soluong: new FormControl('', [
       Validators.required,
-      Validators.minLength(1)
     ]),
     danhmuc: new FormControl('', [
       Validators.required,
-      Validators.minLength(1)
     ]),
     publisher: new FormControl('', [
       Validators.required,
@@ -59,19 +55,15 @@ export class AddProductComponent {
     ]),
     images: new FormControl('', [
       Validators.required,
-      Validators.minLength(1)
     ]),
     publicationDate: new FormControl('', [
       Validators.required,
-      Validators.minLength(1)
     ]),
     description: new FormControl('', [
       Validators.required,
-      Validators.minLength(1)
     ]),
     motangan: new FormControl('', [
       Validators.required,
-      Validators.minLength(1)
     ]),
   });
   onSubmit() {

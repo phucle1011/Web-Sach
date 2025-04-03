@@ -6,20 +6,20 @@
         <label for="categoryName">Tên danh mục</label>
         <input type="text" id="categoryName" class="form-control" formControlName="name" required />
         <span class="text-danger" *ngIf="name?.invalid && (name?.dirty || name?.touched)">
-          Vui Lòng Nhập Tên Sản Phẩm (Tối thiểu 10 ký tự)
+          Vui Lòng Nhập Tên Sản Phẩm
         </span>
       </div>
 
       <div class="mb-3">
         <label for="status">Trạng thái</label>
-        <select id="status" class="form-control" formControlName="status">
-          <option value="hiện">Hiện</option>
+        <select class="form-select" formControlName="status">
+          <option value="hiện" selected>Hiện</option>
           <option value="ẩn">Ẩn</option>
         </select>
         <span class="text-danger" *ngIf="status?.invalid && (status?.dirty || status?.touched)">
           Vui Lòng Chọn Trạng Thái
         </span>
-      </div>
+      </div>      
 
       <button type="submit" class="btn btn-primary" [disabled]="formData.invalid">Lưu</button>
       <button type="button" class="btn btn-danger ms-2" (click)="onCancel()">Hủy</button>

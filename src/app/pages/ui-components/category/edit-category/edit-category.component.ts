@@ -19,7 +19,6 @@ export class EditCategoryComponent {
   formData = new FormGroup({
     name: new FormControl(this.category.name, [
       Validators.required,
-      Validators.minLength(10),
     ]),
     status: new FormControl(this.category.status, [
       Validators.required,

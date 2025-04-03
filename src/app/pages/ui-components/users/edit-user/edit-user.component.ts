@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-forms',
@@ -22,6 +23,7 @@ import { RouterModule } from '@angular/router';
     MatInputModule,
     MatCheckboxModule,
     RouterModule,
+    CommonModule,
   ],
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.scss'],
@@ -35,7 +37,7 @@ export class EditUserComponent {
     ]),
     email: new FormControl('', [
       Validators.required,
-      Validators.minLength(5)
+      Validators.email,
     ]),
     password: new FormControl('', [
       Validators.required,
@@ -43,15 +45,13 @@ export class EditUserComponent {
     ]),
     vaitro: new FormControl('', [
       Validators.required,
-      Validators.minLength(5)
     ]),
     phone: new FormControl('', [
       Validators.required,
-      Validators.minLength(5)
+      Validators.minLength(10)
     ]),
     address: new FormControl('', [
       Validators.required,
-      Validators.minLength(5)
     ]),
   });
   onSubmit() {
