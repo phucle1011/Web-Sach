@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-forms',
@@ -22,6 +23,7 @@ import { RouterModule } from '@angular/router';
     MatInputModule,
     MatCheckboxModule,
     RouterModule,
+    CommonModule,
   ],
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.scss'],
