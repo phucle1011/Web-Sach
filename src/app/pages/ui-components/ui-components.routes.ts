@@ -6,9 +6,9 @@ import { AppProductComponent } from './product/product.component';
 import { UserComponent} from './users/user.component';
 import { AppFormsComponent } from './forms/forms.component';
 import { AddProductComponent } from './product/add-product/add-product.component';
-import {AddUserComponent} from './add-user/add-user.component';
+import {AddUserComponent} from './users/add-user/add-user.component';
 import {EditProductComponent} from './product/edit-product/edit-product.component';
-import {EditUserComponent} from './edit-user/edit-user.component'
+import {EditUserComponent} from './users/edit-user/edit-user.component'
 
 import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 import { AppOrdersComponent } from './orders/orders.component';
