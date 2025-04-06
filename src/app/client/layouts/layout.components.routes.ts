@@ -1,21 +1,20 @@
 import { Routes } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
+import { ClientLayoutComponent } from './client-layout/client-layout.component';
+import { CartComponent } from 'src/app/pages/ui-components/cart/cart.component';
+
 
 export const routesClient: Routes = [
   {
     path: '',
+    component: ClientLayoutComponent,
     children: [
       {
-        path: '',
-        component: HeaderComponent,
+        path: 'cart',
+        component: CartComponent,
       },
-      {
-        path: '',
-        component: FooterComponent,
-      }
+    
     ],
   },
 ];
 
-export default routesClient; 
+export default routesClient;
