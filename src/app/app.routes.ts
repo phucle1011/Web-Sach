@@ -1,31 +1,40 @@
 import { Routes } from '@angular/router';
-import { BlankComponent } from './layouts/blank/blank.component';
-import { FullComponent } from './layouts/full/full.component';
+import { BlankComponent } from './admin/layouts/blank/blank.component';
+import { FullComponent } from './admin/layouts/full/full.component';
+import routesClient from './client/layouts/layout.components.routes';
 
 export const routes: Routes = [
+  {
+    path: '',
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./client/layouts/layout.components.routes').then(m => m.routesClient),
+      },
+    ],
+  },
   {
     path: '',
     component: FullComponent,
     children: [
       {
         path: '',
-        redirectTo: '/admin',
-        pathMatch: 'full',
+        loadChildren: () => import('./client/layouts/layout.components.routes').then(m => m.routesClient),
       },
       {
         path: 'admin',
         loadChildren: () =>
-          import('./pages/pages.routes').then((m) => m.PagesRoutes),
+          import('./admin/pages/pages.routes').then((m) => m.PagesRoutes),
       },
       {
         path: 'admin',
         loadChildren: () =>
-          import('./pages/ui-components/ui-components.routes').then((m) => m.default), 
+          import('./admin/pages/ui-components/ui-components.routes').then((m) => m.default), 
       },
       {
         path: 'extra',
         loadChildren: () =>
-          import('./pages/extra/extra.routes').then((m) => m.ExtraRoutes),
+          import('./admin/pages/extra/extra.routes').then((m) => m.ExtraRoutes),
       },
     ],
   },
@@ -36,7 +45,7 @@ export const routes: Routes = [
       {
         path: 'authentication',
         loadChildren: () =>
-          import('./pages/authentication/authentication.routes').then(
+          import('./admin/pages/authentication/authentication.routes').then(
             (m) => m.AuthenticationRoutes
           ),
       },
