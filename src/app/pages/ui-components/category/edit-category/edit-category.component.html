@@ -1,0 +1,28 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <form [formGroup]="formData" (ngSubmit)="onSubmit()">
+      <h4 class="text-center">Chỉnh sửa loại sản phẩm</h4>
+      <div class="mb-3">
+        <label for="categoryName">Tên danh mục</label>
+        <input type="text" id="categoryName" class="form-control" formControlName="name" required />
+        <span class="text-danger" *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+          Vui Lòng Nhập Tên Sản Phẩm (Tối thiểu 10 ký tự)
+        </span>
+      </div>
+
+      <div class="mb-3">
+        <label for="status">Trạng thái</label>
+        <select id="status" class="form-control" formControlName="status">
+          <option value="hiện">Hiện</option>
+          <option value="ẩn">Ẩn</option>
+        </select>
+        <span class="text-danger" *ngIf="status?.invalid && (status?.dirty || status?.touched)">
+          Vui Lòng Chọn Trạng Thái
+        </span>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="formData.invalid">Lưu</button>
+      <button type="button" class="btn btn-danger ms-2" (click)="onCancel()">Hủy</button>
+    </form>
+  </mat-card-content>
+</mat-card>
