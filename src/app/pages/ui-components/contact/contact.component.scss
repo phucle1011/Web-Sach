@@ -1,0 +1,115 @@
+/* Cấu trúc chính của trang */
+.contact-page {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    flex-wrap: wrap;
+  }
+  
+  /* Style cho các card */
+  .contact-card, .message-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    flex: 1 1 45%;
+    min-width: 450px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Thêm hiệu ứng hover */
+  .contact-card:hover, .message-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Tiêu đề của các card */
+  h2 {
+    text-align: center;
+    font-size: 28px;
+    color: #343a40;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Các item trong card thông tin liên hệ */
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .contact-item {
+    font-size: 16px;
+    color: #495057;
+  }
+  
+  .contact-item h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+  }
+  
+  /* Form gửi tin nhắn */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    font-size: 16px;
+    color: #495057;
+    font-weight: bold;
+  }
+  
+  input, textarea {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+  }
+  
+  input:focus, textarea:focus {
+    border-color: #000000;
+    outline: none;
+  }
+  
+  /* Nút gửi */
+  .submit-btn {
+    padding: 12px 30px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #45a049;
+  }
+  
+  /* Responsive cho mobile */
+  @media (max-width: 768px) {
+    .contact-page {
+      flex-direction: column;
+      gap: 30px;
+    }
+  
+    .contact-card, .message-card {
+      flex: 1 1 100%;
+      min-width: 100%;
+    }
+  }
+  
