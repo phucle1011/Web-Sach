@@ -1,0 +1,40 @@
+<div class="container my-5">
+    <h2 class="text-center">Giỏ Hàng</h2>
+  
+    <!-- Hiển thị sản phẩm trong giỏ hàng -->
+    <div *ngFor="let item of cartItems; let i = index" class="cart-item d-flex justify-content-between align-items-center mb-4">
+      <div class="d-flex align-items-center">
+        <img [src]="item.imageUrl" alt="Product Image" class="img-fluid me-3" width="100">
+        <div>
+          <h5>{{ item.name }}</h5>
+          <p class="text-muted">{{ item.category }}</p>
+        </div>
+      </div>
+      
+      <!-- Điều khiển số lượng sản phẩm -->
+      <div class="quantity-control d-flex align-items-center">
+        <button (click)="decreaseQuantity(i)" class="btn btn-outline-secondary btn-sm">-</button>
+        <span class="mx-3">{{ item.quantity }}</span>
+        <button (click)="increaseQuantity(i)" class="btn btn-outline-secondary btn-sm">+</button>
+      </div>
+  
+      <div>
+        <strong>{{ item.price * item.quantity | currency }}</strong>
+      </div>
+      
+      <button (click)="removeItem(i)" class="btn btn-danger btn-sm">Xóa</button>
+    </div>
+  
+    <!-- Tổng tiền -->
+    <div class="cart-total d-flex justify-content-between mt-4">
+      <h4>Tổng Tiền</h4>
+      <strong>{{ total | currency }}</strong>
+    </div>
+  
+    <!-- Thanh toán và tiếp tục mua sắm -->
+    <div class="d-flex justify-content-between align-items-center mt-4">
+      <button class="btn btn-success btn-lg">Thanh Toán</button>
+      <a href="#" class="btn btn-link">Tiếp Tục Mua Sắm</a>
+    </div>
+  </div>
+  
