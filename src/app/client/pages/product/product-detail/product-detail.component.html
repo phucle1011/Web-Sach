@@ -1,0 +1,95 @@
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="/assets/images/client/logo.png" alt="Tên sản phẩm" width="100%">
+        </div>
+
+        <div class="col-md-6">
+            <h2 class="product-title mt-3">Tên Sản Phẩm</h2>
+            <p><strong><i>Mô tả: </i></strong>Mô tả sản phẩm...</p>
+            <p><strong><i>Tác giả: </i></strong>Tên tác giả</p>
+            <p><strong><i>Nhà xuất bản: </i></strong>Nhà xuất bản ABC</p>
+
+            <h6>Giá tiền: 
+                <b>100.000 VND</b>
+            </h6>
+            <form action="/cart/add" method="post">
+                <input type="hidden" name="product_id" value="1" required>
+                <button type="submit" class="btn btn-primary mt-2">Thêm vào giỏ hàng</button>
+            </form>
+        </div>
+
+        <br>
+
+        <div class="product-detail bg-light p-4 mb-4">
+            <h2>Chi tiết sản phẩm:</h2>
+            <pre class="prev">Nội dung chi tiết sản phẩm...</pre>
+        </div>
+
+        <div class="d-flex align-items-center my-3">
+            <div class="flex-grow-1 border-top border-dark"></div>
+            <div class="mx-3 fs-4 text-secondary">✥</div>
+            <div class="flex-grow-1 border-top border-dark"></div>
+        </div>
+
+        <div class="rating-section">
+            <h3 class="mb-4 fw-bold">Đánh giá sản phẩm (5 người đã đánh giá)</h3>
+        
+            <form action="#" method="post" id="ratingForm">
+                <div class="form-group">
+                    <label for="rating">Chọn số sao bạn muốn đánh giá cho sản phẩm:</label>
+                    <div class="star-rating d-flex">
+                        <button type="button" class="btn btn-outline-warning" data-value="1">&#9733;</button>
+                        <button type="button" class="btn btn-outline-warning" data-value="2">&#9733;</button>
+                        <button type="button" class="btn btn-outline-warning" data-value="3">&#9733;</button>
+                        <button type="button" class="btn btn-outline-warning" data-value="4">&#9733;</button>
+                        <button type="button" class="btn btn-outline-warning" data-value="5">&#9733;</button>
+                    </div>
+                    <input type="hidden" name="rating" id="rating" required />
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Gửi đánh giá</button>
+            </form>
+            
+            <div class="mt-4">
+                <h4>Đánh giá trung bình: 
+                    <span class="text-warning">4.5 ⭐</span>
+                </h4>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <strong>Người dùng A</strong> đã đánh giá: 
+                        <span class="text-warning">⭐⭐⭐⭐</span>
+                        <p><i class="text-muted">Được đăng lúc: 2024-04-08</i></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="d-flex align-items-center my-3">
+            <div class="flex-grow-1 border-top border-dark"></div>
+            <div class="mx-3 fs-4 text-secondary">✥</div>
+            <div class="flex-grow-1 border-top border-dark"></div>
+        </div>
+
+        <div class="comments-section">
+            <h3 class="mb-4 fw-bold">Bình luận</h3>
+
+            <form action="#" method="post">
+                <div class="form-group">
+                    <textarea name="comment" class="form-control" placeholder="Viết bình luận..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Gửi bình luận</button>
+            </form>
+
+            <div class="mt-4">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <strong>Người dùng B</strong>
+                        <p>Bình luận mẫu...</p>
+                        <p><i class="text-muted">Được đăng lúc: 2024-04-08</i></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

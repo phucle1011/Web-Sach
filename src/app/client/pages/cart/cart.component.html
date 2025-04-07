@@ -1,42 +1,56 @@
 <div class="container my-5">
-    <h2 class="text-center">Giỏ Hàng</h2>
-  
-    <!-- Hiển thị sản phẩm trong giỏ hàng -->
-    <div *ngFor="let item of cartItems; let i = index" class="cart-item d-flex justify-content-between align-items-center mb-4">
-      <div class="d-flex align-items-center">
-        <img [src]="item.imageUrl" alt="Product Image" class="img-fluid me-3" width="100">
-        <div>
+  <div>
+    <a routerLink="/orders" class="btn btn-primary">🛍 Xem đơn hàng</a>
+  </div>
+  <h2 class="text-center">🛒 Giỏ hàng của bạn</h2>
+
+  <table class="table table-bordered text-center mt-4">
+    <thead class="table-dark">
+      <tr>
+        <th>Hình Ảnh</th>
+        <th>Tên Sản Phẩm</th>
+        <th>Số Lượng</th>
+        <th>Giá</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cartItems; let i = index">
+        <td>
+          <img [src]="item.imageUrl" alt="Product Image" class="img-fluid" width="80">
+        </td>
+        <td>
           <h5>{{ item.name }}</h5>
           <p class="text-muted">{{ item.category }}</p>
-        </div>
-      </div>
-      
-      <!-- Điều khiển số lượng sản phẩm -->
-      <div class="quantity-control d-flex align-items-center">
-        <button (click)="decreaseQuantity(i)" class="btn btn-outline-secondary btn-sm">-</button>
-        <span class="mx-3">{{ item.quantity }}</span>
-        <button (click)="increaseQuantity(i)" class="btn btn-outline-secondary btn-sm">+</button>
-      </div>
-  
-      <div>
-        <strong>{{ item.price * item.quantity | currency }}</strong>
-      </div>
-      
-      <button (click)="removeItem(i)" class="btn btn-danger btn-sm">Xóa</button>
-    </div>
-  
-    <!-- Tổng tiền -->
-    <div class="cart-total d-flex justify-content-between mt-4">
-      <h4>Tổng Tiền</h4>
-      <strong>{{ total | currency }}</strong>
-    </div>
-  
-    <!-- Thanh toán và tiếp tục mua sắm -->
-    <div class="d-flex justify-content-between align-items-center mt-4">
-      <button class="btn btn-success btn-lg">Thanh Toán</button>
-      <a href="#" class="btn btn-link">Tiếp Tục Mua Sắm</a>
-      <a href="/payment" class="btn btn-success btn-lg">Thanh Toán</a>
-      <button href="#" class="btn btn-link">Tiếp Tục Mua Sắm</button>
-    </div>
+        </td>
+        <td>
+          <button (click)="decreaseQuantity(i)" class="btn btn-outline-secondary btn-sm">-</button>
+          <span class="mx-2">{{ item.quantity }}</span>
+          <button (click)="increaseQuantity(i)" class="btn btn-outline-secondary btn-sm">+</button>
+        </td>
+        <td><strong>{{ item.price * item.quantity | number:'1.0-0' }} VND</strong></td>
+        <td>
+          <button (click)="removeItem(i)" class="btn btn-danger btn-sm">🗑 Xóa</button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+          <td colspan="3" class="text-end">Tổng Tiền:</td>
+          <td id="grand-total" class="fw-bold">
+            <strong>{{ total |  number:'1.0-0' }} VND</strong>
+          </td>
+          <td></td>
+      </tr>
+  </tfoot>
+  </table>
+
+  <div class="d-flex justify-content-between align-items-center mt-4">
+    <div class=" mt-4">
+      <form action="/cart/clear" method="post">
+          <button type="submit" class="btn btn-warning">❌ Xóa toàn bộ giỏ hàng</button>
+      </form>
   </div>
-  
+    <button routerLink="/checkout" class="btn btn-success btn-lg">💳 Thanh Toán</button>
+  </div>
+</div>
