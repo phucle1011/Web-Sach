@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { CartComponent } from '../pages/cart/cart.component';
 import { ClientLayoutComponent } from './client-layout/client-layout.component';
 import { PaymentComponent } from '../pages/cart/payment/payment.component';
+import { HomeComponent } from '../pages/home/home.component';
 import { ProductComponent } from '../pages/product/product.component';
 import { ProductDetailComponent } from '../pages/product/product-detail/product-detail.component';
 import { CheckoutComponent } from '../pages/cart/checkout/checkout.component';
@@ -12,6 +13,10 @@ export const routesClient: Routes = [
     path: '',
     component: ClientLayoutComponent,
     children: [
+      {
+        path: '',
+        component: HomeComponent,
+      },
       {
         path: 'cart',
         component: CartComponent,
