@@ -28,3 +28,12 @@ li :hover {
     font-size: 30px;
     margin: 10px;
 }
+.navbar{
+    height: 100px;
+}
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1030; 
+}

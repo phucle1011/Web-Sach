@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom">
+<nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom fixed-top">
     <div class="container">
         <a href="/" class="navbar-brand">
             <img src="./assets/images/client/logo.png" alt="Logo" width="100px" class="rounded-circle">
@@ -8,32 +8,33 @@
         </button>
         <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="/">Trang chủ</a></li>
-                <li class="nav-item"><a class="nav-link" href="/products">Sản phẩm</a></li>
-                <li class="nav-item"><a class="nav-link" href="/blog">Tin tức</a></li>
-                <li class="nav-item"><a class="nav-link" href="/contact">Liên hệ</a></li>
-                <li class="nav-item"><a class="nav-link" href="/introduction">Giới thiệu</a></li>
+                <li class="nav-item"><a class="nav-link" routerLink="/">Trang chủ</a></li>
+                <li class="nav-item"><a class="nav-link" routerLink="/products">Sản phẩm</a></li>
+                <li class="nav-item"><a class="nav-link" routerLink="/blog">Tin tức</a></li>
+                <li class="nav-item"><a class="nav-link" routerLink="/contact">Liên hệ</a></li>
+                <li class="nav-item"><a class="nav-link" routerLink="/introduction">Về chúng tôi</a></li>
             </ul>
             <form class="d-flex" action="/search" method="GET">
                 <input class="form-control me-2" type="search" placeholder="Tìm kiếm..." aria-label="Search" name="query">
                 <button class="btn btn-outline-primary black-border" type="submit">Tìm kiếm</button>
             </form>
             <ul class="navbar-nav align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle" id="dropdownUser" routerLink="/cart">
+                        <i class="fas fa-shopping-cart" style="font-size: 25px;"></i>
+                    </a>
+                </li> 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="dropdownUser">
-                        <i class="fas fa-user" style="font-size: 30px;"></i>
+                        <i class="fas fa-user" style="font-size: 25px;"></i>
                     </a>                    
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/users"><%= user.name %></a></li>
-                        <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+                        <li><a class="dropdown-item" routerLink="/users"><%= user.name %></a></li>
+                        <li><a class="dropdown-item" routerLink="/logout">Đăng xuất</a></li>
                     </ul>
-                </li>
-                <li class="nav-item">
-                    <a routerLink="/cart">
-                        <i class="fas fa-shopping-cart"></i>
-                    </a>
-                </li>          
+                </li>         
             </ul>
         </div>
     </div>
 </nav>
+<div style="height: 100px;"></div>
