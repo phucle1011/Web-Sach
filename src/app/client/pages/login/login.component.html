@@ -35,7 +35,7 @@
 
                     <div class="or-border m-t-30">hoặc đăng nhập bằng</div>
 
-                    <form class="m-t-30" [formGroup]="form" (ngSubmit)="submit()">
+                    <form class="m-t-30" [formGroup]="formData" (ngSubmit)="submit()">
                         <mat-label
                             class="f-s-14 f-w-600 m-b-12 d-block">Username</mat-label>
                         <mat-form-field appearance="outline" class="w-100"
@@ -43,7 +43,6 @@
                             <input matInput formControlName="Username" />
                         </mat-form-field>
                         <span class="text-danger" *ngIf="Username?.invalid && (Username?.dirty || Username?.touched)"> Vui lòng nhập tên đăng nhập</span>
-                        <!-- password -->
                         <mat-label
                             class="f-s-14 f-w-600 m-b-12 d-block">Password</mat-label>
                         <mat-form-field appearance="outline" class="w-100"
@@ -64,11 +63,10 @@
                             class="w-100">
                             Đăng nhập
                         </a>
-                        <!-- input -->
                     </form>
                     <span class="d-block f-w-500 text-center m-t-24">Bạn chưa có
                         tài khoản?
-                        <a [routerLink]="['/authentication/register']"
+                        <a [routerLink]="['/register']"
                             class="text-decoration-none text-primary f-w-500 f-s-14">
                             Tạo tài khoản</a>
                     </span>

@@ -55,6 +55,10 @@ export const routesClient: Routes = [
         component: ContactComponent,
       },
       {
+        path: 'about',
+        component: AboutComponent,
+      },
+      {
         path: 'login',
         component: LoginComponent,
       },
