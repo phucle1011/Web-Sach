@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -6,7 +7,7 @@ import { MaterialModule } from 'src/app/material.module';
 
 @Component({
   selector: 'app-register',
-  imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule],
+  imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule,  CommonModule],
   templateUrl: './register.component.html',
 })
 export class RegisterComponent {
