@@ -27,7 +27,11 @@ export const routes: Routes = [
           import('./admin/pages/pages.routes').then((m) => m.PagesRoutes),
       },
       {
+<<<<<<< HEAD
         path: 'admin',
+=======
+        path: 'admin', 
+>>>>>>> 3bf42d088b64ac26fb350c0169abda57d52be108
         loadChildren: () =>
           import('./admin/pages/ui-components/ui-components.routes').then((m) => m.default), 
       },
