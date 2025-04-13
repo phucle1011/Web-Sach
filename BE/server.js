@@ -3,7 +3,8 @@ const cors = require("cors");
 const app = express();
 const port = 3000;
 const categoryRoutes = require('./routes/categoryRoutes');
-app.use(express.json())
+app.use(express.json());
+require ('./models/connectionModel');
 
 app.use(cors({
     origin: "*",
