@@ -7,12 +7,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { OrderService } from 'src/app/services/apis/order.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { OrdersDeatailComponent } from './orders-deatail/orders-deatail.component';
-
-// const routes: Routes = [
-//   { path: 'admin/orders_detail/:id', component: OrdersDeatailComponent },
-//   // các route khác
-// ];
 
 @Component({
   selector: 'app-orders',

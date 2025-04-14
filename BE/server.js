@@ -8,6 +8,11 @@ const clientRouter = require('./routes/clientRouter');
 require ('./models/connectionModel');
 app.use(express.json());
 
+app.use((err, req, res, next) => {
+    console.error(err); // In ra lỗi chi tiết
+    res.status(500).send('Lỗi máy chủ');
+});
+
 
 app.use(cors({
     origin: "*",
