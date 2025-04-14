@@ -1,40 +1,50 @@
-module.exports = (db) => {
-    const { User, Product, Order, OrderDetail, Category, Rating, Comment, CartItem } = db;
-  
-    // User associations
-    User.hasMany(Order, { foreignKey: "user_id" });
-    User.hasMany(Comment, { foreignKey: "userId" });
-    User.hasMany(Rating, { foreignKey: "userId" });
-    User.hasMany(CartItem, { foreignKey: "user_id" });
-  
-    // Product associations
-    Product.belongsTo(Category, { foreignKey: "categoryId" });
-    Product.hasMany(OrderDetail, { foreignKey: "product_id" });
-    Product.hasMany(Comment, { foreignKey: "productId" });
-    Product.hasMany(Rating, { foreignKey: "productId" });
-    Product.hasMany(CartItem, { foreignKey: "product_id" });
-  
-    // Order associations
-    Order.belongsTo(User, { foreignKey: "user_id" });
-    Order.hasMany(OrderDetail, { foreignKey: "order_id" });
-  
-    // OrderDetail associations
-    OrderDetail.belongsTo(Order, { foreignKey: "order_id" });
-    OrderDetail.belongsTo(Product, { foreignKey: "product_id" });
-  
-    // Category associations
-    Category.hasMany(Product, { foreignKey: "categoryId" });
-  
-    // Rating associations
-    Rating.belongsTo(User, { foreignKey: "userId" });
-    Rating.belongsTo(Product, { foreignKey: "productId" });
-  
-    // Comment associations
-    Comment.belongsTo(User, { foreignKey: "userId" });
-    Comment.belongsTo(Product, { foreignKey: "productId" });
-  
-    // CartItem associations
-    CartItem.belongsTo(User, { foreignKey: "user_id" });
-    CartItem.belongsTo(Product, { foreignKey: "product_id" });
-  };
-  
+const UserModel = require('./userModel');
+const ProductModel = require('./productModel');
+const OrderModel = require('./orderModel');
+const OrderDetailModel = require('./oderDetail');
+const CategoryModel = require('./categoryModel');
+const RatingModel = require('./ratingModel');
+const CommentModel = require('./commentsModel');
+const CartItemModel = require('./cartModel');
+
+//--------------------- [ Thiết lập quan hệ ]------------------------
+
+// User - Order
+UserModel.hasMany(OrderModel, { foreignKey: 'user_id', as: 'orders' });
+OrderModel.belongsTo(UserModel, { foreignKey: 'user_id', as: 'user' });
+
+// Quan hệ giữa Order và OrderDetail
+OrderModel.hasMany(OrderDetailModel, { foreignKey: 'order_id', as: 'orderDetails' });
+OrderDetailModel.belongsTo(OrderModel, { foreignKey: 'order_id', as: 'order' });
+
+// Quan hệ giữa OrderDetail và Product
+OrderDetailModel.belongsTo(ProductModel, { foreignKey: 'product_id', as: 'product' });
+ProductModel.hasMany(OrderDetailModel, { foreignKey: 'product_id', as: 'orderDetails' });
+
+
+// Category - Product
+CategoryModel.hasMany(ProductModel, { foreignKey: 'categoryId', as: 'products' });
+ProductModel.belongsTo(CategoryModel, { foreignKey: 'categoryId', as: 'category' });
+
+// Rating - User
+RatingModel.belongsTo(UserModel, { foreignKey: 'userId', as: 'user' });
+RatingModel.belongsTo(ProductModel, { foreignKey: 'productId', as: 'product' });
+
+// Comment - User
+CommentModel.belongsTo(UserModel, { foreignKey: 'userId', as: 'user' });
+CommentModel.belongsTo(ProductModel, { foreignKey: 'productId', as: 'product' });
+
+// CartItem - User
+CartItemModel.belongsTo(UserModel, { foreignKey: 'user_id', as: 'user' });
+CartItemModel.belongsTo(ProductModel, { foreignKey: 'product_id', as: 'product' });
+
+module.exports = {
+  UserModel, 
+  ProductModel, 
+  OrderModel, 
+  OrderDetailModel, 
+  CategoryModel, 
+  RatingModel, 
+  CommentModel, 
+  CartItemModel
+};
