@@ -4,7 +4,9 @@ class OrderController {
 
     static async get(req, res) {
         try {
-            const orders = await OrderModel.findAll();
+            const orders = await OrderModel.findAll({
+                order: [['createdAt', 'DESC']]
+            });
             res.status(200).json({
                 "status": 200,
                 "message": "Lấy danh sách thành công",
@@ -27,20 +29,6 @@ class OrderController {
             res.status(200).json({
                 "status": 200,
                 "data": order
-            });
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    }
-
-    static async create(req, res) {
-        try {
-            const { name } = req.body;
-            const order = await OrderModel.create({ name });
-
-            res.status(201).json({
-                message: "Thêm mới thành công",
-                order
             });
         } catch (error) {
             res.status(500).json({ error: error.message });
