@@ -5,9 +5,9 @@ const port = 3000;
 const adminRouter = require('./routes/adminRouter');
 const apiRouter = require('./routes/apiRouter');
 const clientRouter = require('./routes/clientRouter');
-
-app.use(express.json());
 require ('./models/connectionModel');
+app.use(express.json());
+
 
 app.use(cors({
     origin: "*",
@@ -15,7 +15,7 @@ app.use(cors({
     allowedHeaders: "Content-Type, Authorization"
 }));
 
-app.use(clientRouter);
+app.use("/",clientRouter);
 app.use("/api",apiRouter);
 app.use("/admin",adminRouter);
 
