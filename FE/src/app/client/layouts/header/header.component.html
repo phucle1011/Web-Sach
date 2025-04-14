@@ -8,11 +8,19 @@
         </button>
         <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
             <ul class="navbar-nav">
+<<<<<<< HEAD:FE/src/app/client/layouts/header/header.component.html
                 <li class="nav-item"><a class="nav-link" routerLink="/">Trang chủ</a></li>
                 <li class="nav-item"><a class="nav-link" routerLink="/products">Sản phẩm</a></li>
                 <li class="nav-item"><a class="nav-link" routerLink="/blog">Tin tức</a></li>
                 <li class="nav-item"><a class="nav-link" routerLink="/contact">Liên hệ</a></li>
                 <li class="nav-item"><a class="nav-link" routerLink="/about">Về chúng tôi</a></li>
+=======
+                <li class="nav-item"><a class="nav-link" href="/">Trang chủ</a></li>
+                <li class="nav-item"><a class="nav-link" href="/products">Sản phẩm</a></li>
+                <li class="nav-item"><a class="nav-link" href="/blog">Tin tức</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Liên hệ</a></li>
+                <li class="nav-item"><a class="nav-link" href="/about">Giới thiệu</a></li>
+>>>>>>> c0fcd5d0d08a6456121835f10e16acb78afadd57:src/app/client/layouts/header/header.component.html
             </ul>
             <form class="d-flex" action="/search" method="GET">
                 <input class="form-control me-2" type="search" placeholder="Tìm kiếm..." aria-label="Search" name="query">
@@ -24,10 +32,17 @@
                         <i class="fas fa-user" routerLink="/login" style="font-size: 30px;"></i>
                     </a>                    
                     <ul class="dropdown-menu">
+<<<<<<< HEAD:FE/src/app/client/layouts/header/header.component.html
                         <li><a class="dropdown-item" routerLink="/login">Đăng kí</a></li>
                         <li><a class="dropdown-item" routerLink="/register">Đăng nhập</a></li>
                         <li><a class="dropdown-item" routerLink="/users"><%= user.name %></a></li>
                         <li><a class="dropdown-item" routerLink="/logout">Đăng xuất</a></li>
+=======
+                        <li><a class="dropdown-item" href="/login">Đăng kí</a></li>
+                        <li><a class="dropdown-item" href="/register">Đăng nhập</a></li>
+                        <li><a class="dropdown-item" href="/users"><%= user.name %></a></li>
+                        <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+>>>>>>> c0fcd5d0d08a6456121835f10e16acb78afadd57:src/app/client/layouts/header/header.component.html
                     </ul>
                 </li>
                 <li class="nav-item">
