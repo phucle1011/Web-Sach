@@ -2,7 +2,10 @@ const express = require('express');
 const cors = require("cors");
 const app = express();
 const port = 3000;
-const categoryRoutes = require('./routes/categoryRoutes');
+const adminRouter = require('./routes/adminRouter');
+const apiRouter = require('./routes/apiRouter');
+const clientRouter = require('./routes/clientRouter');
+
 app.use(express.json());
 require ('./models/connectionModel');
 
@@ -12,7 +15,9 @@ app.use(cors({
     allowedHeaders: "Content-Type, Authorization"
 }));
 
-app.use(categoryRoutes);
+app.use(clientRouter);
+app.use("/api",apiRouter);
+app.use("/admin",adminRouter);
 
 app.listen(port, () => {
     console.log('http://localhost:3000');
