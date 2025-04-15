@@ -27,7 +27,6 @@ const Comment = connection.define('Comment', {
     },
   }, {
     tableName: 'comments',
-    timestamps: false,
   });
   
   module.exports = Comment;
