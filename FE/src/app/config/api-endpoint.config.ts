@@ -7,8 +7,8 @@ export const API_ENDPOINT = {
     base: API_BASE_URL,
     login: '/users/login',
   },
-  order: {
-    base: API_BASE_URL +'/admin'+ '/' + 'orders',
+  category: {
+    base: API_BASE_URL + '/' + 'categories',
     list: '/list',
     add: '/add',
   },

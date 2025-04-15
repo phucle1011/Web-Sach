@@ -1,43 +1,14 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
-import { RouterModule, Routes } from '@angular/router';
-import { IOrder } from 'src/app/interface/order.interface';
-import { MatDialog } from '@angular/material/dialog';
-import { OrderService } from 'src/app/services/apis/order.service';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { OrdersDeatailComponent } from './orders-deatail/orders-deatail.component';
-
-// const routes: Routes = [
-//   { path: 'admin/orders_detail/:id', component: OrdersDeatailComponent },
-//   // các route khác
-// ];
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
-  imports: [MatCardModule, MatTableModule, RouterModule, CommonModule, FormsModule],
+  imports: [MatCardModule, MatTableModule, RouterModule],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss'
 })
-export class AppOrdersComponent{
-  list: IOrder[] = [];
-  readonly dialog = inject(MatDialog);
-  
-  constructor(private orderService: OrderService) {
-    this.getAll();
-  }
+export class AppOrdersComponent {
 
-  getAll() {
-    this.orderService.getOrder().subscribe({
-      next: (res: any) => {
-        this.list = res?.data ?? res;
-        console.log(this.list);
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
-  }
- 
 }
