@@ -11,5 +11,13 @@ export const API_ENDPOINT = {
     base: API_BASE_URL +'/admin'+ '/' + 'orders',
     list: '/list',
     add: '/add',
+  },
+  category: {
+    base: `${API_BASE_URL}/admin/categories`,
+    list: '/list',               
+    add: '/add',                 
+    update: '',             
+    delete: '',             
+    getById: '',             
   }
 };
