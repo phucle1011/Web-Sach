@@ -1,66 +1,55 @@
-import { Component } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import {  RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  status: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Tiểu thuyết', status: 'ẩn' },
-  { position: 2, name: 'Khoa học', status: 'ẩn' },
-  { position: 3, name: 'Kinh dị', status: 'hiện' },
-  { position: 3, name: 'Khám phá', status: 'hiện' },
-  { position: 3, name: 'Tư duy ngược', status: 'hiện' },
-];
+import { RouterModule } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { CategoryService } from 'src/app/services/apis/category.service';
+import { ICategory } from 'src/app/services/apis/category.service'; 
+import { FormsModule } from '@angular/forms';
+import { DeleteComponent } from './delete/delete.component';
 
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [
-    MatTableModule,
-    MatCardModule,
-    MatIconModule,
-    MatButtonModule,
-    MatSelectModule,
-    RouterModule, 
-    FormsModule,
-    CommonModule,
- 
-  ],
+  imports: [CommonModule, RouterModule, MatCardModule, FormsModule, DeleteComponent],
   templateUrl: './category.component.html',
-  styleUrl: './category.component.scss',
 })
 export class CategoryComponent {
+  list: ICategory[] = []; 
+  selectedCategory: ICategory | null = null;
 
-  displayedColumns: string[] = ['position', 'name', 'status', 'actions'];
-  dataSource = ELEMENT_DATA;
+  readonly dialog = inject(MatDialog);
 
-  onEdit(element: PeriodicElement) {
-    console.log('Sửa:', element);
+  constructor(private categoryService: CategoryService) {
+    this.getAll();
   }
 
-  onDelete(element: PeriodicElement) {
-    console.log('Xóa:', element);
+  getAll() {
+    this.categoryService.getCategories().subscribe({
+      next: (res: any) => {
+        this.list = res?.data ?? res;
+      },
+      error: (err) => {
+        console.error('Error fetching categories:', err);
+      }
+    });
   }
 
-  changeStatus(element: PeriodicElement, event: any) {
-    element.status = event.value;
+  selectCategory(category: ICategory) {
+    this.selectedCategory = category;
+    console.log('Selected Category:', this.selectedCategory);
   }
-  confirmAndDelete(element: any) {
-    if (window.confirm('Bạn có chắc chắn muốn xóa không?')) {
-      this.onDelete(element);
-      alert('Xóa thành công!');
-    }
+
+  openDialog(id: number, name: string): void {
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: { name: name, id: id },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if(result) {
+        this.getAll();
+      }
+    });
   }
-  
-  
 }
