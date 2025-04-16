@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+
+const UserController = require('../controllers/userController');
 const CategoryController = require('../controllers/admin/categoryController');
 const OrderController = require('../controllers/admin/orderController');
 
@@ -12,5 +14,8 @@ router.get('/categories/:id', CategoryController.getById);
 router.get('/orders/list', OrderController.get);
 router.get('/orders/:id', OrderController.getById); 
 router.delete("/orders/:id", OrderController.delete);
+
+router.get('/users/list', UserController.getAllUsers);
+router.delete('/users/:id', UserController.deleteUser);
 
 module.exports = router;

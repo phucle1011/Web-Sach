@@ -12,9 +12,9 @@
 
       <div class="mb-3">
         <label for="status">Trạng thái</label>
-        <select class="form-select" formControlName="status">
-          <option value="hiện" selected>Hiện</option>
-          <option value="ẩn">Ẩn</option>
+        <select id="status" class="form-select" formControlName="status" [(ngModel)]="status">
+          <option value=0>Ẩn</option>
+          <option value=1 >Hiện</option>
         </select>
         <span class="text-danger" *ngIf="status?.invalid && (status?.dirty || status?.touched)">
           Vui Lòng Chọn Trạng Thái

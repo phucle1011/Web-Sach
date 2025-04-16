@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { IUser, UserService } from 'src/app/services/apis/user.service';
+import { DeleteComponent } from './delete/delete.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 export interface User {
@@ -11,12 +14,6 @@ export interface User {
   avatar: string;
 }
 
-const USER_DATA: User[] = [
-  { name: 'Nguyễn Văn A', email: 'nguyenvana@gmail.com', phone: '0123456789', avatar: 'assets/images/products/product-2.png' },
-  { name: 'Trần Thị B', email: 'tranthib@gmail.com', phone: '0987654321', avatar: 'assets/images/products/product-2.png' },
-  { name: 'Lê Văn C', email: 'levanc@gmail.com', phone: '0912345678', avatar: 'assets/images/products/product-2.png' },
-  { name: 'Phạm Thị D', email: 'phamthid@gmail.com', phone: '0908765432', avatar: 'assets/images/products/product-2.png' }
-];
 
 @Component({
   selector: 'app-users',
@@ -26,5 +23,35 @@ const USER_DATA: User[] = [
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent {
-  dataSource = USER_DATA;
+  dataSource: IUser[] = [];
+  readonly dialog = inject(MatDialog);
+  constructor(private userService: UserService) {
+    this.ngOnInit();
+  }
+  
+
+  ngOnInit(): void {
+    this.userService.getUsers().subscribe({
+      next: (users) => {
+        this.dataSource = users;
+      },
+      error: (err) => {
+        console.error('Error loading users:', err);
+      }
+    });
+  }
+
+  openDialog(id: number, name: string): void {
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: { name: name, id: id },
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result) {
+        console.log('Reloading users after deletion');
+        this.ngOnInit(); // Reload users
+      }
+    });
+  }
 }

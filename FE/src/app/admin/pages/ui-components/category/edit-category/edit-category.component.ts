@@ -1,67 +1,98 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
-import { RouterModule, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { CategoryService } from 'src/app/services/apis/category.service';
 
 @Component({
-  selector: 'app-edit-category',
-  imports: [CommonModule, MatCardModule, RouterModule, ReactiveFormsModule],
+  selector: 'app-edit',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    RouterModule,
+    CommonModule
+  ],
   templateUrl: './edit-category.component.html',
   styleUrls: ['./edit-category.component.scss']
 })
-export class EditCategoryComponent {
-  category = {
-    name: 'Truyện',
-    status: 'Hiện'
-  };
+export class EditCategoryComponent implements OnInit {
+  form: FormGroup;
+  categoryId!: string;
 
-  formData = new FormGroup({
-    name: new FormControl(this.category.name, [
-      Validators.required,
-    ]),
-    status: new FormControl(this.category.status, [
-      Validators.required,
-    ]),
-  });
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private categoryService: CategoryService
+  ) {
+    this.form = this.fb.group({
+      categoryName: ['', Validators.required],
+      status: ['', Validators.required]
+    });
+  }
 
-  constructor(private router: Router) {}
+  ngOnInit(): void {
+    this.categoryId = this.route.snapshot.paramMap.get('id') || '';
+    this.loadCategory();
+  }
 
-  onSubmit() {
-    // Kiểm tra tính hợp lệ của form
-    if (this.formData.invalid) {
-      console.log('Form không hợp lệ');
-      return;
-    }
+  loadCategory(): void {
+    this.categoryService.getCategoryById(+this.categoryId).subscribe({
+      next: (res) => {
+        if (res && res.data) {
+          this.form.patchValue({
+            categoryName: res.data.categoryName,
+            status: res.data.status
+          });
+        } else {
+          console.error('Dữ liệu không hợp lệ');
+        }
+      },
+      error: (err) => {
+        console.error('Lỗi khi tải category:', err);
+      }
+    });
+  }
 
-    // Cập nhật category và thực hiện lưu dữ liệu
-    console.log('Form dữ liệu:', this.formData.value);
+  
 
-    // Cập nhật thông tin category khi form hợp lệ
-    this.category = {
-      name: this.formData.value.name ?? '',
-      status: this.formData.value.status ?? ''
+  submit(): void {
+
+    const newCategory = {
+      categoryName: this.form.value.categoryName!,
+      status: this.form.value.status,
     };
+    if (this.form.valid) {
+      console.log("Submit data:", newCategory);
+      
+      this.categoryService.updateCategory(+this.categoryId, newCategory).subscribe({
+        next: () => {
+          this.router.navigate(['/admin/categories']);
+        },
+        error: (err) => {
+          console.error('Lỗi khi cập nhật:', err);
+        }
+      });
+    }
+  }
 
-    // Sau khi lưu thành công, chuyển về trang danh mục
-    console.log('Lưu thành công, Category:', this.category);
-
-    // Chuyển hướng về trang danh mục
+  cancel(): void {
     this.router.navigate(['/admin/categories']);
   }
 
-  // Các getter cho form controls
-  get name() {
-    return this.formData.get('name');
+  get categoryName() {
+    return this.form.get('categoryName');
   }
 
   get status() {
-    return this.formData.get('status');
-  }
-
-  onCancel(): void {
-    console.log('Hủy chỉnh sửa');
-    // Chuyển hướng về trang danh mục khi hủy
-    this.router.navigate(['/admin/categories']);
+    return this.form.get('status');
   }
 }
