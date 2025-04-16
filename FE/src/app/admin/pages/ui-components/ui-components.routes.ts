@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { CategoryComponent } from './category/category.component';
 import { AddCategoryComponent } from './category/add-category/add-category.component';
 
-import { AppProductComponent } from './product/product.component';
+import { AppProductComponent} from './product/product.component';
 import { UserComponent} from './users/user.component';
 import { AppFormsComponent } from './forms/forms.component';
 import { AddProductComponent } from './product/add-product/add-product.component';
@@ -17,6 +17,7 @@ import { OrdersHistoryComponent } from './orders/orders-history/orders-history.c
 import { OrdersHistoryDetailComponent } from './orders/orders-history-detail/orders-history-detail.component';
 import { CommentsComponent } from './comments/comments.component';
 import { ProfilesComponent } from 'src/app/admin/layouts/full/top-strip/profiles/profiles.component';
+import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
   {
@@ -33,7 +34,7 @@ const routes: Routes = [
       {
         path: 'categories/edit/:id',
         component: EditCategoryComponent,
-      },
+      },      
       {
         path: 'product',
         component: AppProductComponent,
@@ -71,7 +72,7 @@ const routes: Routes = [
         component: AddUserComponent,
       },
       {
-        path: 'edit-product',
+        path: 'edit-product/:id',  
         component: EditProductComponent,
       },
       {
@@ -85,6 +86,10 @@ const routes: Routes = [
       {
         path: 'profiles',
         component: ProfilesComponent
+      },
+      {
+        path: 'contact',
+        component: ContactComponent,
       }
     ],
   },
