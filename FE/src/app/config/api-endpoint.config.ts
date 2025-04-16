@@ -17,6 +17,20 @@ export const API_ENDPOINT = {
       list: '/comments/list',
       add: '/add',
     },
+
+    product:{
+      base: API_BASE_URL,
+      list: '/product',
+      
+
+    },
+    category:{
+      base:API_BASE_URL,
+      list: '/category',
+
+
+
+    }
     // các endpoint khác...
   
   

@@ -1,10 +1,10 @@
-const CategoryModel = require('../models/categoryModel');
+const { Product, Category, User } = require("../models");
 
 class CategoryController {
 
     static async get(req, res) {
         try {
-            const categories = await CategoryModel.findAll();
+            const categories = await Category.findAll();
             res.status(200).json({
                 "status": 200,
                 "message": "Lấy danh sách thành công",
@@ -18,7 +18,7 @@ class CategoryController {
     static async getById(req, res) {
         try {
             const { id } = req.params;
-            const category = await CategoryModel.findByPk(id);
+            const category = await Category.findByPk(id);
 
             if (!category) {
                 return res.status(404).json({ message: "Id không tồn tại" });
@@ -36,7 +36,7 @@ class CategoryController {
     static async create(req, res) {
         try {
             const { name } = req.body;
-            const category = await CategoryModel.create({ name });
+            const category = await Category.create({ name });
 
             res.status(201).json({
                 message: "Thêm mới thành công",
@@ -52,7 +52,7 @@ class CategoryController {
             const { id } = req.params;
             const { name } = req.body;
 
-            const category = await CategoryModel.findByPk(id);
+            const category = await Category.findByPk(id);
             if (!category) {
                 return res.status(404).json({ message: "Id không tồn tại" });
             }
@@ -73,7 +73,7 @@ class CategoryController {
         try {
             const { id } = req.params;
 
-            const category = await CategoryModel.findByPk(id);
+            const category = await Category.findByPk(id);
             if (!category) {
                 return res.status(404).json({ message: "Id không tồn tại" });
             }
