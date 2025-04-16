@@ -7,8 +7,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { IUser, UserService } from 'src/app/services/apis/user.service';
 
 @Component({
   selector: 'app-forms',
@@ -54,9 +55,37 @@ export class AddUserComponent {
       Validators.required,
     ]),
   });
+
+  constructor(private userService: UserService, private router: Router) { }
+
   onSubmit() {
-    console.warn(this.fromData.value);
+    if (this.fromData.valid) {
+      console.log('Form data:', this.fromData.value);
+      const newUser: IUser = {
+        name: this.fromData.get('name')?.value ?? '',
+        email: this.fromData.get('email')?.value ?? '',
+        password: this.fromData.get('password')?.value ?? '',
+        phoneNumber: this.fromData.get('phone')?.value ?? '',
+        address: this.fromData.get('address')?.value ?? '',
+        role: this.fromData.get('vaitro')?.value ?? '',
+        avatar: '',
+        data: undefined
+      };
+
+      this.userService.addUser(newUser).subscribe({
+        next: (res: any) => {
+          console.log('Thêm người dùng thành công', res);
+          this.router.navigate(['/admin/users']);
+        },
+        error: (err) => {
+          console.error('Lỗi khi thêm người dùng', err);
+        }
+      });
+    }
   }
+  // onSubmit() {
+  //   console.warn(this.fromData.value);
+  // }
   get name() {
     return this.fromData.get('name');
   }

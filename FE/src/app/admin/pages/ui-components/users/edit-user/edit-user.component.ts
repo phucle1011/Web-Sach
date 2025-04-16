@@ -1,78 +1,72 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatRadioModule } from '@angular/material/radio';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { UserService } from 'src/app/services/apis/user.service';
 @Component({
-  selector: 'app-forms',
+  selector: 'app-edit-user',
   imports: [
-    MatFormFieldModule,
-    MatSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatRadioModule,
-    MatButtonModule,
-    MatCardModule,
-    MatInputModule,
-    MatCheckboxModule,
     RouterModule,
-    CommonModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './edit-user.component.html',
-  styleUrls: ['./edit-user.component.scss'],
-
+  styleUrls: ['./edit-user.component.scss']
 })
-export class EditUserComponent {
-  fromData = new FormGroup({
-    name: new FormControl('', [
-      Validators.required,
-      Validators.minLength(5)
-    ]),
-    email: new FormControl('', [
-      Validators.required,
-      Validators.email,
-    ]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(5)
-    ]),
-    vaitro: new FormControl('', [
-      Validators.required,
-    ]),
-    phone: new FormControl('', [
-      Validators.required,
-      Validators.minLength(10)
-    ]),
-    address: new FormControl('', [
-      Validators.required,
-    ]),
-  });
-  onSubmit() {
-    console.warn(this.fromData.value);
+export class EditUserComponent implements OnInit {
+  fromData: FormGroup; 
+  roleId: string; 
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    this.roleId = this.route.snapshot.paramMap.get('id')!;
+    
+    this.fromData = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(5)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: [''],
+      role: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+      address: ['']
+    });
+
+    this.loadUser();
   }
-  get name() {
-    return this.fromData.get('name');
+
+  loadUser(): void {
+    this.userService.getUserById(+this.roleId).subscribe({
+      next: (res) => {
+        // Chuyển role từ 'User' | 'Admin' thành '1' | '0'
+        const mappedData = {
+          ...res,
+          role: res.role === 'Admin' ? '0' : '1' // hoặc ngược lại tùy backend bạn
+        };
+  
+        this.fromData.patchValue(mappedData);
+      },
+      error: (err) => {
+        console.error('Lỗi khi tải người dùng:', err);
+      }
+    });
   }
-  get email() {
-    return this.fromData.get('email');
+  
+
+  onSubmit(): void {
+    const updatedUser = {
+      role: this.fromData.value.role,
+    };
+    this.userService.updateUser(+this.roleId, updatedUser).subscribe({
+      next: (res) => {
+        console.log('Cập nhật role thành công:', res);
+        this.router.navigate(['/admin/users']);
+      },
+      error: (err) => {
+        console.error('Lỗi khi cập nhật role:', err);
+      }
+    });
   }
-  get password() {
-    return this.fromData.get('password');
-  }
-  get vaitro() {
-    return this.fromData.get('vaitro');
-  }
-  get phone() {
-    return this.fromData.get('phone');
-  }
-  get address() {
-    return this.fromData.get('address');
-  }
+ 
 }

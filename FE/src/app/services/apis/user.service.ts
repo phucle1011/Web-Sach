@@ -4,13 +4,15 @@ import { Observable } from 'rxjs';
 import { API_ENDPOINT } from 'src/app/config/api-endpoint.config';
 
 export interface IUser {
-    userId: number;
+    data: any;
+    userId?: 0;
     name: string;
     email: string;
+    password?: string;
     phoneNumber: string;
     avatar: string;
     address?: string;
-    role?: 'Admin' | 'User';
+    role?:string;
     createdAt?: Date;
 }
 
@@ -24,17 +26,20 @@ export class UserService {
         return this.http.get<IUser[]>(`${API_ENDPOINT.user.base + API_ENDPOINT.user.list}`);
     }
 
-    // getUserById(id: number): Observable<IUser> {
-    //     return this.http.get<IUser>(`${this.baseUrl}/${id}`);
-    // }
+    getUserById(id: number): Observable<IUser> {
+        return this.http.get<IUser>(`${API_ENDPOINT.user.base}/${id}`);
+    }
 
-    // addUser(data: Partial<IUser>): Observable<any> {
-    //     return this.http.post(this.baseUrl, data);
-    // }
+    addUser(data: Partial<IUser>): Observable<any> {
+        return this.http.post(`${API_ENDPOINT.user.base + API_ENDPOINT.user.add}`,data);
+    }
 
     // updateUser(id: number, data: Partial<IUser>): Observable<any> {
-    //     return this.http.put(`${this.baseUrl}/${id}`, data);
+    //     return this.http.put(`${API_ENDPOINT.user.base}/${id}`, data);
     // }
+    updateUser(id: number, userData: { role: string }): Observable<IUser> {
+        return this.http.put<IUser>(`${API_ENDPOINT.user.base}/${id}`, userData);
+      }
 
     deleteUser(id: number): Observable<any> {
         return this.http.delete(`${API_ENDPOINT.user.base}/${id}`);
