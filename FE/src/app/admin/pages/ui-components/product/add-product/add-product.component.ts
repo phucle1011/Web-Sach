@@ -1,104 +1,109 @@
-import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatRadioModule } from '@angular/material/radio';
-import { RouterModule } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-
+import { RouterModule } from '@angular/router';
+import { ProductService } from 'src/app/services/apis/product.service';
+import { CategoryService } from 'src/app/services/apis/category.service';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
+import { CloudinaryService } from 'src/app/services/common/cloudinary.service';
 
 @Component({
-  selector: 'app-forms',
-  imports: [
-    MatFormFieldModule,
-    MatSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatRadioModule,
-    MatButtonModule,
-    MatCardModule,
-    MatInputModule,
-    MatCheckboxModule,
-    RouterModule,
-    CommonModule,
-  ],
+  selector: 'app-add-product',
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule,
+    MatSelectModule, MatButtonModule, MatIconModule, MatCardModule,ReactiveFormsModule],
   templateUrl: './add-product.component.html',
-  styleUrls: ['./add-product.component.scss'],
+  styleUrl: './add-product.component.scss',
 })
-export class AddProductComponent {
-  fromData = new FormGroup({
-    tensach: new FormControl('', [
-      Validators.required,
-    ]),
-    tacgia: new FormControl('', [
-      Validators.required,
-    ]),
-    gia: new FormControl('', [
-      Validators.required,
-      Validators.pattern('^[0-9]+$')
-    ]),
-    soluong: new FormControl('', [
-      Validators.required,
-    ]),
-    danhmuc: new FormControl('', [
-      Validators.required,
-    ]),
-    publisher: new FormControl('', [
-      Validators.required,
-      Validators.minLength(1)
-    ]),
-    images: new FormControl('', [
-      Validators.required,
-    ]),
-    publicationDate: new FormControl('', [
-      Validators.required,
-    ]),
-    description: new FormControl('', [
-      Validators.required,
-    ]),
-    motangan: new FormControl('', [
-      Validators.required,
-    ]),
-  });
-  onSubmit() {
-    console.warn(this.fromData.value);
+export class AddProductComponent implements OnInit {
+  productForm!: FormGroup;
+  selectedFile!: File;
+  categories: any[] = []; // Mảng lưu danh sách danh mục
+
+  constructor(
+    private fb: FormBuilder,
+    private productService: ProductService,
+    private categoryService: CategoryService, // Sử dụng CategoryService để lấy danh mục
+    private cloudinary: CloudinaryService,
+  ) {}
+
+  ngOnInit(): void {
+    // Khởi tạo form với các trường cần thiết
+    this.productForm = this.fb.group({
+      title: ['', Validators.required],
+      author: ['',Validators.required],
+      publisher: ['',Validators.required],
+      price: ['', Validators.required],
+      description: ['',Validators.required],
+      shortDescription: ['',Validators.required],
+      publicationDate: ['',Validators.required],
+      categoryId: ['', Validators.required],
+      images: ['',Validators.required]
+    });
+
+    // Lấy danh sách danh mục 
+    this.getCategories();
   }
 
-  get tensach() {
-    return this.fromData.get('tensach');
+  // Lấy danh sách danh mục từ CategoryService
+  getCategories() {
+    this.categoryService.getCategories().subscribe({
+      next: (res) => {
+        this.categories = res.data;
+      },
+      error: (err) => {
+        console.error('Lỗi khi lấy danh mục:', err);
+      }
+    });
   }
+  onFileChange(event: any): void {
+    // const file = event.target.files[0];
+    // if (file) {
+    //   this.selectedFile = file;
+    //   console.log('Đã chọn file:', file);
+    // }
+    const file = event.target.files[0];
+    if (file) {
+      this.cloudinary.uploadImage(file).subscribe((res: any) => {
+        this.selectedFile = res.secure_url;
+        console.log('Uploaded:', this.selectedFile);
+      });
+    }
+  }
+  
 
-  get tacgia() {
-    return this.fromData.get('tacgia');
-  }
-  get gia() {
-    return this.fromData.get('gia');
-  }
-  get soluong() {
-    return this.fromData.get('soluong');
-  }
-  get danhmuc() {
-    return this.fromData.get('danhmuc');
-  }
-  get publisher() {
-    return this.fromData.get('publisher');
-  }
-  get images() {
-    return this.fromData.get('images');
-  }
-  get publicationDate() {
-    return this.fromData.get('publicationDate');
-  }
-  get description() {
-    return this.fromData.get('description');
-  }
-  get motangan() {
-    return this.fromData.get('motangan');
-  }
+    // Xử lý khi người dùng submit form
+    onSubmit() {
+      if (this.productForm.invalid) return;
+    
+      const formData = new FormData();
+    
+      // Gắn các trường khác vào FormData
+      Object.entries(this.productForm.value).forEach(([key, value]) => {
+        formData.append(key, value as string);
+      });
+    
+      // Gắn file ảnh (nếu có)
+      if (this.selectedFile) {
+        formData.append('images', this.selectedFile); // Key phải là 'images'
+      } else {
+        console.warn('Chưa chọn ảnh!');
+      }
+      this.productForm.value['images']= this.selectedFile;
+    console.log(this.productForm);
+    
+      this.productService.createProduct(this.productForm.value).subscribe({
+        next: res => {
+          alert('Thêm sản phẩm thành công!');
+          console.log("Thêm thành công", res);
+        },
+        error: err => {
+          console.error("Lỗi khi thêm sản phẩm:", err);
+        }
+      });
+    }
 }
