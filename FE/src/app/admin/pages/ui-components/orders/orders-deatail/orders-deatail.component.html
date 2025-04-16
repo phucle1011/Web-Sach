@@ -59,7 +59,7 @@
               <tr *ngFor="let orderItem of selectedOrder?.orderDetails">
                 <td class="align-middle">{{ orderItem.product.title }}</td>
                 <td class="align-middle">{{ orderItem.quantity }}</td>
-                <td class="text-end align-middle">{{ convertToNumber(orderItem.product.price) | number }} đ</td>
+                <td class="text-end align-middle">{{ orderItem.product.price | number }} VNĐ</td>
                 <td class="text-end align-middle">{{ orderItem.quantity * convertToNumber(orderItem.product.price) | number }} đ</td>
               </tr>
             </tbody>

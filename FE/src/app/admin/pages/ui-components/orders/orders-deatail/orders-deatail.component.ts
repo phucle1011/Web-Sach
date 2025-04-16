@@ -7,6 +7,8 @@ import { IOrder, IOrderItem } from 'src/app/interface/order.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderService } from 'src/app/services/apis/order.service';
 import { CommonModule } from '@angular/common';
+import localeVi from '@angular/common/locales/vi';
+import { registerLocaleData } from '@angular/common';
 
 @Component({
   selector: 'app-orders-deatail',
@@ -38,6 +40,9 @@ export class OrdersDeatailComponent {
   private orderService = inject(OrderService);
 
   constructor() {
+    // Đăng ký locale cho tiếng Việt
+    registerLocaleData(localeVi);
+
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       if (id) {
@@ -49,6 +54,8 @@ export class OrdersDeatailComponent {
   getOrderById(id: number) {
     this.orderService.getOrderById(id).subscribe({
       next: (res: any) => {
+        console.log(res.data);
+        
         if (res?.data) {
           this.selectedOrder = res.data;
           console.log('Đơn hàng:', this.selectedOrder);  
@@ -61,9 +68,14 @@ export class OrdersDeatailComponent {
       }
     });
   }
-  
-  convertToNumber(value: string): number {
-    return parseFloat(value.replace(/\./g, '').replace('đ', '').trim()) || 0;
+
+  convertToNumber(value: any): number {
+    const cleanedValue = String(value)
+      .replace(/\./g, '') // Loại bỏ dấu chấm phân cách hàng nghìn
+      .replace(',', '.')   // Thay dấu phẩy thập phân bằng dấu chấm
+      .replace('đ', '')
+      .trim();
+    return parseFloat(cleanedValue) || 0;
   }
 
   getTotalPrice(): number {
@@ -75,5 +87,4 @@ export class OrdersDeatailComponent {
     }
     return total;
   }
-  
 }
