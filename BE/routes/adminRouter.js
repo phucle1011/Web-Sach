@@ -22,14 +22,5 @@ router.delete('/users/:id', UserController.deleteUser);
 router.post('/users/add', UserController.addUser);
 router.get('/users/:id', UserController.getUserById);
 router.put('/users/:id', UserController.update);
-router.get('/contacts', ContactController.getAllContacts);
-
-router.get('/products', ProductController.getAllProducts);
-router.get('/product/:id', ProductController.getProductById);
-router.post('/product', ProductController.createProduct);
-router.put('/product/:id', upload.single('images'), ProductController.updateProduct);
-router.delete('/product/:id', ProductController.deleteProduct);
-
-
 
 module.exports = router;
