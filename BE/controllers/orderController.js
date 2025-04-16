@@ -35,6 +35,20 @@ class OrderController {
         }
     }
 
+    static async create(req, res) {
+        try {
+            const { name } = req.body;
+            const order = await OrderModel.create({ name });
+
+            res.status(201).json({
+                message: "Thêm mới thành công",
+                order
+            });
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
     static async update(req, res) {
         try {
             const { id } = req.params;
