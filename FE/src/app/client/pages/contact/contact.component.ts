@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ContactService } from 'src/app/services/apis/contact.service';
+// import { ContactService } from 'src/app/services/apis/contact.service';
 
 @Component({
   selector: 'app-contact',
@@ -20,43 +20,43 @@ export class ContactComponent {
 
   contactForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private contactService: ContactService) {
-    // Khởi tạo form
+  // constructor(private fb: FormBuilder, private contactService: ContactService) {
+  //   // Khởi tạo form
     
-  }
+  // }
 
-  ngOnInit(): void {
-    this.contactForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      message: ['', Validators.required],
-    });
+  // ngOnInit(): void {
+  //   this.contactForm = this.fb.group({
+  //     name: ['', Validators.required],
+  //     email: ['', [Validators.required, Validators.email]],
+  //     message: ['', Validators.required],
+  //   });
 
-    // Kiểm tra form đã được khởi tạo chưa
-    console.log('Form đã được khởi tạo:', this.contactForm);
-  }
-  // Hàm gửi liên hệ
-  onSubmit(): void {
-    // Kiểm tra trạng thái của form
-    console.log('Form hợp lệ:', this.contactForm.valid);
+  //   // Kiểm tra form đã được khởi tạo chưa
+  //   console.log('Form đã được khởi tạo:', this.contactForm);
+  // }
+  // // Hàm gửi liên hệ
+  // onSubmit(): void {
+  //   // Kiểm tra trạng thái của form
+  //   console.log('Form hợp lệ:', this.contactForm.valid);
 
-    if (this.contactForm.valid) {
-      const data = this.contactForm.value;
-      console.log('📤 Dữ liệu form gửi đi:', data); // Log dữ liệu gửi đi
+  //   if (this.contactForm.valid) {
+  //     const data = this.contactForm.value;
+  //     console.log('📤 Dữ liệu form gửi đi:', data); // Log dữ liệu gửi đi
 
 
-      this.contactService.sendContactEmail(data).subscribe({
-        next: () => {
-          alert('🎉 Gửi liên hệ thành công!');
-          this.contactForm.reset();
-        },
-        error: (err) => {
-          console.error('Lỗi gửi email:', err);
-          alert('Bạn Đã Vượt Quá Giới Hạn Gửi Email!');
-        }
-      });
-    } else {
-      console.warn('⚠️ Form không hợp lệ');
-    }
-  }
+  //     this.contactService.sendContactEmail(data).subscribe({
+  //       next: () => {
+  //         alert('🎉 Gửi liên hệ thành công!');
+  //         this.contactForm.reset();
+  //       },
+  //       error: (err) => {
+  //         console.error('Lỗi gửi email:', err);
+  //         alert('Bạn Đã Vượt Quá Giới Hạn Gửi Email!');
+  //       }
+  //     });
+  //   } else {
+  //     console.warn('⚠️ Form không hợp lệ');
+  //   }
+  // }
 }
