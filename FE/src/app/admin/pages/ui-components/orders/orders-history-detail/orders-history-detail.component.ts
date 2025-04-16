@@ -7,6 +7,7 @@ import { IOrder, IOrderItem } from 'src/app/interface/order.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderService } from 'src/app/services/apis/order.service';
 import { CommonModule } from '@angular/common';
+import { DecimalPipe } from '@angular/common'; 
 
 @Component({
   selector: 'app-orders-deatail',
@@ -20,7 +21,8 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ],
   templateUrl: './orders-history-detail.component.html',
-  styleUrl: './orders-history-detail.component.scss'
+  styleUrl: './orders-history-detail.component.scss',
+  providers: [DecimalPipe] 
 })
 export class OrdersHistoryDetailComponent {
   statusList: string[] = [
@@ -36,6 +38,7 @@ export class OrdersHistoryDetailComponent {
   readonly dialog = inject(MatDialog);
   private route = inject(ActivatedRoute);
   private orderService = inject(OrderService);
+  private decimalPipe = inject(DecimalPipe);
 
   constructor() {
     this.route.paramMap.subscribe(params => {
@@ -51,7 +54,7 @@ export class OrdersHistoryDetailComponent {
       next: (res: any) => {
         if (res?.data) {
           this.selectedOrder = res.data;
-          console.log('Đơn hàng:', this.selectedOrder);  
+          console.log('Đơn hàng:', this.selectedOrder);
         } else {
           console.error('Không tìm thấy đơn hàng');
         }
@@ -61,18 +64,28 @@ export class OrdersHistoryDetailComponent {
       }
     });
   }
-  
-  convertToNumber(value: string): number {
-    return parseFloat(value.replace(/\./g, '').replace('đ', '').trim()) || 0;
+
+  convertToNumber(value: any): number {
+    const cleanedValue = String(value)
+      .replace(/\./g, '')
+      .replace(',', '.')
+      .replace('đ', '')
+      .trim();
+    return parseFloat(cleanedValue) || 0;
   }
 
   getTotalPrice(): number {
     let total = 0;
-    if (this.selectedOrder?.orderDetails) { 
+    if (this.selectedOrder?.orderDetails) {
       this.selectedOrder.orderDetails.forEach((item: IOrderItem) => {
         total += item.quantity * this.convertToNumber(item.product.price);
       });
     }
     return total;
   }
+
+  formatCurrency(value: number): string {
+    return value.toFixed(3).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' VND';
+  }
+  
 }

@@ -13,6 +13,7 @@ router.get('/categories/:id', CategoryController.getById);
 
 router.get('/orders/list', OrderController.get);
 router.get('/orders/:id', OrderController.getById); 
+router.put('/orders/:id', OrderController.update); 
 router.delete("/orders/:id", OrderController.delete);
 
 router.get('/users/list', UserController.getAllUsers);

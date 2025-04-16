@@ -3,7 +3,7 @@ export interface IOrder {
     total_price: number;
     id: number;
     user_id: number;
-    status: number;
+    status: string;
     createdAt: string;
     name: string;
     address: string;

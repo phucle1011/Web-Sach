@@ -9,6 +9,7 @@ import { OrderService } from 'src/app/services/apis/order.service';
 import { CommonModule } from '@angular/common';
 import localeVi from '@angular/common/locales/vi';
 import { registerLocaleData } from '@angular/common';
+import { DecimalPipe } from '@angular/common'; 
 
 @Component({
   selector: 'app-orders-deatail',
@@ -22,7 +23,8 @@ import { registerLocaleData } from '@angular/common';
     CommonModule
   ],
   templateUrl: './orders-deatail.component.html',
-  styleUrls: ['./orders-deatail.component.scss']
+  styleUrls: ['./orders-deatail.component.scss'],
+  providers: [DecimalPipe] 
 })
 export class OrdersDeatailComponent {
   statusList: string[] = [
@@ -38,9 +40,9 @@ export class OrdersDeatailComponent {
   readonly dialog = inject(MatDialog);
   private route = inject(ActivatedRoute);
   private orderService = inject(OrderService);
+  private decimalPipe = inject(DecimalPipe);
 
   constructor() {
-    // Đăng ký locale cho tiếng Việt
     registerLocaleData(localeVi);
 
     this.route.paramMap.subscribe(params => {
@@ -71,8 +73,8 @@ export class OrdersDeatailComponent {
 
   convertToNumber(value: any): number {
     const cleanedValue = String(value)
-      .replace(/\./g, '') // Loại bỏ dấu chấm phân cách hàng nghìn
-      .replace(',', '.')   // Thay dấu phẩy thập phân bằng dấu chấm
+      .replace(/\./g, '') 
+      .replace(',', '.')  
       .replace('đ', '')
       .trim();
     return parseFloat(cleanedValue) || 0;
@@ -86,5 +88,8 @@ export class OrdersDeatailComponent {
       });
     }
     return total;
+  }
+  formatCurrency(value: number): string {
+    return value.toFixed(3).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' VND';
   }
 }

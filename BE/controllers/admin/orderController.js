@@ -71,16 +71,32 @@ class OrderController {
     static async update(req, res) {
         try {
             const { id } = req.params;
-            const { name } = req.body;
-
+            const {
+                name,
+                status,
+                address,
+                phone,
+                email,
+                total_price,
+                payment_method_id
+            } = req.body;
+    
             const order = await OrderModel.findByPk(id);
             if (!order) {
                 return res.status(404).json({ message: "Id không tồn tại" });
             }
-
-            order.name = name;
+    
+            // Chỉ cập nhật nếu có dữ liệu truyền vào
+            if (name !== undefined) order.name = name;
+            if (status !== undefined) order.status = status;
+            if (address !== undefined) order.address = address;
+            if (phone !== undefined) order.phone = phone;
+            if (email !== undefined) order.email = email;
+            if (total_price !== undefined) order.total_price = total_price;
+            if (payment_method_id !== undefined) order.payment_method_id = payment_method_id;
+    
             await order.save();
-
+    
             res.status(200).json({
                 message: "Cập nhật thành công",
                 order
@@ -89,6 +105,7 @@ class OrderController {
             res.status(500).json({ error: error.message });
         }
     }
+    
 
     static async delete(req, res) {
         try {

@@ -6,13 +6,15 @@ import { OrderService } from 'src/app/services/apis/order.service';
 import { IOrder } from 'src/app/interface/order.interface';
 import { FormsModule } from '@angular/forms';  
 import { CommonModule } from '@angular/common'; 
+import { DecimalPipe } from '@angular/common'; 
 
 @Component({
   selector: 'app-orders-history',
   standalone: true,
   imports: [MatCardModule, MatTableModule, RouterModule, FormsModule, CommonModule],
   templateUrl: './orders-history.component.html',
-  styleUrls: ['./orders-history.component.scss']
+  styleUrls: ['./orders-history.component.scss'],
+  providers: [DecimalPipe] 
 })
 export class OrdersHistoryComponent  {
   orders: IOrder[] = [];  
@@ -30,6 +32,7 @@ export class OrdersHistoryComponent  {
     this.getAll();
   }
 
+  private decimalPipe = inject(DecimalPipe);
 
   getAll() {
     this.orderService.getOrder().subscribe({
@@ -42,5 +45,7 @@ export class OrdersHistoryComponent  {
       }
     });
   }
-  
+  formatCurrency(value: number): string {
+    return value.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' VND';
+  }
 }
