@@ -50,7 +50,7 @@ export class UserComponent {
       console.log('The dialog was closed', result);
       if (result) {
         console.log('Reloading users after deletion');
-        this.ngOnInit(); // Reload users
+        this.ngOnInit();
       }
     });
   }

@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { CategoryService } from '../../../../../services/apis/category.service';
+import { CategoryService } from 'src/app/services/apis/category.service';
 
 @Component({
   selector: 'app-edit',
@@ -46,7 +46,7 @@ export class EditCategoryComponent implements OnInit {
 
   loadCategory(): void {
     this.categoryService.getCategoryById(+this.categoryId).subscribe({
-      next: (res: { data: { categoryName: any; status: any; }; }) => {
+      next: (res) => {
         if (res && res.data) {
           this.form.patchValue({
             categoryName: res.data.categoryName,
@@ -56,7 +56,7 @@ export class EditCategoryComponent implements OnInit {
           console.error('Dữ liệu không hợp lệ');
         }
       },
-      error: (err: any) => {
+      error: (err) => {
         console.error('Lỗi khi tải category:', err);
       }
     });

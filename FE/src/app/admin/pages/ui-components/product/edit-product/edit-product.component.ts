@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,13 +7,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { ProductService } from 'src/app/services/apis/product.service';
+import { CategoryService } from 'src/app/services/apis/category.service';
 
 @Component({
-  selector: 'app-forms',
+  selector: 'app-edit-product',
   imports: [
     MatFormFieldModule,
     MatSelectModule,
@@ -29,70 +30,123 @@ import { CommonModule } from '@angular/common';
   ],
   templateUrl: './edit-product.component.html',
   styleUrls: ['./edit-product.component.scss'],
-
 })
-export class EditProductComponent {
-  fromData = new FormGroup({
-    tensanpham: new FormControl('', [
-      Validators.required,
-      Validators.minLength(5)
-    ]),
-    nhasanxuat: new FormControl('', [
-      Validators.required,
-      Validators.minLength(1)
-    ]),
-    gia: new FormControl('', [
-      Validators.required,
-      Validators.pattern('^[0-9]+$')
-    ]),
-    soluong: new FormControl('', [
-      Validators.required,
-      Validators.minLength(1)
-    ]),
-    danhmuc: new FormControl('', [
-      Validators.required,
-      Validators.minLength(1)
-    ]),
-    tacgia: new FormControl('', [
-      Validators.required,
-      Validators.minLength(1)
-    ]),
-    images: new FormControl('', [
-      Validators.required,
-      Validators.minLength(1)
-    ]),
-    motangan: new FormControl('', [
-      Validators.required,
-      Validators.minLength(1)
-    ]),
-  });
+export class EditProductComponent implements OnInit {
+  productForm!: FormGroup;
+  categories: any[] = []; 
+  productId!: number;  
+  selectedFile: File | null = null;
+  previewImage: string = '';
+
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private productService: ProductService,
+    private categoryService: CategoryService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.productForm = this.fb.group({
+      title: ['', Validators.required],
+      author: ['',Validators.required],
+      publisher: ['',Validators.required],
+      price: ['', Validators.required],
+      description: ['',Validators.required],
+      shortDescription: ['',Validators.required],
+      publicationDate: ['',Validators.required],
+      categoryId: ['', Validators.required], 
+      images: ['',Validators.required]
+    });
+
+    this.route.paramMap.subscribe(params => {
+      this.productId = +params.get('id')!;
+      if (isNaN(this.productId)) {
+        console.error('ID sản phẩm không hợp lệ');
+        return;
+      }
+      this.getCategories();  
+      this.loadProduct(); 
+    });
+  }
+
+  loadProduct() {
+    this.productService.getProductById(this.productId).subscribe({
+      next: (res) => {
+        if (!res.data) {
+          console.error('Sản phẩm không tồn tại!');
+          return;
+        }
+  
+        const product = res.data;
+        this.productForm.patchValue({
+          title: product.title,
+          author: product.author,
+          publisher: product.publisher,
+          price: product.price,
+          description: product.description,
+          shortDescription: product.shortDescription,
+          publicationDate: product.publicationDate?.split('T')[0],
+          categoryId: product.categoryId,
+        });
+        this.previewImage = product.images;
+      },
+      error: (err) => {
+        console.error('Lỗi khi lấy sản phẩm:', err);
+      },
+    });
+  }
+
   onSubmit() {
-    console.warn(this.fromData.value);
+    if (this.productForm.invalid) return;
+
+    const formData = new FormData();
+    Object.entries(this.productForm.value).forEach(([key, value]) => {
+      formData.append(key, value as string);
+    });
+
+    if (this.selectedFile) {
+      formData.append('images', this.selectedFile);
+    }
+
+    this.productService.updateProduct(this.productId, formData).subscribe({
+      next: () => {
+        alert('Cập nhật thành công!');
+        this.router.navigate(['/admin/products']);
+      },
+      error: (err) => {
+        console.error('Lỗi khi cập nhật sản phẩm:', err);
+      },
+    });
   }
 
-  get tensanpham() {
-    return this.fromData.get('tensanpham');
+  onFileChange(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+
+      const reader = new FileReader();
+      reader.onload = e => this.previewImage = reader.result as string;
+      reader.readAsDataURL(file);
+    }
   }
 
-  get nhasanxuat() {
-    return this.fromData.get('nhasanxuat');
+  getCategories() {
+    this.categoryService.getCategories().subscribe({
+      next: (res) => {
+        this.categories = res;  
+      },
+      error: (err) => {
+        console.error('Lỗi khi lấy danh mục:', err);
+      },
+    });
   }
-  get gia() {
-    return this.fromData.get('gia');
+  onFileSelected(event: any) {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      this.productForm.patchValue({ images: files });
+      this.productForm.get('images')?.updateValueAndValidity();
+    }
   }
-  get soluong() {
-    return this.fromData.get('soluong');
-  }
-  get danhmuc() {
-    return this.fromData.get('danhmuc');
-  }
-  get tacgia() {
-    return this.fromData.get('tacgia');
-  }
-  get images() {
-    return this.fromData.get('images');
-  }
-  get motangan() {
-    return this.fromData.get('motangan');
-  }
+  
 }

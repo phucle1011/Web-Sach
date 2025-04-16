@@ -8,7 +8,15 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
 });
 
 sequelize.authenticate()
-  .then(() => console.log('Kết nối MySQL thành công!'))
-  .catch(err => console.error('Lỗi kết nối:', err));
+  .then(() => {
+    console.log('✅ Kết nối MySQL thành công!');
+    return sequelize.sync({ alter: true }); 
+  })
+  .then(() => {
+    console.log('✅ Đồng bộ mô hình Sequelize thành công!');
+  })
+  .catch(err => {
+    console.error('❌ Lỗi kết nối hoặc sync:', err);
+  });
 
 module.exports = sequelize;

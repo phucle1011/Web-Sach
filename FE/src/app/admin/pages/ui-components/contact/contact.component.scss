@@ -1,0 +1,25 @@
+.contact-card-container {
+    background-color: #ffffff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+  }
+  
+  .contact-card-container table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .contact-card-container th,
+  .contact-card-container td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .contact-card-container th {
+    background-color: #f9f9f9;
+    font-weight: 600;
+  }
+  
