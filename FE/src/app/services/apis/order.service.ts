@@ -26,7 +26,7 @@ export class OrderService extends ApiService {
   }
 
   deleteOrder(id: number){
-    return this.delete(API_ENDPOINT.order.base + '/' + id)
+    return this.delete(API_ENDPOINT.order.base + '/' + id);
   }
 
   updateOrder(id: number, data: IOrder) {

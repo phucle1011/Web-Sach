@@ -33,5 +33,9 @@ export class AppOrdersComponent{
       }
     });
   }
+
+  // deleteOrder(orders:IOrder): void{
+
+  // }
  
 }
