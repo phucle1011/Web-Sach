@@ -3,14 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_ENDPOINT } from '../../config/api-endpoint.config';
-
-export interface ICategory {
-    name: any;
-    data: ICategory;
-    categoryId: number;
-    categoryName: string;
-    status: number | string;
-}
+import { ICategory } from 'src/app/interface/category.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -38,3 +31,5 @@ export class CategoryService {
     return this.http.delete(`${API_ENDPOINT.category.base}/${id}`);
   }
 }
+export { ICategory };
+

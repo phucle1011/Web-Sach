@@ -22,17 +22,16 @@ import { CloudinaryService } from 'src/app/services/common/cloudinary.service';
 export class AddProductComponent implements OnInit {
   productForm!: FormGroup;
   selectedFile!: File;
-  categories: any[] = []; // Mảng lưu danh sách danh mục
+  categories: any[] = []; 
 
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
-    private categoryService: CategoryService, // Sử dụng CategoryService để lấy danh mục
+    private categoryService: CategoryService, 
     private cloudinary: CloudinaryService,
   ) {}
 
   ngOnInit(): void {
-    // Khởi tạo form với các trường cần thiết
     this.productForm = this.fb.group({
       title: ['', Validators.required],
       author: ['',Validators.required],
@@ -45,11 +44,9 @@ export class AddProductComponent implements OnInit {
       images: ['',Validators.required]
     });
 
-    // Lấy danh sách danh mục 
     this.getCategories();
   }
 
-  // Lấy danh sách danh mục từ CategoryService
   getCategories() {
     this.categoryService.getCategories().subscribe({
       next: (res) => {
@@ -61,11 +58,6 @@ export class AddProductComponent implements OnInit {
     });
   }
   onFileChange(event: any): void {
-    // const file = event.target.files[0];
-    // if (file) {
-    //   this.selectedFile = file;
-    //   console.log('Đã chọn file:', file);
-    // }
     const file = event.target.files[0];
     if (file) {
       this.cloudinary.uploadImage(file).subscribe((res: any) => {
@@ -75,21 +67,17 @@ export class AddProductComponent implements OnInit {
     }
   }
   
-
-    // Xử lý khi người dùng submit form
     onSubmit() {
       if (this.productForm.invalid) return;
     
       const formData = new FormData();
     
-      // Gắn các trường khác vào FormData
       Object.entries(this.productForm.value).forEach(([key, value]) => {
         formData.append(key, value as string);
       });
-    
-      // Gắn file ảnh (nếu có)
+
       if (this.selectedFile) {
-        formData.append('images', this.selectedFile); // Key phải là 'images'
+        formData.append('images', this.selectedFile);
       } else {
         console.warn('Chưa chọn ảnh!');
       }

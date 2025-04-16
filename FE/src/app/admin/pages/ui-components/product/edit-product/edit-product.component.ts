@@ -33,8 +33,8 @@ import { CategoryService } from 'src/app/services/apis/category.service';
 })
 export class EditProductComponent implements OnInit {
   productForm!: FormGroup;
-  categories: any[] = [];  // Danh sách danh mục
-  productId!: number;  // Đổi sang kiểu number
+  categories: any[] = []; 
+  productId!: number;  
   selectedFile: File | null = null;
   previewImage: string = '';
 
@@ -55,19 +55,18 @@ export class EditProductComponent implements OnInit {
       description: ['',Validators.required],
       shortDescription: ['',Validators.required],
       publicationDate: ['',Validators.required],
-      categoryId: ['', Validators.required], // Bind categoryId
+      categoryId: ['', Validators.required], 
       images: ['',Validators.required]
     });
 
-    // Lấy productId từ route params
     this.route.paramMap.subscribe(params => {
-      this.productId = +params.get('id')!; // Lấy id từ url và chuyển sang kiểu number
+      this.productId = +params.get('id')!;
       if (isNaN(this.productId)) {
         console.error('ID sản phẩm không hợp lệ');
         return;
       }
-      this.getCategories();  // Gọi API để lấy danh mục
-      this.loadProduct();    // Gọi API để lấy thông tin sản phẩm
+      this.getCategories();  
+      this.loadProduct(); 
     });
   }
 
@@ -88,7 +87,7 @@ export class EditProductComponent implements OnInit {
           description: product.description,
           shortDescription: product.shortDescription,
           publicationDate: product.publicationDate?.split('T')[0],
-          categoryId: product.categoryId, // Bind categoryId
+          categoryId: product.categoryId,
         });
         this.previewImage = product.images;
       },
@@ -135,7 +134,7 @@ export class EditProductComponent implements OnInit {
   getCategories() {
     this.categoryService.getCategories().subscribe({
       next: (res) => {
-        this.categories = res.data;  // Gán danh mục vào biến categories
+        this.categories = res.data;  
       },
       error: (err) => {
         console.error('Lỗi khi lấy danh mục:', err);
