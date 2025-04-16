@@ -64,12 +64,8 @@ const routes: Routes = [
         component: OrdersHistoryDetailComponent,
       },
       {
-        path: 'add-product',
-        component: AddProductComponent,
-      },
-      {
-        path: 'add-user',
-        component: AddUserComponent,
+        path: 'orders_history',
+        component: OrdersHistoryComponent,
       },
       {
         path: 'edit-product/:id',  
@@ -91,6 +87,7 @@ const routes: Routes = [
         path: 'contact',
         component: ContactComponent,
       }
+      
     ],
   },
 ];

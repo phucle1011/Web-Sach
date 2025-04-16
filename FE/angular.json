@@ -30,6 +30,10 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3bf42d088b64ac26fb350c0169abda57d52be108
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -40,9 +44,17 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/font-awesome/css/font-awesome.css"
             ],
+<<<<<<< HEAD
             "scripts": [
   "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
 ]
+=======
+
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss", "src/assets/scss/style.scss", "node_modules/bootstrap/dist/css/bootstrap.min.css"],
+
+            "scripts": []
+>>>>>>> 3bf42d088b64ac26fb350c0169abda57d52be108
           },
           "configurations": {
             "production": {
