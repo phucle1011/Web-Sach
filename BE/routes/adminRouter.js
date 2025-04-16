@@ -17,6 +17,11 @@ router.get('/orders/list', OrderController.get);
 router.get('/orders/:id', OrderController.getById); 
 router.delete("/orders/:id", OrderController.delete);
 
+router.get('/users/list', UserController.getAllUsers);
+router.delete('/users/:id', UserController.deleteUser);
+router.post('/users/add', UserController.addUser);
+router.get('/users/:id', UserController.getUserById);
+router.put('/users/:id', UserController.update);
 router.get('/contacts', ContactController.getAllContacts);
 
 router.get('/products', ProductController.getAllProducts);

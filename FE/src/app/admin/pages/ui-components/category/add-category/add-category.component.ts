@@ -26,7 +26,7 @@ export class AddCategoryComponent {
   }
 
   const newCategory = {
-    categoryName: this.formData.value.name!, // dùng ! để khẳng định không null
+    categoryName: this.formData.value.name!,
     status: this.formData.value.status === 'hiện' ? 1 : 0,
   };
 

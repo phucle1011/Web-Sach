@@ -9,6 +9,7 @@
           <th scope="col">Họ Tên</th>
           <th scope="col">Email</th>
           <th scope="col">Số Điện Thoại</th>
+          <th scope="col">Trạng thái</th>
           <th scope="col" class="text-center">Thao Tác</th>
         </tr>
       </thead>
@@ -16,17 +17,28 @@
         <tr *ngFor="let user of dataSource; let i = index">
           <td>{{ user.userId }}</td>
           <td>
-            <img [src]="user.avatar" alt="{{ user.name }}" class="img-thumbnail"
+            <img [src]="user.avatar" alt="{{ user.avatar }}"
+              class="img-thumbnail"
               width="60">
           </td>
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.phoneNumber }}</td>
           <td class="text-center">
+            <span
+              [ngClass]="user.role === '1' 
+                ? 'bg-light-success text-success rounded f-w-600 p-6 p-y-4 f-s-12' 
+                : 'bg-light-error text-error rounded f-w-600 p-6 p-y-4 f-s-12'">
+              {{ user.role === '' ? 'Người dùng' : 'Admin' }}
+            </span>
+          </td>
+          <td class="text-center">
             <div class="btn-group" role="group">
-              <a [routerLink]="['/admin/edit-user']" mat-stroked-button
+              <a [routerLink]="['/admin/edit-user', user.userId]"
+                mat-stroked-button
                 class="btn btn-outline-primary btn-sm">Sửa</a>
-              <button class="btn btn-outline-danger btn-sm" (click)="openDialog(user.userId, user.name)" >
+              <button class="btn btn-outline-danger btn-sm"
+                (click)="openDialog(user.userId!, user.name)">
                 <i class="bi bi-trash"></i> Xóa
               </button>
             </div>
