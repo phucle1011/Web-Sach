@@ -28,5 +28,9 @@ export const API_ENDPOINT = {
     list: '/list',
     add: '/add',
     adminList: `${API_BASE_URL}/admin/categories`,
-  }
+  },
+  user: {
+    base: '${API_BASE_URL}', 
+    list: '/users', 
+  },
 };

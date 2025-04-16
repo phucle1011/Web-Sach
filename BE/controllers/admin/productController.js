@@ -1,14 +1,13 @@
-const { Product, Category } = require('../models/associations');
 
 
-// Lấy tất cả sản phẩm
+
 exports.getAllProducts = async (req, res) => {
   try {
     const products = await Product.findAll({
       include: [
         {
           model: Category,
-          attributes: ['categoryId', 'categoryName'] // Lấy tên danh mục
+          attributes: ['categoryId', 'categoryName'] 
         }
       ]
     });
@@ -23,7 +22,7 @@ exports.getAllProducts = async (req, res) => {
   }
 };
 
-// Lấy sản phẩm theo ID
+
 exports.getProductById = async (req, res) => {
   try {
     const product = await Product.findByPk(req.params.id, {
@@ -49,7 +48,6 @@ exports.getProductById = async (req, res) => {
   }
 };
 
-// Tạo sản phẩm mới
 
 exports.createProduct = async (req, res) => {
   try {
@@ -88,7 +86,6 @@ exports.createProduct = async (req, res) => {
 };
   
 
-// Cập nhật sản phẩm
 exports.updateProduct = async (req, res) => {
   try {
     const productId = req.params.id;
@@ -126,18 +123,16 @@ exports.updateProduct = async (req, res) => {
   }
 };
 
-// Xóa sản phẩm
+
 exports.deleteProduct = async (req, res) => {
   try {
     const productId = req.params.id;
 
-    // Kiểm tra nếu sản phẩm có tồn tại
     const product = await Product.findByPk(productId);
     if (!product) {
       return res.status(404).json({ error: 'Sản phẩm không tồn tại' });
     }
 
-    // Xóa sản phẩm
     await product.destroy();
 
     res.status(200).json({ message: 'Sản phẩm đã được xóa thành công' });

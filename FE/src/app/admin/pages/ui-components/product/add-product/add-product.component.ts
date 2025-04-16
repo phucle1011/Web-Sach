@@ -50,7 +50,7 @@ export class AddProductComponent implements OnInit {
   getCategories() {
     this.categoryService.getCategories().subscribe({
       next: (res) => {
-        this.categories = res.data;
+        this.categories = res;
       },
       error: (err) => {
         console.error('Lỗi khi lấy danh mục:', err);

@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-const Contact = require('../models/contactModel')
+const Contact = require('../../models/contactModel');
 require('dotenv').config();
 
 exports.sendContactEmail = async (req, res) => {
@@ -10,14 +10,12 @@ exports.sendContactEmail = async (req, res) => {
   }
 
   try {
-    // Kiểm tra email đã tồn tại
     let contact = await Contact.findOne({ where: { email } });
 
     if (contact && contact.count >= 3) {
       return res.status(429).json({ error: 'Email này đã gửi quá 3 lần.' });
     }
 
-    // Cấu hình Nodemailer
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 587,
@@ -35,10 +33,8 @@ exports.sendContactEmail = async (req, res) => {
       text: `Email: ${email}\n\nNội dung:\n${message}`,
     };
 
-    // Gửi email
     await transporter.sendMail(mailOptions);
 
-    // Lưu hoặc cập nhật DB
     if (contact) {
       contact.count += 1;
       contact.message = message;
@@ -62,14 +58,13 @@ exports.getAllContacts = async (req, res) => {
     res.status(200).json({
       status: 200,
       message: 'Lấy danh sách liên hệ thành công',
-      data: contacts,  // Trả về dữ liệu trong trường 'data'
+      data: contacts, 
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-// contactController.js
 exports.updateStatus = async (req, res) => {
   try {
     const id = req.params.id;
