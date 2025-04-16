@@ -27,5 +27,24 @@ export const API_ENDPOINT = {
     update: '',
     delete: '',
     getById: '',
+  },
+  comment: {
+    base: API_BASE_URL + '/admin',
+    list: '/comments/list',
+    add: '/add',
+  },
+
+  product:{
+    base: API_BASE_URL,
+    list: '/product',
+    
+
+  },
+  categoryClient:{
+    base:API_BASE_URL,
+    list: '/category',
+
+
+
   }
 };

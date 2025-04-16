@@ -1,30 +1,43 @@
 <div class="container mt-5 mb-5">
     <div class="row">
-        <div class="col-md-6">
-            <img src="/assets/images/client/logo.png" alt="Tên sản phẩm" width="100%">
+        <div *ngIf="isLoading" class="loading-spinner">
+            <p>Loading...</p>
         </div>
-
-        <div class="col-md-6">
-            <h2 class="product-title mt-3">Tên Sản Phẩm</h2>
-            <p><strong><i>Mô tả: </i></strong>Mô tả sản phẩm...</p>
-            <p><strong><i>Tác giả: </i></strong>Tên tác giả</p>
-            <p><strong><i>Nhà xuất bản: </i></strong>Nhà xuất bản ABC</p>
-
-            <h6>Giá tiền: 
-                <b>100.000 VND</b>
-            </h6>
-            <form action="/cart/add" method="post">
-                <input type="hidden" name="product_id" value="1" required>
+        
+        <div *ngIf="data" class="row">
+            <!-- Hình ảnh sản phẩm -->
+            <div class="col-md-6">
+              <img [src]="data.image" alt="{{ data.title }}" width="100%">
+            </div>
+          
+            <!-- Thông tin sản phẩm -->
+            <div class="col-md-6">
+              <h2 class="product-title mt-3">{{ data.title }}</h2>
+              <p><strong><i>Mô tả: </i></strong>{{ data.shortDescription }}</p>
+              <p><strong><i>Tác giả: </i></strong>{{ data.author }}</p>
+              <p><strong><i>Nhà xuất bản: </i></strong>{{ data.publisher }}</p>
+          
+              <h6>Giá tiền: 
+                <b>  {{ formatPriceVN(data.price) }}</b>
+              </h6>
+          
+              <!-- Form Thêm vào giỏ hàng -->
+              <form action="/cart/add" method="post">
+                <input type="hidden" name="product_id" [value]="data.id" required>
                 <button type="submit" class="btn btn-primary mt-2">Thêm vào giỏ hàng</button>
-            </form>
+              </form>
+            </div>
+          
+            <br>
+          
+            <!-- Chi tiết sản phẩm -->
+            <div class="product-detail bg-light p-4 mb-4">
+              <h2>Chi tiết sản phẩm:</h2>
+              <pre class="prev">{{ data.details }}</pre>
+            </div>
         </div>
 
-        <br>
-
-        <div class="product-detail bg-light p-4 mb-4">
-            <h2>Chi tiết sản phẩm:</h2>
-            <pre class="prev">Nội dung chi tiết sản phẩm...</pre>
-        </div>
+          
 
         <div class="d-flex align-items-center my-3">
             <div class="flex-grow-1 border-top border-dark"></div>

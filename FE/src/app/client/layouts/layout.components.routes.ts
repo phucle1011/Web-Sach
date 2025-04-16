@@ -35,7 +35,7 @@ export const routesClient: Routes = [
         component: ProductComponent,
       },
       {
-        path: 'products/1',
+        path: 'products/:productId',
         component: ProductDetailComponent,
       },
       {
