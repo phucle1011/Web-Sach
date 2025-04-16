@@ -14,19 +14,19 @@
       </thead>
       <tbody>
         <tr *ngFor="let user of dataSource; let i = index">
-          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ user.userId }}</td>
           <td>
             <img [src]="user.avatar" alt="{{ user.name }}" class="img-thumbnail"
               width="60">
           </td>
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
-          <td>{{ user.phone }}</td>
+          <td>{{ user.phoneNumber }}</td>
           <td class="text-center">
             <div class="btn-group" role="group">
               <a [routerLink]="['/admin/edit-user']" mat-stroked-button
                 class="btn btn-outline-primary btn-sm">Sửa</a>
-              <button class="btn btn-outline-danger btn-sm">
+              <button class="btn btn-outline-danger btn-sm" (click)="openDialog(user.userId, user.name)" >
                 <i class="bi bi-trash"></i> Xóa
               </button>
             </div>

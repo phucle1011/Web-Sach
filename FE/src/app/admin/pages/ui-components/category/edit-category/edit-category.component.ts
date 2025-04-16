@@ -35,7 +35,7 @@ export class EditCategoryComponent implements OnInit {
   ) {
     this.form = this.fb.group({
       categoryName: ['', Validators.required],
-      status: ['hiện', Validators.required] // mặc định là 'hiện'
+      status: ['', Validators.required]
     });
   }
 
@@ -50,7 +50,7 @@ export class EditCategoryComponent implements OnInit {
         if (res && res.data) {
           this.form.patchValue({
             categoryName: res.data.categoryName,
-            status: res.data.status || 'hiện'
+            status: res.data.status
           });
         } else {
           console.error('Dữ liệu không hợp lệ');
@@ -67,8 +67,8 @@ export class EditCategoryComponent implements OnInit {
   submit(): void {
 
     const newCategory = {
-      categoryName: this.form.value.categoryName!, // dùng ! để khẳng định không null
-      status: this.form.value.status === 'hiện' ? 1 : 0,
+      categoryName: this.form.value.categoryName!,
+      status: this.form.value.status,
     };
     if (this.form.valid) {
       console.log("Submit data:", newCategory);

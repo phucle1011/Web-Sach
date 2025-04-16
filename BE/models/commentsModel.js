@@ -30,4 +30,5 @@ const Comment = connection.define('Comment', {
     timestamps: false,
   });
   
+  
   module.exports = Comment;

@@ -8,16 +8,24 @@ export const API_ENDPOINT = {
     login: '/users/login',
   },
   order: {
-    base: API_BASE_URL +'/admin'+ '/' + 'orders',
+    base: API_BASE_URL + '/admin' + '/' + 'orders',
     list: '/list',
     add: '/add',
   },
   category: {
     base: `${API_BASE_URL}/admin/categories`,
-    list: '/list',               
-    add: '/add',                 
-    update: '',             
-    delete: '',             
-    getById: '',             
+    list: '/list',
+    add: '/add',
+    update: '',
+    delete: '',
+    getById: '',
+  },
+  user: {
+    base: `${API_BASE_URL}/admin/users`,
+    list: '/list',
+    add: '/add',
+    update: '',
+    delete: '',
+    getById: '',
   }
 };
