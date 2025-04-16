@@ -10,7 +10,7 @@ import { ProductComponent } from '../pages/product/product.component';
 import { ProductDetailComponent } from '../pages/product/product-detail/product-detail.component';
 import { CheckoutComponent } from '../pages/cart/checkout/checkout.component';
 import { OrderComponent } from '../pages/order/order.component';
-import { ContactComponent } from '../pages/blog/contact/contact.component';
+import { ContactComponent } from '../pages/contact/contact.component';
 import { BlogComponent } from '../pages/blog/blog.component';
 
 export const routesClient: Routes = [

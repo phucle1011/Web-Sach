@@ -15,25 +15,31 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let element of dataSource">
-                  <td>{{ element.position }}</td>
-                  <td>{{ element.name }}</td>
-                  <td>
-                    <select class="form-control" [(ngModel)]="element.status" (change)="changeStatus(element, $event)">
-                      <option value="hiện">Hiện</option>
-                      <option value="ẩn">Ẩn</option>
+                <tr *ngFor="let element of list">
+                  <td>{{ element.categoryId }}</td>
+                  <td>{{ element.categoryName }}</td>
+                  <td class="text-center">
+                    <select
+                      class="form-select form-select-sm fw-bold text-center w-auto"
+                      [ngClass]="element.status == 1 
+                        ? 'bg-light-success' 
+                        : 'bg-light-danger text-danger'"
+                      [(ngModel)]="element.status">
+                      <option [ngValue]="1">Hiện</option>
+                      <option [ngValue]="0">Ẩn</option>
                     </select>
                   </td>
                   <td class="text-center">
-                    <div class="d-flex">
-                      <button [routerLink]="['/admin/categories/edit']" mat-stroked-button class="btn btn-outline-primary btn-sm">Sửa</button>
-                      
-                      <button 
-                      class="btn btn-outline-danger btn-sm" 
-                      (click)="confirmAndDelete(element)">
-                      <i class="bi bi-trash"></i> Xóa
-                    </button>
-                    
+                    <div class="btn-group" role="group">
+                      <button
+                        [routerLink]="['/admin/categories/edit' , element.categoryId]"
+                        mat-stroked-button
+                        class="btn btn-primary">Sửa</button>
+                      <button
+                      class="btn btn-danger ms-2"
+                        (click)="openDialog(element.categoryId, element.categoryName)">
+                        <i class="bi bi-trash"></i> Xóa
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -42,6 +48,6 @@
           </div>
         </div>
       </div>
-    </div> 
+    </div>
   </mat-card-content>
 </mat-card>

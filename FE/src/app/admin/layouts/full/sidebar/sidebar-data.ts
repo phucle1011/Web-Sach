@@ -62,6 +62,11 @@ export const navItems: NavItem[] = [
       iconName: 'table',
       route: '/admin/comments',
     },
+    {
+      displayName: 'Liên Hệ',
+      iconName: 'table',
+      route: '/admin/contact',
+    },
   {
     displayName: 'Đơn hàng',
     iconName: 'table',

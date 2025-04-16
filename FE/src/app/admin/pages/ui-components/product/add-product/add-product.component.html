@@ -1,98 +1,83 @@
-<div class="container mt-4">
-  <div class="card p-4 shadow rounded-3">
-    <h4 class="text-center">Thêm Sách Mới</h4>
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form-container">
+  <div class="card product-card">
+    <div class="card-body">
+      <h3 class="card-title m-b-0">Thêm sản phẩm</h3>
 
-    <form [formGroup]="fromData" (ngSubmit)="onSubmit()">
-      <div class="mb-3">
-        <label class="form-label">Tên Sách</label>
-        <input type="text" class="form-control" formControlName="tensach" />
-        <span class="text-danger" *ngIf="tensach?.invalid && (tensach?.dirty || tensach?.touched)">
-          Vui lòng nhập tên sách hợp lệ
-        </span>
+      <div class="form-group">
+        <label for="title">Tiêu đề</label>
+        <input formControlName="title" id="title" placeholder="Tiêu đề" required class="form-control" />
+        <div *ngIf="productForm.get('title')?.invalid && productForm.get('title')?.touched" class="text-danger">
+          Tiêu đề là bắt buộc.
+        </div>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Tác Giả</label>
-        <input type="text" class="form-control" formControlName="tacgia" />
-        <span class="text-danger" *ngIf="tacgia?.invalid && (tacgia?.dirty || tacgia?.touched)">
-          Vui lòng nhập tên tác giả hợp lệ
-        </span>
+      <div class="form-group">
+        <label for="author">Tác giả</label>
+        <input formControlName="author" id="author" placeholder="Tác giả" class="form-control" />
+        <div *ngIf="productForm.get('author')?.invalid && productForm.get('author')?.touched" class="text-danger">
+          Tác giả là bắt buộc.
+        </div>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Nhà Xuất Bản</label>
-        <input type="text" class="form-control" formControlName="publisher" />
-        <span class="text-danger" *ngIf="publisher?.invalid && (publisher?.dirty || publisher?.touched)">
-          Vui lòng nhập nhà xuất bản
-        </span>
+      <div class="form-group">
+        <label for="publisher">Nhà xuất bản</label>
+        <input formControlName="publisher" id="publisher" placeholder="Nhà xuất bản" class="form-control" />
+        <div *ngIf="productForm.get('publisher')?.invalid && productForm.get('publisher')?.touched" class="text-danger">
+          Nhà xuất bản là bắt buộc.
+        </div>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Giá</label>
-        <input type="number" class="form-control" formControlName="gia" />
-        <span class="text-danger" *ngIf="gia?.invalid && (gia?.dirty || gia?.touched)">
-          Giá phải là số và không được để trống
-        </span>
+      <div class="form-group">
+        <label for="price">Giá</label>
+        <input formControlName="price" id="price" placeholder="Giá" type="number" class="form-control" />
+        <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched" class="text-danger">
+          Giá là bắt buộc và phải là số.
+        </div>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Số Lượng</label>
-        <input type="number" class="form-control" formControlName="soluong" />
-        <span class="text-danger" *ngIf="soluong?.invalid && (soluong?.dirty || soluong?.touched)">
-          Số lượng phải lớn hơn 0
-        </span>
+      <div class="form-group">
+        <label for="description">Mô tả dài</label>
+        <textarea formControlName="description" id="description" placeholder="Mô tả dài" class="form-control"></textarea>
+        <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched" class="text-danger">
+          Mô tả dài là bắt buộc.
+        </div>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Hình Ảnh</label>
-        <input type="file" class="form-control" formControlName="images" />
-        <span class="text-danger" *ngIf="images?.invalid && (images?.dirty || images?.touched)">
-          Vui lòng chọn hình ảnh
-        </span>
+      <div class="form-group">
+        <label for="shortDescription">Mô tả ngắn</label>
+        <textarea formControlName="shortDescription" id="shortDescription" placeholder="Mô tả ngắn" class="form-control"></textarea>
+        <div *ngIf="productForm.get('shortDescription')?.invalid && productForm.get('shortDescription')?.touched" class="text-danger">
+          Mô tả ngắn là bắt buộc.
+        </div>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Ngày Xuất Bản</label>
-        <input type="date" class="form-control" formControlName="publicationDate" />
-        <span class="text-danger" *ngIf="publicationDate?.invalid && (publicationDate?.dirty || publicationDate?.touched)">
-          Vui lòng chọn ngày xuất bản
-        </span>
+      <div class="form-group">
+        <label for="publicationDate">Ngày xuất bản</label>
+        <input formControlName="publicationDate" id="publicationDate" type="date" class="form-control" />
+        <div *ngIf="productForm.get('publicationDate')?.invalid && productForm.get('publicationDate')?.touched" class="text-danger">
+          Ngày xuất bản là bắt buộc.
+        </div>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Danh Mục</label>
-        <select class="form-select" formControlName="danhmuc">
-          <option value="">Vui lòng chọn danh mục</option>
-          <option value="fiction">Tiểu thuyết</option>
-          <option value="science">Khoa học</option>
-          <option value="history">Lịch sử</option>
-          <option value="self-help">Phát triển bản thân</option>
+      <div class="form-group">
+        <label for="category">Danh mục</label>
+        <select id="category" class="form-control" formControlName="categoryId" required>
+          <option value="">-- Chọn danh mục --</option>
+          <option *ngFor="let category of categories" [value]="category.categoryId">
+            {{ category.categoryName }}
+          </option>
         </select>
-        <span class="text-danger" *ngIf="danhmuc?.invalid && (danhmuc?.dirty || danhmuc?.touched)">
-          Vui lòng chọn danh mục
-        </span>
+        <div *ngIf="productForm.get('categoryId')?.invalid && productForm.get('categoryId')?.touched" class="text-danger">
+          Vui lòng chọn một danh mục.
+        </div>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Mô Tả Ngắn</label>
-        <textarea class="form-control" formControlName="motangan"></textarea>
-        <span class="text-danger" *ngIf="motangan?.invalid && (motangan?.dirty || motangan?.touched)">
-          Vui lòng nhập mô tả ngắn
-        </span>
+      <div class="form-group">
+        <label for="file">Hình ảnh sản phẩm</label>
+        <input type="file" id="file" (change)="onFileChange($event)" class="form-control" />
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Mô Tả Chi Tiết</label>
-        <textarea class="form-control" formControlName="description"></textarea>
-        <span class="text-danger" *ngIf="description?.invalid && (description?.dirty || description?.touched)">
-          Vui lòng nhập mô tả chi tiết
-        </span>
-      </div>
-
-      <div class="d-flex justify-content-between">
-        <button type="submit" class="btn btn-primary" [disabled]="!fromData.valid">Thêm Sách</button>
-        <a [routerLink]="['/admin/product']" class="btn btn-danger">Hủy</a>
-      </div>
-    </form>
+      <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">Thêm sản phẩm</button>
+    </div>
   </div>
-</div>
+</form>
