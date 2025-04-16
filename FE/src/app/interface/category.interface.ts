@@ -1,5 +1,5 @@
-export interface Category {
+export interface ICategory {
     categoryId: number;
-  categoryName: string;
+    categoryName: string;
     status: number; 
   }
