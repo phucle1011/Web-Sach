@@ -25,20 +25,18 @@ export class ProductComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Lắng nghe thay đổi query params để lọc theo categoryId
     this.route.queryParams.subscribe((params) => {
       const categoryId = params['categoryId'];
       if (categoryId) {
         this.loadProductsByCategory(categoryId);
       } else {
-        this.loadProducts(); // Nếu không có categoryId thì load tất cả sản phẩm
+        this.loadProducts();
       }
     });
 
-    this.loadCagory(); // Luôn luôn tải danh mục
+    this.loadCagory(); 
   }
 
-  // Hàm tải tất cả sản phẩm
   loadProducts(): void {
     this.productService.getProduct().subscribe({
       next: (res: any) => {
@@ -50,7 +48,7 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  // Hàm tải sản phẩm theo danh mục
+
   loadProductsByCategory(categoryId: number): void {
     this.productService.getProductByCategory(categoryId).subscribe({
       next: (res: any) => {
@@ -62,7 +60,7 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  // Hàm tải danh mục
+
   loadCagory(): void {
     this.categoryService.getcategory().subscribe({
       next: (res: any) => {
@@ -74,13 +72,13 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  // Hàm tính tổng giá trị sản phẩm
+
   getTotalPrice(): number {
     return this.products.reduce((total, product) => {
       return total + this.convertToNumber(product.price);
     }, 0);
   }
-  // Hàm định dạng giá theo chuẩn Việt Nam (dấu . và thêm 'VND')
+
 formatPriceVN(value: string | number): string {
   const num = typeof value === 'string'
     ? parseFloat(value.replace(/,/g, '').replace(/\./g, '').replace(/[^\d]/g, ''))
@@ -90,7 +88,7 @@ formatPriceVN(value: string | number): string {
 }
 
 
-  // Hàm chuyển giá từ chuỗi -> số (nếu cần)
+
   convertToNumber(value: string | number): number {
     if (typeof value === 'number') return value;
     return parseFloat(value.replace(/\./g, '').replace('đ', '').trim()) || 0;

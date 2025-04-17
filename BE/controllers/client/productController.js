@@ -1,7 +1,7 @@
-const { Product, Category, User } = require("../../models");
+const  Product  = require("../../models/productModel");
+const  Category  = require("../../models/categoryModel");
 
 class ProductController {
-  // ✅ Lấy danh sách tất cả sản phẩm
   static async get(req, res) {
     try {
         const { categoryId } = req.query;
@@ -20,14 +20,15 @@ class ProductController {
     }
   }
 
-  // ✅ Lấy sản phẩm theo ID
+
   static async getById(req, res) {
     try {
       const { id } = req.params;
       const product = await Product.findByPk(id, {
         include: [
           {
-            model: Category,
+            model: Category, 
+            as: 'category',
             attributes: ['categoryName'],
           },
         ]

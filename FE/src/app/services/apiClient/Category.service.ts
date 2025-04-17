@@ -14,9 +14,8 @@ export class CategoryService extends ApiService {
     super(_http);
   }
 
-  // Lấy danh sách tất cả bình luận
   getcategory(): Observable<IProduct[]> {
-    return this.get<IProduct[]>(API_ENDPOINT.category.base + API_ENDPOINT.category.list);
+    return this.get<IProduct[]>(API_ENDPOINT.categoryClient.base + API_ENDPOINT.categoryClient.list);
   }
 
   

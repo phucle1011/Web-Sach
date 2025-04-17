@@ -9,7 +9,7 @@ require ('./models/connectionModel');
 app.use(express.json());
 
 app.use((err, req, res, next) => {
-    console.error(err); // In ra lỗi chi tiết
+    console.error(err); 
     res.status(500).send('Lỗi máy chủ');
 });
 

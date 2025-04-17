@@ -28,6 +28,14 @@ export const API_ENDPOINT = {
     delete: '',
     getById: '',
   },
+  productClient:{
+    base: API_BASE_URL,
+    list: '/product',
+  },
+  categoryClient:{
+    base:API_BASE_URL,
+    list: '/category',
+  },
   user: {
     base: `${API_BASE_URL}/admin/users`,
     list: '/list',

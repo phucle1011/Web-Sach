@@ -1,10 +1,13 @@
-
- export interface IProduct {
-    Category: any;
-    productId: number;
-    title: string;
-    author: string;
-    price: number;
-    images: string;
-    categoryName: string;
+export interface IProduct {
+    productId: number;             
+    title: string;                 
+    author: string;               
+    publisher: string;       
+    price: string;               
+    description: string;     
+    images: string;                
+    shortDescription: string;      
+    publicationDate?: string | null;  
+    categoryId?: number | null;     
   }
+  

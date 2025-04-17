@@ -23,8 +23,9 @@ ProductModel.hasMany(OrderDetailModel, { foreignKey: 'product_id', as: 'orderDet
 
 
 // Category - Product
-CategoryModel.hasMany(ProductModel, { foreignKey: 'categoryId', as: 'products' });
 ProductModel.belongsTo(CategoryModel, { foreignKey: 'categoryId', as: 'category' });
+CategoryModel.hasMany(ProductModel, { foreignKey: 'categoryId', as: 'products' });
+
 
 // Rating - User
 RatingModel.belongsTo(UserModel, { foreignKey: 'userId', as: 'user' });
@@ -37,6 +38,7 @@ CommentModel.belongsTo(ProductModel, { foreignKey: 'productId', as: 'product' })
 // CartItem - User
 CartItemModel.belongsTo(UserModel, { foreignKey: 'user_id', as: 'user' });
 CartItemModel.belongsTo(ProductModel, { foreignKey: 'product_id', as: 'product' });
+
 
 module.exports = {
   UserModel, 

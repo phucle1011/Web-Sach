@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/services/apiClient/product.service'; 
-import { CommonModule } from '@angular/common';  // Đảm bảo import CommonModule
+import { CommonModule } from '@angular/common'; 
 
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.scss'],
-  standalone: true,  // Đảm bảo sử dụng standalone nếu component không được khai báo trong module chính
-  imports: [CommonModule] // Đảm bảo đã thêm CommonModule để sử dụng các chỉ thị cơ bản như ngIf, ngFor
+  standalone: true,  
+  imports: [CommonModule] 
 })
 export class ProductDetailComponent implements OnInit {
   productId: string | null = null;
-  data: any = null; // Thay productDetail thành data
+  data: any = null; 
   isLoading: boolean = true;
 
   constructor(
@@ -33,9 +33,8 @@ export class ProductDetailComponent implements OnInit {
     if (this.productId) {
       this.productService.getProductDetail(this.productId).subscribe(
         (response: any) => {
-          // Kiểm tra cấu trúc dữ liệu API và gán giá trị đúng
-          this.data = response.data || response; // Gán dữ liệu vào biến data
-          console.log("Dữ liệu sản phẩm: ", this.data);  // Kiểm tra dữ liệu
+          this.data = response.data || response; 
+          console.log("Dữ liệu sản phẩm: ", this.data);  
           this.isLoading = false;
         },
         (error: any) => {
@@ -46,7 +45,6 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
-  // Hàm tính tổng giá trị sản phẩm nếu có một danh sách sản phẩm
   getTotalPrice(): number {
     if (!this.data || !Array.isArray(this.data)) return 0;
     return this.data.reduce((total: number, product: any) => {
@@ -54,7 +52,6 @@ export class ProductDetailComponent implements OnInit {
     }, 0);
   }
 
-  // Hàm định dạng giá theo chuẩn Việt Nam (dấu . và thêm 'VND')
   formatPriceVN(value: string | number): string {
     const num = typeof value === 'string'
       ? parseFloat(value.replace(/,/g, '').replace(/\./g, '').replace(/[^\d]/g, ''))
@@ -63,7 +60,6 @@ export class ProductDetailComponent implements OnInit {
     return num.toLocaleString('vi-VN') + ' VND';
   }
 
-  // Hàm chuyển giá từ chuỗi -> số (nếu cần)
   convertToNumber(value: string | number): number {
     if (typeof value === 'number') return value;
     return parseFloat(value.replace(/\./g, '').replace('đ', '').trim()) || 0;

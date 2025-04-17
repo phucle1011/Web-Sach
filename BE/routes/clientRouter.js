@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const ProductController = require('../controllers/client/productController');
-const CategoryController = require('../controllers/admin/categoryController');
+const CategoryController = require('../controllers/client/categoryController');
 const AuthController = require('../controllers/client/authController');
 
 router.get('/', (req, res) => {

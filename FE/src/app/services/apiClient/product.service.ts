@@ -14,18 +14,14 @@ export class ProductService extends ApiService {
     super(_http);
   }
 
-  // Lấy danh sách tất cả sản phẩm
   getProduct(): Observable<IProduct[]> {
-    return this.get<IProduct[]>(API_ENDPOINT.product.base + API_ENDPOINT.product.list);
+    return this.get<IProduct[]>(API_ENDPOINT.productClient.base + API_ENDPOINT.productClient.list);
   }
-
-  // Lấy sản phẩm theo danh mục
   getProductByCategory(categoryId: number): Observable<any> {
-    return this.get<any>(API_ENDPOINT.product.base + API_ENDPOINT.product.list + `?categoryId=${categoryId}`);
+    return this.get<any>(API_ENDPOINT.productClient.base + API_ENDPOINT.productClient.list + `?categoryId=${categoryId}`);
   }
 
-  // Lấy chi tiết sản phẩm theo productId
   getProductDetail(productId: string): Observable<any> {
-    return this.get<any>(`${API_ENDPOINT.product.base}${API_ENDPOINT.product.list}/${productId}`);
+    return this.get<any>(`${API_ENDPOINT.productClient.base}${API_ENDPOINT.productClient.list}/${productId}`);
   }
 }
