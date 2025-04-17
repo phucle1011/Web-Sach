@@ -2,55 +2,54 @@
   <div>
     <a routerLink="/orders" class="btn btn-primary">🛍 Xem đơn hàng</a>
   </div>
+  
   <h2 class="text-center">🛒 Giỏ hàng của bạn</h2>
 
   <table class="table table-bordered text-center mt-4">
-    <thead class="table-dark">
+    <thead>
       <tr>
-        <th>Hình Ảnh</th>
-        <th>Tên Sản Phẩm</th>
-        <th>Số Lượng</th>
+        <th>Ảnh sản phẩm</th>
+        <th>Tên sản phẩm</th>
         <th>Giá</th>
-        <th></th>
+        <th>Số lượng</th>
+        <th>Tổng</th>
+        <th>Hành động</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of cartItems; let i = index">
-        <td>
-          <img [src]="item.imageUrl" alt="Product Image" class="img-fluid" width="80">
-        </td>
-        <td>
-          <h5>{{ item.name }}</h5>
-          <p class="text-muted">{{ item.category }}</p>
-        </td>
-        <td>
-          <button (click)="decreaseQuantity(i)" class="btn btn-outline-secondary btn-sm">-</button>
-          <span class="mx-2">{{ item.quantity }}</span>
-          <button (click)="increaseQuantity(i)" class="btn btn-outline-secondary btn-sm">+</button>
-        </td>
-        <td><strong>{{ item.price * item.quantity | number:'1.0-0' }} VND</strong></td>
-        <td>
-          <button (click)="removeItem(i)" class="btn btn-danger btn-sm">🗑 Xóa</button>
-        </td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-          <td colspan="3" class="text-end">Tổng Tiền:</td>
-          <td id="grand-total" class="fw-bold">
-            <strong>{{ total |  number:'1.0-0' }} VND</strong>
+      <ng-container *ngIf="cartItems.length > 0; else emptyCart">
+        <tr *ngFor="let item of cartItems; let i = index">
+          <td><img [src]="item.product.images" alt="{{ item.product.title }}" width="50" /></td> 
+          <td>{{ item.product.title }}</td>
+          <td>{{ formatPriceVN(item.product.price) }}</td>
+          <td>
+            <button (click)="decreaseQuantity(i)">-</button>
+            <span>{{ item.quantity }}</span>
+            <button (click)="increaseQuantity(i)">+</button>
           </td>
-          <td></td>
-      </tr>
-  </tfoot>
+          <td>{{ formatPriceVN(item.product.price * item.quantity) }}</td>
+          <td>
+            <button (click)="removeItem(i)" class="btn btn-danger">Xóa</button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
   </table>
 
-  <div class="d-flex justify-content-between align-items-center mt-4">
-    <div class=" mt-4">
-      <form action="/cart/clear" method="post">
-          <button type="submit" class="btn btn-warning">❌ Xóa toàn bộ giỏ hàng</button>
-      </form>
+  <ng-template #emptyCart>
+    <p>Giỏ hàng của bạn hiện đang trống.</p>
+  </ng-template>
+
+  <div class="cart-total text-right mt-4">
+    <h3>Tổng tiền: {{ formatPriceVN(getTotalPrice()) }}</h3>
   </div>
+
+  <div class="d-flex justify-content-between align-items-center mt-4">
+    <div class="mt-4">
+      <form action="/cart/clear" method="post">
+        <button type="submit" class="btn btn-warning">❌ Xóa toàn bộ giỏ hàng</button>
+      </form>
+    </div>
     <button routerLink="/checkout" class="btn btn-success btn-lg">💳 Thanh Toán</button>
   </div>
 </div>

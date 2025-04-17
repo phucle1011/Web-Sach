@@ -3,6 +3,13 @@ import { environment } from "../../environments/environment";
 export const API_BASE_URL = environment.apiUrl;
 
 export const API_ENDPOINT = {
+  cart: {
+    base: API_BASE_URL,
+    list: '/cart',
+    add: '/addcart',
+    delete:'/removecart',
+    edit:'/updatecart'
+  },
   auth: {
     base: API_BASE_URL,
     login: '/login',

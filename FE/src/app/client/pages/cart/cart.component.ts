@@ -1,46 +1,105 @@
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ICartItem } from 'src/app/interface/cart-item.interface';
+import { CartService } from 'src/app/services/apiClient/cart.service';
+ // đường dẫn phù hợp
 
 @Component({
   selector: 'app-cart',
+  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './cart.component.html',
-  styleUrl: './cart.component.scss'
+  styleUrls: ['./cart.component.scss']
 })
-export class CartComponent {
- cartItems = [
-  {
-    name: 'Đắc Nhân Tâm',
-    category: 'Sách Phát Triển Bản Thân',
-    quantity: 1,
-    price: 150000, 
-     imageUrl: 'assets/images/products/datnhantam.png'
-  },
-  {
-    name: 'Hạt Giống Tâm Hồn',
-    category: 'Sách Phát Triển Tâm Hồn',
-    quantity: 1,
-    price: 120000,
-    imageUrl: 'assets/images/products/hatgiongtamhon.png' 
+export class CartComponent implements OnInit {
+  cartItems: ICartItem[] = [];
+
+  constructor(private cartService: CartService) {}
+
+  ngOnInit(): void {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const userId = user.userId;
+
+    if (userId) {
+      this.loadCart(userId);
+    } else {
+      console.warn('Không tìm thấy userId trong localStorage');
+    }
   }
-];
 
-get total() {
-  return this.cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-}
-
-removeItem(index: number) {
-  this.cartItems.splice(index, 1);
-}
-
-increaseQuantity(index: number) {
-  this.cartItems[index].quantity++;
-}
-
-decreaseQuantity(index: number) {
-  if (this.cartItems[index].quantity > 1) {
-    this.cartItems[index].quantity--;
+  loadCart(userId: number): void {
+    this.cartService.getCartByUser(userId).subscribe({
+      next: (res) => {
+        this.cartItems = res.data;
+        console.log("Dữ liệu giỏ hàng:", this.cartItems);
+      },
+      error: (err) => {
+        console.error('Lỗi tải giỏ hàng:', err);
+      }
+    });
   }
-}
+
+  removeItem(index: number): void {
+    const item = this.cartItems[index];
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const userId = user.userId;
+
+    if (!userId) {
+      console.error('Không tìm thấy user_id trong localStorage');
+      return;
+    }
+
+    this.cartService.deleteCart(item.id, userId).subscribe({
+      next: () => {
+        this.cartItems.splice(index, 1);
+      },
+      error: (err) => {
+        console.error('Lỗi khi xóa sản phẩm khỏi giỏ hàng:', err);
+      }
+    });
+  }
+
+  increaseQuantity(index: number): void {
+    const item = this.cartItems[index];
+    item.quantity++;
+    this.updateQuantity(item);
+  }
+
+  decreaseQuantity(index: number): void {
+    const item = this.cartItems[index];
+    if (item.quantity > 1) {
+      item.quantity--;
+      this.updateQuantity(item);
+    }
+  }
+
+  updateQuantity(item: ICartItem): void {
+    this.cartService.putCart(item).subscribe({
+      next: (res) => {
+        console.log('Cập nhật giỏ hàng thành công:', res);
+      },
+      error: (err) => {
+        console.error('Lỗi khi cập nhật giỏ hàng:', err);
+      }
+    });
+  }
+
+  getTotalPrice(): number {
+    return this.cartItems.reduce((total: number, item: any) => {
+      return total + item.product.price * item.quantity;
+    }, 0);
+  }
+
+  formatPriceVN(value: string | number): string {
+    const num = typeof value === 'string' ? this.convertToNumber(value) : value;
+    const adjusted = num * 1000;
+    return adjusted.toLocaleString('vi-VN') + ' VND';
+  }
+
+  convertToNumber(value: string | number): number {
+    if (typeof value === 'number') return value;
+    const cleanedValue = value.replace(/[^\d.-]/g, '');
+    return parseFloat(cleanedValue) || 0;
+  }
 }

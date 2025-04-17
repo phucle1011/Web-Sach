@@ -1,2 +1,9 @@
+# Ignore node_modules of both frontend and backend
+BE/node_modules/
+FE/node_modules/
+BE/.env/
 
-node_modules
+
+# Ignore build files
+BE/dist/
+FE/build/
