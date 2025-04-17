@@ -5,6 +5,7 @@ const UserController = require('../controllers/admin/userController');
 const CategoryController = require('../controllers/admin/categoryController');
 const OrderController = require('../controllers/admin/orderController');
 const CommentController = require('../controllers/admin/commentController');
+const ContactController = require('../controllers/admin/contactController');
 
 router.get('/categories/list', CategoryController.get);
 router.post('/categories/add', CategoryController.create);
@@ -25,5 +26,7 @@ router.delete('/users/:id', UserController.deleteUser);
 router.post('/users/add', UserController.addUser);
 router.get('/users/:id', UserController.getUserById);
 router.put('/users/:id', UserController.update);
+
+router.get('/contacts', ContactController.getAllContacts);
 
 module.exports = router;

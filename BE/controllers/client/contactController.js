@@ -54,9 +54,7 @@ exports.sendContactEmail = async (req, res) => {
 
 exports.getAllContacts = async (req, res) => {
   try {
-    const contacts = await Contact.findAll({
-      order: [['createdAt', 'DESC']], 
-    });
+    const contacts = await Contact.findAll();
     res.status(200).json({
       status: 200,
       message: 'Lấy danh sách liên hệ thành công',

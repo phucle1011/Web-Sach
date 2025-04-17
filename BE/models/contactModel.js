@@ -26,7 +26,10 @@ const Contact = connection.define('contacts', {
   status: {
     type: DataTypes.STRING,
     defaultValue: 'Chưa trả lời',  
-  }
+  },
+  createdAt: {  
+    type: DataTypes.DATE,
+  },
 }, {
   tableName: 'contacts',
   timestamps: true

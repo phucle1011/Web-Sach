@@ -48,5 +48,10 @@ export const API_ENDPOINT = {
     base: API_BASE_URL +'/admin'+ '/' + 'comments',
     list: '/list',
     add: '/add',
-  }
+  },
+  contact: {
+    base: `${API_BASE_URL}/contact`,
+    list: `${API_BASE_URL}/admin/contacts`,
+    id: (id: number | string) => `${API_BASE_URL}/admin/contact/${id}`,
+  },
 };
