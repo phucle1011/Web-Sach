@@ -1,6 +1,6 @@
 <div class="container my-5">
   <div>
-    <a routerLink="/orders" class="btn btn-primary">🛍 Xem đơn hàng</a>
+    <a routerLink="/orders" class="btn btn-primary mt-5">🛍 Xem đơn hàng</a>
   </div>
   
   <h2 class="text-center">🛒 Giỏ hàng của bạn</h2>
@@ -50,6 +50,6 @@
         <button type="submit" class="btn btn-warning">❌ Xóa toàn bộ giỏ hàng</button>
       </form>
     </div>
-    <button routerLink="/checkout" class="btn btn-success btn-lg">💳 Thanh Toán</button>
+    <button (click)="handleCheckout()" class="btn btn-success btn-lg">💳 Thanh Toán</button>
   </div>
 </div>

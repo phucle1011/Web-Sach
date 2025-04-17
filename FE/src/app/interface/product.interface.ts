@@ -1,4 +1,5 @@
 export interface IProduct {
+    id: any;
     productId: number;             
     title: string;                 
     author: string;               

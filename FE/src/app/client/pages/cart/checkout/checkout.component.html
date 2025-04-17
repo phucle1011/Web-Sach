@@ -3,9 +3,10 @@
 
     <div class="row">
         <div class="col-md-6">
-            <h4 class="text-center">Thông tin đơn hàng</h4>
-            <table class="table table-bordered">
-                <thead>
+            <h4 class="text-center mb-3">Thông tin đơn hàng</h4>
+
+            <table class="table table-bordered text-center">
+                <thead class="table-light">
                     <tr>
                         <th>#</th>
                         <th>Tên</th>
@@ -15,52 +16,55 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Đắc Nhân Tâm</td>
-                        <td>150,000đ</td>
-                        <td class="checkout-quantity" data-id="1">1</td>
-                        <td class="total-checkout" id="checkout-total-1">150,000đ</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Hạt Giống Tâm Hồn</td>
-                        <td>120,000đ</td>
-                        <td class="checkout-quantity" data-id="2">1</td>
-                        <td class="total-checkout" id="checkout-total-2">120,000đ</td>
+                    <tr *ngFor="let item of cartItems; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ item.title }}</td>
+                        <td>{{ formatPrice(item.price) }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ formatPrice(item.total) }}</td>
                     </tr>
                 </tbody>
             </table>
-            <h2 id="checkout-total">Tổng tất cả: 270,000 VND</h2>
+
+            <div class="text-end mt-3">
+                <h5><strong>Tổng tất cả:</strong> {{ formatPrice(totalPrice)
+                    }}</h5>
+            </div>
         </div>
 
         <div class="col-md-6">
             <h4 class="text-center">Nhập thông tin giao hàng</h4>
             <form action="/orders" method="POST" class="card card-body">
-                <div class="form-group mb-4"> 
+                <div class="form-group mb-4">
                     <label class="fw-bold mb-2" for="name">Tên*</label>
-                    <input type="text" class="form-control" id="name" name="name" value="Nguyễn Văn A" required>
+                    <input type="text" class="form-control" id="name"
+                        name="name" [(ngModel)]="name" required>
                 </div>
-            
-                <div class="form-group mb-4"> 
-                    <label class="fw-bold mb-2" for="phone">Số điện thoại*</label>
-                    <input type="tel" class="form-control" id="phone" name="phone" value="0123456789" required>
+
+                <div class="form-group mb-4">
+                    <label class="fw-bold mb-2" for="phone">Số điện
+                        thoại*</label>
+                    <input type="tel" class="form-control" id="phone"
+                        name="phone" [(ngModel)]="phone" required>
                 </div>
-            
-                <div class="form-group mb-4"> 
+
+                <div class="form-group mb-4">
                     <label class="fw-bold mb-2" for="email">Email*</label>
-                    <input type="email" class="form-control" id="email" name="email" value="nguyen@example.com" required>
+                    <input type="email" class="form-control" id="email"
+                        name="email" [(ngModel)]="email" required>
                 </div>
-            
-                <div class="form-group mb-4"> 
+
+                <div class="form-group mb-4">
                     <label class="fw-bold mb-2" for="address">Địa chỉ*</label>
-                    <input type="text" class="form-control" id="address" name="address" value="Hà Nội, Việt Nam" required>
+                    <input type="text" class="form-control" id="address"
+                        name="address" [(ngModel)]="address" required>
                 </div>
-            
-                <input type="hidden" name="cart" value="Cart information goes here">
-            
+
+                <input type="hidden" name="cart" [value]="cartItems | json">
+
                 <div class="d-flex justify-content-center mt-2">
-                    <button type="submit" class="btn btn-primary">Thanh toán khi nhận hàng</button>
+                    <button type="submit" class="btn btn-primary">Thanh toán khi
+                        nhận hàng</button>
                 </div>
             </form>
         </div>

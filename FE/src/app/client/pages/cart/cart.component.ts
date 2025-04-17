@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ICartItem } from 'src/app/interface/cart-item.interface';
 import { CartService } from 'src/app/services/apiClient/cart.service';
- // đường dẫn phù hợp
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -15,7 +16,7 @@ import { CartService } from 'src/app/services/apiClient/cart.service';
 export class CartComponent implements OnInit {
   cartItems: ICartItem[] = [];
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private cookieService: CookieService, private router: Router) { }
 
   ngOnInit(): void {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -102,4 +103,23 @@ export class CartComponent implements OnInit {
     const cleanedValue = value.replace(/[^\d.-]/g, '');
     return parseFloat(cleanedValue) || 0;
   }
+
+  saveCartToCookie(): void {
+    const cartData = this.cartItems.map(item => ({
+      productId: item.product.id,
+      title: item.product.title,
+      quantity: item.quantity,
+      price: item.product.price,
+      total: item.quantity * item.product.price
+    }));
+  
+    const jsonData = JSON.stringify(cartData);
+    this.cookieService.set('checkout_cart', jsonData);
+    console.log('Đã lưu giỏ hàng vào cookie:', jsonData);
+  }
+  handleCheckout(): void {
+    this.saveCartToCookie();
+    this.router.navigate(['/checkout']);
+  }
+  
 }
