@@ -90,11 +90,9 @@ export class ProductDetailComponent implements OnInit {
   }
 
   formatPriceVN(value: string | number): string {
-    const num = typeof value === 'string'
-      ? parseFloat(value.replace(/,/g, '').replace(/\./g, '').replace(/[^\d]/g, ''))
-      : value;
-
-    return num.toLocaleString('vi-VN') + ' VND';
+    const num = typeof value === 'string' ? this.convertToNumber(value) : value;
+    const adjusted = num * 1000;
+    return adjusted.toLocaleString('vi-VN') + ' VND';
   }
 
   convertToNumber(value: string | number): number {

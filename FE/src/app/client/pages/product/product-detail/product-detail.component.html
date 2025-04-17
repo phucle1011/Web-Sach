@@ -16,7 +16,7 @@
               <p><strong><i>Nhà xuất bản: </i></strong>{{ data.publisher }}</p>
           
               <h6>Giá tiền: 
-                <b>  {{ formatPriceVN(data.price) }}</b>
+                <b>  {{  formatPriceVN(data.price) }}</b>
               </h6>
           
               <button (click)="addToCart()" class="btn btn-primary mt-2">
@@ -31,9 +31,6 @@
               <pre class="prev">{{ data.details }}</pre>
             </div>
           </div>
-          
-
-          
 
         <div class="d-flex align-items-center my-3">
             <div class="flex-grow-1 border-top border-dark"></div>

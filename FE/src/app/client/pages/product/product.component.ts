@@ -7,12 +7,14 @@ import { IProduct } from 'src/app/interface/product.interface';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ICategory } from 'src/app/interface/category.interface';
+import { DecimalPipe } from '@angular/common'; 
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   imports: [CommonModule, RouterModule],
-  styleUrls: ['./product.component.scss']
+  styleUrls: ['./product.component.scss'],
+  providers: [DecimalPipe] 
 })
 export class ProductComponent implements OnInit {
   products: IProduct[] = [];
@@ -79,18 +81,21 @@ export class ProductComponent implements OnInit {
     }, 0);
   }
 
-formatPriceVN(value: string | number): string {
-  const num = typeof value === 'string'
-    ? parseFloat(value.replace(/,/g, '').replace(/\./g, '').replace(/[^\d]/g, ''))
-    : value;
-
-  return num.toLocaleString('vi-VN') + ' VND';
-}
-
-
-
+  formatPriceVN(value: string | number): string {
+    const num = typeof value === 'string' ? this.convertToNumber(value) : value;
+    const adjusted = num * 1000;
+    return adjusted.toLocaleString('vi-VN') + ' VND';
+  }
+  
   convertToNumber(value: string | number): number {
     if (typeof value === 'number') return value;
-    return parseFloat(value.replace(/\./g, '').replace('đ', '').trim()) || 0;
+    const cleaned = value.replace(/[^0-9]/g, '');
+    return Number(cleaned) || 0;
   }
+  
+
+  formatCurrency(value: number): string {
+    return new Intl.NumberFormat('vi-VN').format(value) + ' VND';
+  }
+  
 }
