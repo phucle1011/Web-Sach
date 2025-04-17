@@ -19,10 +19,10 @@ export class ProductService extends ApiService {
     let apiUrl = API_ENDPOINT.productClient.base + API_ENDPOINT.productClient.list;
     const queryParams = [];
 
-    if (categoryId !== undefined) { // Check if categoryId is provided
+    if (categoryId !== undefined) {
       queryParams.push(`categoryId=${categoryId}`);
     }
-    if (priceRange !== undefined) { // Check if priceRange is provided
+    if (priceRange !== undefined) {
       queryParams.push(`priceRange=${priceRange}`);
     }
 
