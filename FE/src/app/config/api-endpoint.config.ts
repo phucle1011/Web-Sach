@@ -24,27 +24,10 @@ export const API_ENDPOINT = {
     base: `${API_BASE_URL}/admin/users`,
     list: '/list',
     add: '/add',
-    update: '',
-    delete: '',
-    getById: '',
   },
   comment: {
-    base: API_BASE_URL + '/admin',
-    list: '/comments/list',
+    base: API_BASE_URL +'/admin'+ '/' + 'comments',
+    list: '/list',
     add: '/add',
-  },
-
-  product:{
-    base: API_BASE_URL,
-    list: '/product',
-    
-
-  },
-  categoryClient:{
-    base:API_BASE_URL,
-    list: '/category',
-
-
-
   }
 };
