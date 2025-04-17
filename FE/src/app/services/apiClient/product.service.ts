@@ -14,8 +14,22 @@ export class ProductService extends ApiService {
     super(_http);
   }
 
-  getProduct(): Observable<IProduct[]> {
-    return this.get<IProduct[]>(API_ENDPOINT.productClient.base + API_ENDPOINT.productClient.list);
+  getProduct(categoryId?: number, priceRange?: string): Observable<IProduct[]> {
+    let apiUrl = API_ENDPOINT.productClient.base + API_ENDPOINT.productClient.list;
+    const queryParams = [];
+
+    if (categoryId !== undefined) {
+      queryParams.push(`categoryId=${categoryId}`);
+    }
+    if (priceRange !== undefined) {
+      queryParams.push(`priceRange=${priceRange}`);
+    }
+
+    if (queryParams.length > 0) {
+      apiUrl += `?${queryParams.join('&')}`;
+    }
+
+    return this.get<IProduct[]>(apiUrl);
   }
   getProductByCategory(categoryId: number): Observable<any> {
     return this.get<any>(API_ENDPOINT.productClient.base + API_ENDPOINT.productClient.list + `?categoryId=${categoryId}`);
