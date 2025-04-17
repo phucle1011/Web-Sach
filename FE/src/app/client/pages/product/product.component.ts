@@ -7,16 +7,18 @@ import { IProduct } from 'src/app/interface/product.interface';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ICategory } from 'src/app/interface/category.interface';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
   products: IProduct[] = [];
   categories: ICategory[] = [];
+  priceRange: any;
 
   constructor(
     private productService: ProductService,
@@ -92,5 +94,24 @@ formatPriceVN(value: string | number): string {
   convertToNumber(value: string | number): number {
     if (typeof value === 'number') return value;
     return parseFloat(value.replace(/\./g, '').replace('đ', '').trim()) || 0;
+  }
+
+  loadProductsByPriceRange(priceRange: string): void {
+    this.productService.getProductByPriceRange(priceRange).subscribe({
+      next: (res: any) => {
+        this.products = res.data;
+      },
+      error: (err: any) => {
+        console.error('Lỗi khi lọc sản phẩm theo giá:', err);
+      }
+    });
+  }
+
+  filterProducts(): void {
+    if (this.priceRange) {
+      this.loadProductsByPriceRange(this.priceRange);
+    } else {
+      this.loadProducts(); // Load all products if no price range is selected
+    }
   }
 }
