@@ -11,5 +11,10 @@ export const API_ENDPOINT = {
     base: API_BASE_URL +'/admin'+ '/' + 'orders',
     list: '/list',
     add: '/add',
+  },
+  comment: {
+    base: API_BASE_URL +'/admin'+ '/' + 'comments',
+    list: '/list',
+    add: '/add',
   }
 };
