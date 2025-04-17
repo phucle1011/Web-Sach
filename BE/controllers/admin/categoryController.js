@@ -4,13 +4,7 @@ class CategoryController {
 
     static async get(req, res) {
         try {
-<<<<<<< HEAD:BE/controllers/admin/categoryController.js
             const categories = await CategoryModel.findAll();
-=======
-            const orders = await OrderModel.findAll({
-                order: [['createdAt', 'DESC']]
-            });
->>>>>>> c07f176b841c553a183ef46c892a48ff6ad329f8:BE/controllers/orderController.js
             res.status(200).json({
                 "status": 200,
                 "message": "Lấy danh sách thành công",
@@ -39,7 +33,6 @@ class CategoryController {
         }
     }
 
-<<<<<<< HEAD:BE/controllers/admin/categoryController.js
     static async create(req, res) {
         try {
             const { categoryName, status } = req.body;
@@ -55,8 +48,6 @@ class CategoryController {
         }
     }
 
-=======
->>>>>>> c07f176b841c553a183ef46c892a48ff6ad329f8:BE/controllers/orderController.js
     static async update(req, res) {
         try {
             const { id } = req.params;
