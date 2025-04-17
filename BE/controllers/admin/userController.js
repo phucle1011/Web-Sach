@@ -1,10 +1,11 @@
-const User = require('../models/userModel');
-const Comment = require('../models/commentsModel');
+const User = require('../../models/userModel');
+const Comment = require('../../models/commentsModel');
 
 class UserController {
   static async getAllUsers(req, res) {
     try {
       const users = await User.findAll({
+        users: [['createdAt', 'DESC']], 
         attributes: ['userId', 'name', 'email', 'phoneNumber', 'avatar']
       });
       res.json(users);

@@ -40,6 +40,9 @@ export const API_ENDPOINT = {
     base: `${API_BASE_URL}/admin/users`,
     list: '/list',
     add: '/add',
+    update: '',
+    delete: '',
+    getById: '',
   },
   comment: {
     base: API_BASE_URL +'/admin'+ '/' + 'comments',

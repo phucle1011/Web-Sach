@@ -16,8 +16,6 @@ router.get('/product/:id', ProductController.getById);
 router.get('/category', CategoryController.get); 
 
 
-
-
 router.post('/register', AuthController.register);
 router.post('/login', AuthController.login);
 
