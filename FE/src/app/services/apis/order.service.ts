@@ -33,4 +33,8 @@ export class OrderService extends ApiService {
     return this.put(API_ENDPOINT.order.base + '/' + id, data);
   }
 
+  addOrder(data: { name: string; phone: string; email: string; address: string; total_price: number; payment_method_id: number; user_id: number }): Observable<any> {
+    return this.post(API_ENDPOINT.orderClient.base + API_ENDPOINT.orderClient.add, data); 
+  }
+
 }

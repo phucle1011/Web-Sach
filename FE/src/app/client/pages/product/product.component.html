@@ -52,12 +52,11 @@
               [routerLink]="'/products/' + product.productId"
               class="text-decoration-none text-dark"
             >
-              <img
-                [src]="product.images"
-                class="card-img-top rounded-top-4"
-                [alt]="product.title"
-                style="object-fit: cover; height: 230px"
-              />
+            <img src="/assets/images/client/{{ product.images }}"
+            class="card-img-top rounded-top-4"
+            [alt]="product.title"
+            style="object-fit: cover; height: 230px"
+          />
               <div class="card-body">
                 <h6 class="card-title text-truncate fw-semibold">
                   {{ product.title }}
