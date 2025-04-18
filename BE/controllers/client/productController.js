@@ -5,7 +5,7 @@ const { Op } = require('sequelize');
 class ProductController {
   static async get(req, res) {
     try {
-      const { categoryId, priceRange } = req.query; 
+      const { categoryId, priceRange, query } = req.query;
 
       let condition = {};
       if (categoryId) {
@@ -28,6 +28,12 @@ class ProductController {
         }
       }
 
+      if (query) {
+        condition.productName = {
+          [Op.iLike]: `%${query}%`, // thêm % để tìm gần đúng
+        };
+      }
+
       const products = await Product.findAll({ where: condition });
 
       res.status(200).json({ data: products });
@@ -36,6 +42,7 @@ class ProductController {
       res.status(500).json({ error: error.message });
     }
   }
+
 
 
   static async getById(req, res) {

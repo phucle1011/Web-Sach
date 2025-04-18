@@ -19,6 +19,7 @@ export class ProductComponent implements OnInit {
   products: IProduct[] = [];
   categories: ICategory[] = [];
   priceRange: any;
+  searchName: any;
 
   constructor(
     private productService: ProductService,
@@ -29,14 +30,21 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       const categoryId = params['categoryId'];
+      const name = params['name'];
       if (categoryId) {
         this.loadProductsByCategory(categoryId);
-      } else {
+      } else if (name) {
+        this.searchProductByName(name); // Call search function if 'name' is in query params
+      }
+      else {
         this.loadProducts();
       }
     });
 
     this.loadCagory(); 
+  }
+  searchProductByName(name: any) {
+    throw new Error('Method not implemented.');
   }
 
   loadProducts(): void {
@@ -111,7 +119,31 @@ formatPriceVN(value: string | number): string {
     if (this.priceRange) {
       this.loadProductsByPriceRange(this.priceRange);
     } else {
-      this.loadProducts(); // Load all products if no price range is selected
+      this.loadProducts();
+    }
+  }
+
+  searchProduct(): void {
+    console.log('Search button clicked!');
+    console.log('Search Term:', this.searchName);
+    if (this.searchName && typeof this.searchName === 'string' && this.searchName.trim()) {
+      this.productService.getProduct(undefined, undefined, this.searchName.trim()).subscribe({
+        next: (res: any) => {
+          this.products = res.data;
+          console.log('Search Results:', res);
+          if (this.products && this.products.length > 0) {
+            console.log('Tìm kiếm thành công! Sản phẩm tìm thấy:', this.products);
+          } else {
+            console.log('Không tìm thấy sản phẩm nào phù hợp.');
+          }
+        },
+        error: (err: any) => {
+          console.error('Error searching products:', err);
+        }
+      });
+    } else {
+      this.loadProducts();
+      console.log('Không có từ khóa tìm kiếm, tải lại tất cả sản phẩm.');
     }
   }
 }
