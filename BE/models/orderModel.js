@@ -21,10 +21,11 @@ const Order = connection.define('Order', {
     ),
     allowNull: false,
   },
-  createdAt: {  
+  createdAt: {
     type: DataTypes.DATE,
-    field: 'created_at', 
-  },
+    field: 'created_at',
+    defaultValue: DataTypes.NOW,  
+  },  
   name: { 
     type: DataTypes.STRING, 
     allowNull: false 

@@ -6,6 +6,7 @@ const CategoryController = require('../controllers/client/categoryController');
 const AuthController = require('../controllers/client/authController');
 const ContactController = require("../controllers/client/contactController");
 const CartController = require('../controllers/client/cartController');
+const OrderContrller = require('../controllers/client/orderController');
 
 router.get('/', (req, res) => {
     res.send('Trang chủ client');
@@ -24,12 +25,9 @@ router.post('/addcart', CartController.post);
 router.delete('/removecart/:id', CartController.delete);
 router.put('/updatecart', CartController.put);
 
-
-
-
-
-
 router.post('/contact', ContactController.sendContactEmail);
 router.post('/contact', ContactController.sendContactEmail);
+
+router.post('/orders/add', OrderContrller.createOrder);
 
 module.exports = router;

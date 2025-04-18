@@ -21,25 +21,36 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const userId = user.userId;
-
+  
     if (userId) {
       this.loadCart(userId);
+      
+      // Lắng nghe sự thay đổi giỏ hàng
+      this.cartService.cartChanged$.subscribe(() => {
+        this.loadCart(userId);
+      });
     } else {
       console.warn('Không tìm thấy userId trong localStorage');
     }
   }
-
+  
   loadCart(userId: number): void {
     this.cartService.getCartByUser(userId).subscribe({
       next: (res) => {
-        this.cartItems = res.data;
-        console.log("Dữ liệu giỏ hàng:", this.cartItems);
+        if (res.data && res.data.length > 0) {
+          this.cartItems = res.data;
+          console.log("Dữ liệu giỏ hàng:", this.cartItems);
+        } else {
+          this.cartItems = [];
+          console.log("Giỏ hàng trống.");
+        }
       },
       error: (err) => {
         console.error('Lỗi tải giỏ hàng:', err);
       }
     });
   }
+  
 
   removeItem(index: number): void {
     const item = this.cartItems[index];
@@ -54,6 +65,7 @@ export class CartComponent implements OnInit {
     this.cartService.deleteCart(item.id, userId).subscribe({
       next: () => {
         this.cartItems.splice(index, 1);
+        this.cartService.notifyCartChanged();
       },
       error: (err) => {
         console.error('Lỗi khi xóa sản phẩm khỏi giỏ hàng:', err);
@@ -105,8 +117,10 @@ export class CartComponent implements OnInit {
   }
 
   saveCartToCookie(): void {
+    this.cookieService.delete('checkout_cart');
+  
     const cartData = this.cartItems.map(item => ({
-      productId: item.product.id,
+      product_id: item.product.id,
       title: item.product.title,
       quantity: item.quantity,
       price: item.product.price,
@@ -116,10 +130,11 @@ export class CartComponent implements OnInit {
     const jsonData = JSON.stringify(cartData);
     this.cookieService.set('checkout_cart', jsonData);
     console.log('Đã lưu giỏ hàng vào cookie:', jsonData);
-  }
+  }  
+  
   handleCheckout(): void {
-    this.saveCartToCookie();
-    this.router.navigate(['/checkout']);
+    this.saveCartToCookie();  
+    this.router.navigate(['/checkout']);  
   }
   
 }

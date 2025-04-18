@@ -19,6 +19,11 @@ export const API_ENDPOINT = {
     list: '/list',
     add: '/add',
   },
+  orderClient: {
+    base: API_BASE_URL + '/' + 'orders',
+    list: '/list',
+    add: '/add',
+  },
   category: {
     base: `${API_BASE_URL}/admin/categories`,
     list: '/list',
