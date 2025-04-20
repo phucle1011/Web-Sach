@@ -42,6 +42,9 @@
                   </tbody>
                 </table>
               </div>
+              <tr *ngIf="orders.length === 0">
+                <td colspan="7" class="text-center text-muted py-3">Không có đơn hàng nào.</td>
+              </tr>
             </div>
           </div>
         </div>
