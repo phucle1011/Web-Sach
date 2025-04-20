@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IComment, ICreateComment } from 'src/app/interface/comment.interface';
+import { IComment, ICommentResponse, ICreateComment } from 'src/app/interface/comment.interface';
 import { API_ENDPOINT } from 'src/app/config/api-endpoint.config';
 
 @Injectable({
@@ -10,12 +10,12 @@ import { API_ENDPOINT } from 'src/app/config/api-endpoint.config';
 export class CommentService {
   baseUrl: string = API_ENDPOINT.commentClient.base;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Lấy comment theo productId
-  getCommentsByProductId(productId: number): Observable<IComment[]> {
-    const url = `${this.baseUrl}${API_ENDPOINT.commentClient.get}${productId}`;
-    return this.http.get<IComment[]>(url);  // Return comments directly
+  getCommentsByProductId(productId: number, page: number = 1, limit: number = 5): Observable<ICommentResponse> {
+    const url = `${this.baseUrl}${API_ENDPOINT.commentClient.get}${productId}?page=${page}&limit=${limit}`;
+    return this.http.get<ICommentResponse>(url);
   }
 
   // Tạo bình luận mới

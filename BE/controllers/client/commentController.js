@@ -21,15 +21,25 @@ exports.create = async (req, res) => {
   
   exports.getByProductId = async (req, res) => {
     try {
-      const  productId  = req.params.id;
-      console.log(req.params.id);
-      
-      const comments = await Comment.findAll({
+      const productId = req.params.id;
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 5;
+      const offset = (page - 1) * limit;
+  
+      const { count, rows } = await Comment.findAndCountAll({
         where: { productId },
-        include: [{ model: User, attributes: ['name'],  as: 'user', }],
-        order: [['createdAt', 'DESC']]
+        include: [{ model: User, attributes: ['name'], as: 'user' }],
+        order: [['createdAt', 'DESC']],
+        limit,
+        offset
       });
-      res.status(200).json({ data: comments });
+  
+      res.status(200).json({
+        comments: rows,
+        totalItems: count,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page
+      });
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
