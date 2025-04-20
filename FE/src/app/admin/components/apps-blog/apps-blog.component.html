@@ -1,50 +1,138 @@
 <mat-card class="cardWithShadow overflow-hidden">
     <mat-card-content>
-        <div class="page-wrapper">
-            <div class="page-breadcrumb">
-                <div class="row">
-                    <div class="col-12 d-flex align-items-center">
-                        <h3 class="card-title fw-bold">Thống kê</h3>
-                    </div>
-                </div>
+      <div class="page-wrapper">
+        <div class="page-breadcrumb mb-3">
+          <div class="row">
+            <div class="col-12 d-flex align-items-center">
+              <h3 class="card-title fw-bold">Thống kê</h3>
             </div>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="card card-hover">
-                            <div class="box bg-cyan text-center text-white">
-                                <h1 class="font-light"><i class="mdi mdi-account-multiple"></i> 150</h1>
-                                <h6>Người dùng</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card card-hover">
-                            <div class="box bg-success text-center text-white">
-                                <h1 class="font-light"><i class="mdi mdi-receipt"></i> 20</h1>
-                                <h6>Loại sản phẩm</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card card-hover">
-                            <div class="box bg-warning text-center text-white">
-                                <h1 class="font-light"><i class="mdi mdi-coffee"></i> 500</h1>
-                                <h6>Sản phẩm</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card card-hover">
-                            <div class="box bg-danger text-center text-white">
-                                <h1 class="font-light"><i class="mdi mdi-comment-processing"></i> 1200</h1>
-                                <h6>Bình luận</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-    </mat-card-content>
+  
+        <div class="container-fluid">
+            <div class="row g-3">
+              <!-- Người dùng -->
+              <div class="col-md-3">
+                <div class="card card-hover">
+                  <div class="box bg-cyan text-center text-white p-3 rounded">
+                    <h1 class="font-light mb-0">
+                      <i class="mdi mdi-account-multiple"></i> {{ stats.users }}
+                    </h1>
+                    <h6 class="mt-2">Người dùng</h6>
+                  </div>
+                </div>
+              </div>
+    
+              <!-- Loại sản phẩm -->
+              <div class="col-md-3">
+                <div class="card card-hover">
+                  <div class="box bg-success text-center text-white p-3 rounded">
+                    <h1 class="font-light mb-0">
+                      <i class="mdi mdi-receipt"></i> {{ stats.categories }}
+                    </h1>
+                    <h6 class="mt-2">Loại sản phẩm</h6>
+                  </div>
+                </div>
+              </div>
+    
+              <!-- Sản phẩm -->
+              <div class="col-md-3">
+                <div class="card card-hover">
+                  <div class="box bg-warning text-center text-white p-3 rounded">
+                    <h1 class="font-light mb-0">
+                      <i class="mdi mdi-coffee"></i> {{ stats.products }}
+                    </h1>
+                    <h6 class="mt-2">Sản phẩm</h6>
+                  </div>
+                </div>
+              </div>
+    
+              <!-- Bình luận -->
+              <div class="col-md-3">
+                <div class="card card-hover">
+                  <div class="box bg-danger text-center text-white p-3 rounded">
+                    <h1 class="font-light mb-0">
+                      <i class="mdi mdi-comment-processing"></i> {{ stats.comments }}
+                    </h1>
+                    <h6 class="mt-2">Bình luận</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container mt-4">
+            <div class="row g-4">
+              <!-- Biểu đồ tròn -->
+              <div class="col-md-6">
+                <div class="card shadow-lg border-0 rounded-4">
+                  <div class="card-header bg-primary text-white fw-bold rounded-top-4">
+                    <i class="bi bi-pie-chart-fill me-2"></i> Biểu đồ người dùng - sản phẩm
+                  </div>
+                  <div class="card-body">
+                    <div style="height: 350px;">
+                      <canvas id="pieChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+              <!-- Bảng tổng doanh thu -->
+              <div class="col-md-6">
+                <div class="card shadow-lg border-0 rounded-4">
+                  <div class="card-header bg-success text-white fw-bold rounded-top-4">
+                    <i class="bi bi-bar-chart-fill me-2"></i> Tổng quan
+                  </div>
+                  <div class="card-body fs-5">
+                    <div class="mb-3">
+                      <i class="bi bi-cash-coin text-success me-2"></i>
+                      <strong>Tổng doanh thu:</strong>
+                      <span class="text-success fw-bold">{{ totalRevenue | currency:'VND':'symbol':'1.0-0' }}</span>
+                    </div>
+          
+                    <div class="mb-3">
+                      <i class="bi bi-box-seam text-primary me-2"></i>
+                      <strong>Tổng đơn hàng:</strong>
+                      <span class="text-primary fw-bold">{{ totalOrders }}</span>
+                    </div>
+          
+                    <div class="mb-3">
+                      <i class="bi bi-people-fill text-info me-2"></i>
+                      <strong>Tổng người dùng:</strong>
+                      <span class="text-info fw-bold">{{ stats.users }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>`
+    
+          <!-- Thống kê sản phẩm bán chạy -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <h3 class="fw-bold">Sản phẩm bán chạy</h3>
+              <div class="row g-4">
+                <div *ngFor="let product of productcards" class="col-md-3">
+                  <mat-card class="card-hover">
+                    <img mat-card-image [src]="product.imgSrc" alt="{{ product.title }}">
+                    <mat-card-content>
+                      <h5>{{ product.title }}</h5>
+                      <div class="d-flex justify-content-between">
+                      </div>
+                    </mat-card-content>
+                  </mat-card>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        
+      
+      
+      
+      
+      
 
-</mat-card>
+    
+    </mat-card-content>
+  </mat-card>

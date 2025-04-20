@@ -19,6 +19,16 @@ export const API_ENDPOINT = {
     list: '/list',
     add: '/add',
   },
+  statistics: {
+    base: `${API_BASE_URL}/admin/statistics`,
+    totalRevenue: '/total-revenue',
+    totalOrders: '/total-orders',
+    topSelling: '/top-selling-products',
+    userCount: '/user-count',
+    categoryCount: '/category-count',
+    productCount: '/product-count',
+    commentCount: '/comment-count',
+  },
   orderClient: {
     base: API_BASE_URL + '/' + 'orders',
     list: '/list',
