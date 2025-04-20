@@ -27,6 +27,17 @@ export class OrderClientComponent implements OnInit {
       next: (res: any) => {
         this.list = res?.orders ?? [];
         console.log("list", this.list);
+        this.list.forEach(order => {
+          if (order.status === 'Hoàn thành') {
+            setTimeout(() => {
+              const currentOrder = this.list.find(o => o.id === order.id);
+              if (currentOrder && currentOrder.status === 'Hoàn thành') {
+                this.confirmCompletion(currentOrder.id);
+              }
+            }, 259200000); // 3 ngày = 259.200.000 ms, 1 phút = 60.000ms
+          }
+        });
+        
       },
       error: (err) => {
         console.log(err);
