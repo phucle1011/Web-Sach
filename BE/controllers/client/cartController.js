@@ -76,10 +76,14 @@ static async put(req, res) {
       res.status(500).json({ message: "Lỗi server", error: error.message });
     }
   }
-   static async delete(req, res) {
-    const cart_id = req.params.id; 
-    const { user_id } = req.body; 
-  
+  static async delete(req, res) {
+    const cart_id = req.params.id;  
+    const user_id = req.query.user_id;  
+    
+    if (!user_id) {
+      return res.status(400).json({ message: 'User ID is required' });
+    }
+
     try {
       const cartItem = await Cart.findOne({
         where: { id: cart_id, user_id: user_id }
@@ -88,7 +92,7 @@ static async put(req, res) {
       if (!cartItem) {
         return res.status(404).json({ message: 'Sản phẩm không tồn tại trong giỏ hàng' });
       }
-  
+
       await cartItem.destroy();
   
       res.status(200).json({

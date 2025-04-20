@@ -26,21 +26,20 @@ export class ResetPasswordComponent {
   }
 
   onSubmit(resetForm: any) {
-    console.log("email:", this.email);
-    console.log("password:", this.password);
-    console.log("re_password:", this.re_password);
   
     if (resetForm.invalid) {
+      console.log("Form is invalid:", resetForm);
       alert('Vui lòng nhập đầy đủ thông tin.');
       return;
     }
+
+    let data = {
+      email: this.email,
+      password: this.password,
+      re_password: this.re_password
+    };
   
-    if (this.password !== this.re_password) {
-      alert('Mật khẩu xác nhận không khớp.');
-      return;
-    }
-  
-    this.authService.resetPassword(this.email, this.password).subscribe({
+    this.authService.resetPassword(data).subscribe({
       next: (res) => {
         alert(res.message || 'Đặt lại mật khẩu thành công.');
         this.router.navigate(['/login']);
@@ -50,4 +49,6 @@ export class ResetPasswordComponent {
       }
     });
   }
+  
+  
 }

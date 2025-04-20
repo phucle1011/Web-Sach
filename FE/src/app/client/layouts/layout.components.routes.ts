@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { CartComponent } from '../pages/cart/cart.component';
 import { ClientLayoutComponent } from './client-layout/client-layout.component';
-import { PaymentComponent } from '../pages/cart/payment/payment.component';
 import { AboutComponent } from '../pages/about/about.component';
 import { LoginComponent } from '../pages/auth/login/login.component';
 import { RegisterComponent } from '../pages/auth/register/register.component';
@@ -28,10 +27,6 @@ export const routesClient: Routes = [
       {
         path: 'cart',
         component: CartComponent,
-      },
-      {
-        path: 'payment',
-        component: PaymentComponent,
       },
       {
         path: 'products',

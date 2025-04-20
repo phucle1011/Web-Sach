@@ -13,6 +13,10 @@ export const API_ENDPOINT = {
   auth: {
     base: API_BASE_URL,
     login: '/login',
+    register: '/register',
+    forgotPassword: '/forgot-password',
+    otp: '/otp',
+    resetPassword: '/reset-password',
   },
   order: {
     base: API_BASE_URL + '/admin' + '/' + 'orders',
