@@ -28,16 +28,16 @@ export const API_ENDPOINT = {
     delete: '',
     getById: '',
   },
-  productClient:{
+  productClient: {
     base: API_BASE_URL,
     list: '/product',
   },
-  categoryClient:{
-    base:API_BASE_URL,
+  categoryClient: {
+    base: API_BASE_URL,
     list: '/category',
   },
   comment: {
-    base: API_BASE_URL +'/admin'+ '/' + 'comments',
+    base: API_BASE_URL + '/admin' + '/' + 'comments',
     list: '/list',
     add: '/add',
   },
@@ -45,5 +45,14 @@ export const API_ENDPOINT = {
     base: `${API_BASE_URL}/contact`,
     list: `${API_BASE_URL}/admin/contacts`,
     id: (id: number | string) => `${API_BASE_URL}/admin/contact/${id}`,
+  },
+  // commentClient: {
+  //   listByProductId: (productId: number) => `/product/${productId}`,
+  //   add: '',
+  // },
+  commentClient: {
+    base: API_BASE_URL,
+    add: '/comments',
+    get: '/comments/product/'
   },
 };

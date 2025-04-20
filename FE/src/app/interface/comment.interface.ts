@@ -14,4 +14,9 @@ export interface IComment {
       price: number;
     };
   }
+  export interface ICreateComment {
+    content: string;
+    productId: number;
+    userId: number;
+  }
   

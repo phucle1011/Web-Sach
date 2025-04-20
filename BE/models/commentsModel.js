@@ -27,7 +27,7 @@ const Comment = connection.define('Comment', {
     },
   }, {
     tableName: 'comments',
-    timestamps: false,
+    timestamps: true,
   });
   
   
