@@ -4,9 +4,9 @@ import { RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { CategoryService } from 'src/app/services/apis/category.service';
-import { ICategory } from 'src/app/services/apis/category.service'; 
 import { FormsModule } from '@angular/forms';
 import { DeleteComponent } from './delete/delete.component';
+import { ICategory } from 'src/app/interface/category.interface';
 
 @Component({
   selector: 'app-category',
@@ -15,24 +15,36 @@ import { DeleteComponent } from './delete/delete.component';
   templateUrl: './category.component.html',
 })
 export class CategoryComponent {
-  list: ICategory[] = []; 
+  list: ICategory[] = [];
   selectedCategory: ICategory | null = null;
+  currentPage: number = 1;
+  pageSize: number = 10;
+  totalPages: number = 1;
 
   readonly dialog = inject(MatDialog);
 
   constructor(private categoryService: CategoryService) {
     this.getAll();
   }
-
   getAll() {
-    this.categoryService.getCategories().subscribe({
-      next: (res: any) => {
-        this.list = res?.data ?? res;
+    this.categoryService.getCategories(this.currentPage, this.pageSize).subscribe({
+      next: (res) => {
+        this.list = res.data;
+        this.totalPages = res.totalPages;
+        this.currentPage = res.currentPage;
       },
       error: (err) => {
         console.error('Error fetching categories:', err);
       }
     });
+  }
+  
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.getAll();
+    }
   }
 
   selectCategory(category: ICategory) {
@@ -47,7 +59,7 @@ export class CategoryComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      if(result) {
+      if (result) {
         this.getAll();
       }
     });

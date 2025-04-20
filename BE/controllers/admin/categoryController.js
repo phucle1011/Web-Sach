@@ -4,11 +4,25 @@ class CategoryController {
 
     static async get(req, res) {
         try {
-            const categories = await CategoryModel.findAll();
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 10;
+            const offset = (page - 1) * limit;
+    
+            const { count, rows } = await CategoryModel.findAndCountAll({
+                limit,
+                offset,
+                order: [['categoryId', 'ASC']]
+            });
+    
+            const totalPages = Math.ceil(count / limit);
+    
             res.status(200).json({
-                "status": 200,
-                "message": "Lấy danh sách thành công",
-                "data": categories
+                status: 200,
+                message: "Lấy danh sách thành công",
+                data: rows,
+                total: count,
+                totalPages,
+                currentPage: page
             });
         } catch (error) {
             res.status(500).json({ error: error.message });
