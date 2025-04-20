@@ -19,8 +19,10 @@ router.get('/orders/:id', OrderController.getById);
 router.put('/orders/:id', OrderController.update); 
 router.delete("/orders/:id", OrderController.delete);
 
-router.get('/comments/list', CommentController.get);
-router.get('/comments/:id', CommentController.getById); 
+// router.get('/comments/list', CommentController.get);
+// router.get('/comments/:id', CommentController.getById); 
+router.get('/comments/list', CommentController.get); // List comments (client side)
+router.get('/comments/:id', CommentController.getById); // Get comment by ID (client side)
 
 router.get('/users/list', UserController.getAllUsers);
 router.delete('/users/:id', UserController.deleteUser);
