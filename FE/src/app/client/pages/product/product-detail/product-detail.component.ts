@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { ProductService } from 'src/app/services/apiClient/product.service'; 
 import { CommonModule } from '@angular/common'; 
 import { CommentService } from 'src/app/services/apiClient/comment.service';
@@ -12,20 +12,24 @@ import { CookieService } from 'ngx-cookie-service';
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.scss'],
-  standalone: true,  
-  imports: [CommonModule, FormsModule] 
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
 export class ProductDetailComponent implements OnInit {
   productId: string | null = null;
-  data: any = null; 
+  data: any = null;
   isLoading: boolean = true;
+
+  currentPage = 1;
+  totalPages = 1;
+  commentsPerPage = 5;
+
 
   comments: any[] = [];
   commentContent: string = '';
-  // userId: number = 29;
-  userId: number = Number(''); // Giả sử bạn đang hard-code userId, sau này sẽ lấy từ Auth
-  
- 
+  userId: number = Number('');
+
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -33,7 +37,7 @@ export class ProductDetailComponent implements OnInit {
     private router: Router,
     private cookieService: CookieService,
     private commentService: CommentService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -51,8 +55,8 @@ export class ProductDetailComponent implements OnInit {
     if (this.productId) {
       this.productService.getProductDetail(this.productId).subscribe(
         (response: any) => {
-          this.data = response.data || response; 
-          console.log("Dữ liệu sản phẩm: ", this.data);  
+          this.data = response.data || response;
+          console.log("Dữ liệu sản phẩm: ", this.data);
           this.isLoading = false;
         },
         (error: any) => {
@@ -65,22 +69,23 @@ export class ProductDetailComponent implements OnInit {
 
   getComments(): void {
     if (!this.productId) return;
-  
-    this.commentService.getCommentsByProductId(+this.productId).subscribe({
-      next: (res: any) => {
-        console.log('✅ Bình luận từ server:', res.data);
-        this.comments = res.data;  // ✅ lấy đúng mảng
-      },
-      error: (err: any) => {
-        console.error('❌ Lỗi khi lấy bình luận:', err);
-      }
-    });
+
+    this.commentService.getCommentsByProductId(+this.productId, this.currentPage, this.commentsPerPage)
+      .subscribe({
+        next: (res: any) => {
+          console.log('Bình luận từ server:', res);
+          // Kiểm tra cấu trúc của response
+          this.comments = res.comments || [];
+          this.totalPages = res.totalPages || 1;
+        },
+        error: (err: any) => console.error('Lỗi khi lấy bình luận:', err)
+      });
   }
   submitComment(): void {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const userId = user.userId;
     if (!this.commentContent.trim()) return;
-  
+
     const comment: ICreateComment = {
       content: this.commentContent,
       productId: +this.productId!,
@@ -88,12 +93,19 @@ export class ProductDetailComponent implements OnInit {
     };
     console.log('Bình luận đang gửi:', comment);
     this.commentService.createComment(comment).subscribe({
-      next: () => {
+      next: (res: any) => {
+        console.log('Bình luận đã gửi:', res);
         this.commentContent = '';
         this.getComments();
       },
       error: (err: any) => console.error('Lỗi khi gửi bình luận:', err)
     });
+  }
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.getComments();
+    }
   }
 
   addToCart(): void {
@@ -152,7 +164,7 @@ export class ProductDetailComponent implements OnInit {
   saveCartToLocalStorage(cart: any[]): void {
     localStorage.setItem('cart', JSON.stringify(cart));
   }
-
+  
   getTotalPrice(): number {
     if (!this.data || !Array.isArray(this.data)) return 0;
     return this.data.reduce((total: number, product: any) => {

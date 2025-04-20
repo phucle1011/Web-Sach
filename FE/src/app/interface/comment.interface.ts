@@ -19,4 +19,9 @@ export interface IComment {
     productId: number;
     userId: number;
   }
-  
+  export interface ICommentResponse {
+    comments: IComment[];
+    totalItems: number;
+    totalPages: number;
+    currentPage: number;
+  }
