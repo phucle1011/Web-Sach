@@ -43,10 +43,18 @@ export class ProductComponent implements OnInit {
 
     this.loadCagory(); 
   }
-  searchProductByName(name: any) {
-    throw new Error('Method not implemented.');
-  }
-
+searchProductByName(name: string): void {
+  const keyword = name.trim();
+  this.productService.getProduct(undefined, undefined, keyword).subscribe({
+    next: (res: any) => {
+      this.products = res.data;
+      console.log('Search by URL param thành công:', this.products);
+    },
+    error: (err: any) => {
+      console.error('Lỗi khi tìm kiếm sản phẩm từ URL:', err);
+    }
+  });
+}
   loadProducts(): void {
     this.productService.getProduct().subscribe({
       next: (res: any) => {

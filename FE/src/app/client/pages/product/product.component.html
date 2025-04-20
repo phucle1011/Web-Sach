@@ -1,9 +1,16 @@
 <div class="container-fluid py-4">
   <div class="row mb-3">
     <div class="col-12 d-flex justify-content-end">
-      <!-- <form class="d-flex" action="/products" method="GET">
-        <input class="form-control me-2" type="text" [(ngModel)]="searchName" placeholder="Nhập tên sản phẩm" [ngModelOptions]="{ standalone: true }" name="query">
-        <button (click)="searchProduct()">Tìm kiếm</button>
+      <!-- <form class="d-flex" (ngSubmit)="searchProduct()" #searchForm="ngForm">
+        <input 
+          class="form-control me-2" 
+          type="text" 
+          [(ngModel)]="searchName" 
+          [ngModelOptions]="{ standalone: true }"
+          name="query"
+          placeholder="Nhập tên sản phẩm" 
+        />
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
       </form> -->
       <form
         (ngSubmit)="filterProducts()"
