@@ -29,9 +29,10 @@ class ProductController {
       }
 
       if (query) {
-        condition.productName = {
-          [Op.iLike]: `%${query}%`, // thêm % để tìm gần đúng
-        };
+        condition[Op.or] = [
+          { title: { [Op.iLike]: `%${query}%` } },      // ← sửa ở đây
+          { description: { [Op.iLike]: `%${query}%` } }
+        ];
       }
 
       const products = await Product.findAll({ where: condition });
