@@ -2,16 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const app = express();
 const bcrypt = require('bcrypt');
-const session = require('express-session');
 const nodemailer = require('nodemailer');
-
-app.use(session({
-    secret: 'your_secret_key',
-    resave: false,
-    saveUninitialized: false,  
-    cookie: { secure: false }  
-}));
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -39,7 +30,7 @@ class AuthController {
 
             const hashedPassword = await bcrypt.hash(password, 10);
 
-            const user = await User.create({ name, email, password: hashedPassword, role: "1", phoneNumber: '', address: '', avatar:'' });
+            const user = await User.create({ name, email, password: hashedPassword, role: "0", phoneNumber: '', address: '', avatar:'' });
 
             return res.status(201).json({ message: "Đăng ký thành công!", user });
         } catch (error) {

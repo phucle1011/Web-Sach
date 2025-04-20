@@ -27,7 +27,7 @@ export class CheckoutComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private orderService: OrderService,
-    private cartService: CartService 
+    private cartService: CartService
   ) { }
 
   ngOnInit(): void {
@@ -93,12 +93,24 @@ export class CheckoutComponent implements OnInit {
     this.orderService.addOrder(orderData).subscribe({
       next: () => {
         alert('Đặt hàng thành công. Cảm ơn bạn đã ủng hộ!');
+  
+        cartItems.forEach((item: any) => {
+          this.cartService.deleteCart(item.product_id, userId).subscribe({
+            next: () => {
+              console.log(`Đã xóa sản phẩm ${item.product_id} khỏi giỏ hàng`);
+            },
+            error: (err) => {
+              console.error(`Lỗi khi xóa sản phẩm ${item.product_id}:`, err);
+            }
+          });
+        });
+  
+        this.cookieService.delete('cart');
+        this.cookieService.delete('checkout_cart');
+        this.cartItems = [];
         
-        this.cookieService.delete('cart'); 
-        this.cookieService.delete('checkout_cart'); 
-        this.cartItems = []; 
         this.cartService.notifyCartChanged();
-
+  
         this.router.navigate(['/products']);
       },
       error: (error) => {
@@ -108,6 +120,7 @@ export class CheckoutComponent implements OnInit {
     });
   }
   
+
   formatPrice(value: number): string {
     return (value * 1000).toLocaleString('vi-VN') + ' VND';
   }
