@@ -2,14 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_ENDPOINT } from '../../config/api-endpoint.config';
+import { ICategory, IPaginatedCategoryResponse } from 'src/app/interface/category.interface';
 
-export interface ICategory {
-    name: any;
-    data: ICategory;
-    categoryId: number;
-    categoryName: string;
-    status: number | string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +11,9 @@ export interface ICategory {
 export class CategoryService {
   constructor(private http: HttpClient) {}
 
-  getCategories(): Observable<ICategory[]> {
-    return this.http.get<ICategory[]>(`${API_ENDPOINT.category.base + API_ENDPOINT.category.list}`);
+  getCategories(page: number = 1, limit: number = 10): Observable<IPaginatedCategoryResponse> {
+    const url = `${API_ENDPOINT.category.base + API_ENDPOINT.category.list}?page=${page}&limit=${limit}`;
+    return this.http.get<IPaginatedCategoryResponse>(url);
   }
 
   getCategoryById(id: number): Observable<ICategory> {

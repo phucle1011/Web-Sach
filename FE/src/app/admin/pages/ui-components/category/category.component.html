@@ -36,7 +36,7 @@
                         mat-stroked-button
                         class="btn btn-primary">Sửa</button>
                       <button
-                      class="btn btn-danger ms-2"
+                        class="btn btn-danger ms-2"
                         (click)="openDialog(element.categoryId, element.categoryName)">
                         <i class="bi bi-trash"></i> Xóa
                       </button>
@@ -45,6 +45,29 @@
                 </tr>
               </tbody>
             </table>
+            <nav class="d-flex justify-content-center mt-3">
+              <ul class="pagination">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <button class="page-link"
+                    (click)="goToPage(currentPage - 1)">«</button>
+                </li>
+
+                <li
+                  class="page-item"
+                  *ngFor="let page of [].constructor(totalPages); let i = index"
+                  [class.active]="currentPage === i + 1">
+                  <button class="page-link" (click)="goToPage(i + 1)">
+                    {{ i + 1 }}
+                  </button>
+                </li>
+
+                <li class="page-item"
+                  [class.disabled]="currentPage === totalPages">
+                  <button class="page-link"
+                    (click)="goToPage(currentPage + 1)">»</button>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
