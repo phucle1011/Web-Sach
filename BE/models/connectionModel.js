@@ -21,7 +21,6 @@ OrderDetailModel.belongsTo(OrderModel, { foreignKey: 'order_id', as: 'order' });
 OrderDetailModel.belongsTo(ProductModel, { foreignKey: 'product_id', as: 'product' });
 ProductModel.hasMany(OrderDetailModel, { foreignKey: 'product_id', as: 'orderDetails' });
 
-
 // Category - Product
 ProductModel.belongsTo(CategoryModel, { foreignKey: 'categoryId', as: 'category' });
 CategoryModel.hasMany(ProductModel, { foreignKey: 'categoryId', as: 'products' });

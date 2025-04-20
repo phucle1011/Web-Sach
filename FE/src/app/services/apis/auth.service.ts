@@ -28,6 +28,7 @@ export class AuthService extends ApiService {
     ) {
         super(_http);
     }
+    
 
     login(form: ILogin): Observable<ILogin> {
         return new Observable(observer => {
@@ -99,4 +100,17 @@ export class AuthService extends ApiService {
         localStorage.removeItem('user');
         this.userSubject.next(null); 
     }
+
+    forgotPassword(email: string): Observable<any> {
+      return this.post(API_ENDPOINT.auth.base + '/forgot-password', { email });
+    }
+    
+    verifyOtp(email: string, otp: string): Observable<any> {
+      return this.post(API_ENDPOINT.auth.base + '/otp', { email, otp });
+    }
+    
+    
+    resetPassword(email: string, password: string): Observable<any> {
+      return this.post(API_ENDPOINT.auth.base + '/reset-password', { email, password });
+    }    
 }

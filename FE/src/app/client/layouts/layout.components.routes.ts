@@ -9,9 +9,12 @@ import { HomeComponent } from '../pages/home/home.component';
 import { ProductComponent } from '../pages/product/product.component';
 import { ProductDetailComponent } from '../pages/product/product-detail/product-detail.component';
 import { CheckoutComponent } from '../pages/cart/checkout/checkout.component';
-import { OrderComponent } from '../pages/order/order.component';
+import { OrderClientComponent } from '../pages/order/order.component';
 import { ContactComponent } from '../pages/contact/contact.component';
 import { BlogComponent } from '../pages/blog/blog.component';
+import { ForgotPasswordComponent } from '../pages/auth/forgot-password/forgot-password.component';
+import { OTPPasswordComponent } from '../pages/auth/otppassword/otppassword.component';
+import { ResetPasswordComponent } from '../pages/auth/reset-password/reset-password.component';
 
 export const routesClient: Routes = [
   {
@@ -43,8 +46,8 @@ export const routesClient: Routes = [
         component: CheckoutComponent,
       },
       {
-        path: 'orders',
-        component: OrderComponent,
+        path: 'orders/list',
+        component: OrderClientComponent,
       },
       {
         path: 'blog',
@@ -65,6 +68,16 @@ export const routesClient: Routes = [
       {
         path: 'register',
         component: RegisterComponent,
+      },
+      {
+        path: 'forgot-password',
+        component: ForgotPasswordComponent,
+      },
+      { path: 'otp', 
+        component: OTPPasswordComponent
+      },
+      { path: 'reset-password', 
+        component: ResetPasswordComponent
       },
     ],
   },

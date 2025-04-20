@@ -8,6 +8,15 @@ const clientRouter = require('./routes/clientRouter');
 require ('./models/connectionModel');
 app.use(express.json());
 
+const session = require('express-session');
+
+app.use(session({
+  secret: 'your_secret_key',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Đặt true nếu dùng HTTPS
+}));
+
 app.use((err, req, res, next) => {
     console.error(err); 
     res.status(500).send('Lỗi máy chủ');

@@ -68,7 +68,7 @@ exports.createOrder = async (req, res) => {
 
         await OrderDetail.bulkCreate(orderDetails);
 
-        await sendOrderConfirmationEmail(newOrder, email, currentDateTime); 
+        await sendOrderConfirmationEmail(newOrder, email, currentDateTime);
 
         res.clearCookie('cart');
 
@@ -114,7 +114,7 @@ const sendOrderConfirmationEmail = async (order, customerEmail, currentDateTime)
 
         let mailOptions = {
             from: `"Cửa hàng của chúng tôi" <${process.env.GMAIL_USER}>`,
-            to: customerEmail, 
+            to: customerEmail,
             subject: `Xác nhận đơn hàng #${order.id}`,
             html: emailContent,
         };
@@ -122,5 +122,96 @@ const sendOrderConfirmationEmail = async (order, customerEmail, currentDateTime)
         let info = await transporter.sendMail(mailOptions);
     } catch (error) {
         console.error("Lỗi gửi email xác nhận đơn hàng:", error);
+    }
+};
+exports.getUserOrders = async (req, res) => {
+    try {
+        const user_id = Number(req.query.userId);
+
+        if (!user_id) {
+            return res.status(400).json({ message: 'Thiếu user_id' });
+        }
+
+        const orders = await Order.findAll({
+            where: { user_id },
+            order: [['createdAt', 'DESC']], 
+            include: [
+              {
+                model: OrderDetail,
+                as: 'orderDetails'
+              }
+            ]
+          });
+
+        if (orders.length === 0) {
+            return res.status(200).json({ orders: [], message: "Bạn chưa có đơn hàng nào." });
+        }
+
+        res.status(200).json({ orders: orders }); 
+
+    } catch (error) {
+        console.error('Lỗi khi lấy đơn hàng:', error.message);
+        res.status(500).json({ message: 'Đã xảy ra lỗi khi tải đơn hàng của bạn.' });
+    }
+};
+
+exports.delete =  async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const order = await OrderModel.findByPk(id);
+        if (!order) {
+            return res.status(404).json({ message: "Id không tồn tại" });
+        }
+
+        if (order.status !== "Chờ xác nhận") {
+            return res.status(400).json({ message: "Chỉ được xóa đơn hàng đang Chờ xác nhận" });
+        }
+
+        await order.destroy();
+
+        res.status(200).json({ message: "Xóa thành công" });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+exports.confirmCompletion = async (req, res) => {
+    try {
+        const orderId = req.params.id;
+
+        const order = await Order.findByPk(orderId);
+
+        if (!order) {
+            return res.status(404).json({ message: "Không tìm thấy đơn hàng!" });
+        }
+
+        order.status = "Đã giao hàng thành công";
+        await order.save();
+
+        return res.status(200).json({ message: "Đơn hàng đã giao thành công!" });
+    } catch (error) {
+        console.error("Lỗi khi cập nhật:", error);
+        return res.status(500).json({ message: "Đã có lỗi xảy ra!" });
+    }
+};
+
+
+exports.deleteOrder = async (req, res) => {
+    try {
+        const orderId = req.params.id;
+
+        const order = await Order.findOne({ where: { id: orderId, status: 'Chờ xác nhận' } });
+
+        if (!order) {
+            return res.send(`<script>alert('Chỉ có thể hủy đơn ở trạng thái "Chờ xác nhận"!'); window.location.href = '/orderUser';</script>`);
+        }
+
+        await order.destroy();
+
+        res.send(`<script>alert('Đã hủy đơn hàng thành công!'); window.location.href = '/orderUser';</script>`);
+    } catch (error) {
+        console.error("Lỗi khi hủy:", error);
+        res.send(`<script>alert('Lỗi khi hủy đơn hàng!'); window.location.href = '/orderUser';</script>`);
     }
 };

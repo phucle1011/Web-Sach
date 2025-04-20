@@ -37,4 +37,15 @@ export class OrderService extends ApiService {
     return this.post(API_ENDPOINT.orderClient.base + API_ENDPOINT.orderClient.add, data); 
   }
 
+  getOrderClient(userId: number): Observable<any> {
+    return this.get<any>(`${API_ENDPOINT.orderClient.base + API_ENDPOINT.orderClient.list}?userId=${userId}`);
+  }
+  
+  deleteOrderClient(id: number){
+    return this.delete(API_ENDPOINT.orderClient.base + '/' + id);
+  }
+
+  confirmCompletion(orderId: number): Observable<any> {
+    return this.post(`${API_ENDPOINT.orderClient.base}/confirm-completion/${orderId}`, {});
+  }
 }
