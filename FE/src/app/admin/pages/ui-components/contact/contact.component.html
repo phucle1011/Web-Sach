@@ -1,5 +1,17 @@
 <div class="contact-card-container">
     <H3>Liên Hệ Người Dùng</H3>
+    <div class="input-group w-50">
+      <input 
+        type="text" 
+        class="form-control" 
+        placeholder="Tìm kiếm..." 
+        [(ngModel)]="searchTerm"  
+        (input)="searchContacts()"  
+      />
+      <button class="btn btn-outline-primary" (click)="searchContacts()"> <!-- Nút tìm kiếm -->
+        <i class="bi bi-search"></i> Tìm kiếm
+      </button>
+    </div>
     <table>
       <thead>
         <tr>

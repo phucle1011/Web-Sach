@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 const Contact = require('../../models/contactModel')
 require('dotenv').config();
+const { Op } = require("sequelize");
 
 exports.sendContactEmail = async (req, res) => {
   const { name, email, message } = req.body;
@@ -55,12 +56,12 @@ exports.sendContactEmail = async (req, res) => {
 exports.getAllContacts = async (req, res) => {
   try {
     const contacts = await Contact.findAll({
-      order: [['createdAt', 'DESC']], 
+      order: [['createdAt', 'DESC']],
     });
     res.status(200).json({
       status: 200,
       message: 'Lấy danh sách liên hệ thành công',
-      data: contacts, 
+      data: contacts,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -81,11 +82,52 @@ exports.updateStatus = async (req, res) => {
 
     return res.status(200).json({
       message: 'Contact status updated',
-      contact, 
+      contact,
     });
   } catch (error) {
     return res.status(500).json({ message: 'Server error', error });
   }
+
 };
 
+exports.searchContact = async (req, res) => {
+  try {
+    const { searchTerm } = req.query;
+
+    // Kiểm tra nếu không có từ khóa tìm kiếm
+    if (!searchTerm || searchTerm.trim() === '') {
+      return res.status(400).json({ message: 'Vui lòng cung cấp từ khóa tìm kiếm.' });
+    }
+
+    console.log("Từ khóa tìm kiếm:", searchTerm);
+
+    // Thực hiện tìm kiếm trong bảng contacts
+    const contacts = await Contact.findAll({
+      where: {
+        [Op.or]: [
+          { name: { [Op.like]: `%${searchTerm}%` } },
+          { email: { [Op.like]: `%${searchTerm}%` } },
+          { message: { [Op.like]: `%${searchTerm}%` } }
+        ]
+      }
+    });
+
+    if (contacts.length === 0) {
+      return res.status(404).json({ message: 'Không tìm thấy liên hệ nào khớp với từ khóa.' });
+    }
+
+    const result = contacts.map(contact => ({
+      ...contact.dataValues
+    }));
+
+    return res.status(200).json({
+      message: 'Tìm kiếm liên hệ thành công',
+      data: result
+    });
+
+  } catch (error) {
+    console.error('Lỗi khi tìm kiếm liên hệ:', error);
+    return res.status(500).json({ message: 'Lỗi server' });
+  }
+}
 

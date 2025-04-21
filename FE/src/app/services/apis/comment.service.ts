@@ -22,9 +22,14 @@ export class CommentService extends ApiService {
     super(_http);
   }
 
-  getComment(): Observable<IComment[]> {
-    return this.get<IComment[]>(API_ENDPOINT.comment.base + API_ENDPOINT.comment.list);
+  getComment(page: number = 1, limit: number = 10): Observable<any> {
+    return this._http.get<any>(
+      `${API_ENDPOINT.comment.base + API_ENDPOINT.comment.list}?page=${page}&limit=${limit}`
+    );
   }
   
-
+  searchComment(searchTerm: string): Observable<any> {
+    return this.get<any>(`${API_ENDPOINT.comment.base}/search?searchTerm=${searchTerm}`);
+  }
+  
 }

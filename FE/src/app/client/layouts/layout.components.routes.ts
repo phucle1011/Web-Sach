@@ -14,6 +14,7 @@ import { BlogComponent } from '../pages/blog/blog.component';
 import { ForgotPasswordComponent } from '../pages/auth/forgot-password/forgot-password.component';
 import { OTPPasswordComponent } from '../pages/auth/otppassword/otppassword.component';
 import { ResetPasswordComponent } from '../pages/auth/reset-password/reset-password.component';
+import { ProfileComponent } from '../pages/profile/profile.component';
 
 export const routesClient: Routes = [
   {
@@ -74,6 +75,10 @@ export const routesClient: Routes = [
       { path: 'reset-password', 
         component: ResetPasswordComponent
       },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+      }
     ],
   },
 ];

@@ -24,5 +24,9 @@ export class ContactService {
     const url = `${API_ENDPOINT.contact.base}/${id}/status`;
     return this.http.put(url, {}); 
   }
+
+  searchContact(searchTerm: string): Observable<any> {
+    return this.http.get<any>(`${API_ENDPOINT.productClient.base}/admin/contact/search?searchTerm=${searchTerm}`);
+}
   
 }

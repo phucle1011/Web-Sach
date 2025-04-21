@@ -8,6 +8,8 @@ const ContactController = require("../controllers/client/contactController");
 const CartController = require('../controllers/client/cartController');
 const OrderController = require('../controllers/client/orderController');
 const commentController = require('../controllers/client/commentController');
+const UserController = require('../controllers/client/userController');
+
 
 router.get('/', (req, res) => {
     res.send('Trang chủ client');
@@ -37,7 +39,9 @@ router.get('/orders/list', OrderController.getUserOrders);
 router.delete("/orders/:id", OrderController.delete);
 router.post('/orders/confirm-completion/:id', OrderController.confirmCompletion);
 
-router.post('/comments', commentController.create); // Add a new comment
-router.get('/comments/product/:id', commentController.getByProductId); 
+router.post('/comments', commentController.create); 
+router.get('/comments/product/:id', commentController.getByProductId);
+
+router.get('/users/:id', UserController.getUserById);
 
 module.exports = router;

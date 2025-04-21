@@ -48,4 +48,8 @@ export class OrderService extends ApiService {
   confirmCompletion(orderId: number): Observable<any> {
     return this.post(`${API_ENDPOINT.orderClient.base}/confirm-completion/${orderId}`, {});
   }
+
+  searchOrder(searchTerm: string): Observable<any> {
+    return this.get<any>(`${API_ENDPOINT.productClient.base}/admin/order/search?searchTerm=${searchTerm}`);
+  }
 }

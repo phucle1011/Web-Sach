@@ -39,6 +39,7 @@ CartItemModel.belongsTo(UserModel, { foreignKey: 'user_id', as: 'user' });
 CartItemModel.belongsTo(ProductModel, { foreignKey: 'product_id', as: 'product' });
 
 
+
 module.exports = {
   UserModel, 
   ProductModel, 

@@ -1,6 +1,7 @@
 const OrderModel = require('../../models/orderModel');
 const OrderDetailModel = require('../../models/oderDetail');
 const ProductModel = require('../../models/productModel');
+const { Op } = require('sequelize');
 
 class OrderController {
 
@@ -128,6 +129,42 @@ class OrderController {
         }
     }
 
+    static async searchOrder(req, res) {
+        try {
+          const { searchTerm } = req.query;
+      
+          if (!searchTerm || searchTerm.trim() === '') {
+            return res.status(400).json({ message: 'Vui lòng cung cấp từ khóa tìm kiếm.' });
+          }
+      
+          console.log("Từ khóa tìm kiếm:", searchTerm);
+      
+          const orders = await OrderModel.findAll({
+            where: {
+              [Op.or]: [
+                { name: { [Op.like]: `%${searchTerm}%` } }  // Đổi lại đúng tên trường
+              ]
+            }
+          });
+      
+          if (orders.length === 0) {
+            return res.status(404).json({ message: 'Không tìm thấy đơn hàng nào.' });
+          }
+      
+          const result = orders.map(order => ({
+            ...order.dataValues
+          }));
+      
+          return res.status(200).json({
+            message: 'Tìm kiếm đơn hàng thành công',
+            data: result
+          });
+      
+        } catch (error) {
+          console.error('Lỗi khi tìm kiếm đơn hàng:', error);
+          return res.status(500).json({ message: 'Lỗi server' });
+        }
+      }
 }
 
 module.exports = OrderController;

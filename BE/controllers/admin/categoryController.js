@@ -107,6 +107,54 @@ class CategoryController {
             res.status(500).json({ error: error.message });
         }
     }
+
+    static async searchCategory(req, res) {
+        try {
+          const { searchTerm } = req.query;
+      
+          // Kiểm tra nếu không có từ khóa tìm kiếm
+          if (!searchTerm || searchTerm.trim() === '') {
+            return res.status(400).json({ message: 'Vui lòng cung cấp từ khóa tìm kiếm.' });
+          }
+      
+          console.log("Từ khóa tìm kiếm:", searchTerm);
+      
+          // Thực hiện tìm kiếm trong các trường title, author và description
+          const categories = await CategoryModel.findAll({
+            where: {
+              [Op.or]: [
+                { title: { [Op.like]: `%${searchTerm}%` } },  // Dùng LIKE thay cho ILIKE
+                { author: { [Op.like]: `%${searchTerm}%` } },
+                { description: { [Op.like]: `%${searchTerm}%` } }
+              ]
+            },
+            include: {
+              model: CategoryModel,
+              as: 'category',
+              attributes: ['categoryName'],
+              required: false,  // Không yêu cầu category phải có
+            }
+          });
+      
+          if (categories.length === 0) {
+            return res.status(404).json({ message: 'Không tìm thấy sản phẩm nào khớp với từ khóa.' });
+          }
+      
+          const result = categories.map(product => ({
+            ...product.dataValues,
+            categoryName: product.category ? product.category.categoryName : 'Chưa có danh mục'
+          }));
+      
+          return res.status(200).json({
+            message: 'Tìm kiếm sản phẩm thành công',
+            data: result
+          });
+      
+        } catch (error) {
+          console.error('Lỗi khi tìm kiếm sản phẩm:', error);
+          return res.status(500).json({ message: 'Lỗi server' });
+        }
+      }
 }
 
 module.exports = CategoryController;

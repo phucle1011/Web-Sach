@@ -1,6 +1,18 @@
 <mat-card class="cardWithShadow">
   <mat-card-content>
     <h4 class="card-title fw-bold text-center">Quản Lý Người Dùng</h4>
+    <div class="input-group w-50">
+      <input 
+        type="text" 
+        class="form-control" 
+        placeholder="Tìm kiếm..." 
+        [(ngModel)]="searchTerm"  
+        (input)="searchProducts()"  
+      />
+      <button class="btn btn-outline-primary" (click)="searchProducts()"> <!-- Nút tìm kiếm -->
+        <i class="bi bi-search"></i> Tìm kiếm
+      </button>
+    </div>
     <table class="table table-striped table-hover custom-table">
       <thead class="thead-dark">
         <tr>
@@ -9,7 +21,6 @@
           <th scope="col">Họ Tên</th>
           <th scope="col">Email</th>
           <th scope="col">Số Điện Thoại</th>
-          <th scope="col">Trạng thái</th>
           <th scope="col" class="text-center">Thao Tác</th>
         </tr>
       </thead>
@@ -24,14 +35,6 @@
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.phoneNumber }}</td>
-          <td class="text-center">
-            <span
-              [ngClass]="user.role === '1' 
-                ? 'bg-light-success text-success rounded f-w-600 p-6 p-y-4 f-s-12' 
-                : 'bg-light-error text-error rounded f-w-600 p-6 p-y-4 f-s-12'">
-              {{ user.role === '' ? 'Người dùng' : 'Admin' }}
-            </span>
-          </td>
           <td class="text-center">
             <div class="btn-group" role="group">
               <a [routerLink]="['/admin/edit-user', user.userId]"

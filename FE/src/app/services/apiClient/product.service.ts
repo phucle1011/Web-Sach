@@ -9,12 +9,13 @@ import { IProduct } from 'src/app/interface/product.interface';
   providedIn: 'root'
 })
 export class ProductService extends ApiService {
+ 
 
   constructor(private _http: HttpClient) {
     super(_http);
   }
 
-  getProduct(categoryId?: number, priceRange?: string): Observable<IProduct[]> {
+  getProduct(categoryId?: number, priceRange?: string, name?: string): Observable<IProduct[]> {
     let apiUrl = API_ENDPOINT.productClient.base + API_ENDPOINT.productClient.list;
     const queryParams = [];
 
@@ -28,11 +29,26 @@ export class ProductService extends ApiService {
     if (queryParams.length > 0) {
       apiUrl += `?${queryParams.join('&')}`;
     }
+    if (name !== undefined && name !== '') {
+      queryParams.push(`name=${name}`);
+    }
+
+    if (queryParams.length > 0) {
+      apiUrl += `?${queryParams.join('&')}`;
+    }
 
     return this.get<IProduct[]>(apiUrl);
   }
   getProductByCategory(categoryId: number): Observable<any> {
     return this.get<any>(API_ENDPOINT.productClient.base + API_ENDPOINT.productClient.list + `?categoryId=${categoryId}`);
+  }
+  
+  getProductByPriceRange(priceRange: string): Observable<any> {
+    return this.getProduct(undefined, priceRange);
+  }
+
+  searchProductsByName(name: string): Observable<any> {
+    return this.getProduct(undefined, undefined, name);
   }
 
   getProductDetail(productId: string): Observable<any> {

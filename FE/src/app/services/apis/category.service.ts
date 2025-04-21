@@ -9,6 +9,12 @@ import { ICategory, IPaginatedCategoryResponse } from 'src/app/interface/categor
   providedIn: 'root'
 })
 export class CategoryService {
+  searchCategories(searchTerm: string) {
+    throw new Error('Method not implemented.');
+  }
+  searchProducts(searchTerm: string) {
+    throw new Error('Method not implemented.');
+  }
   constructor(private http: HttpClient) {}
 
   getCategories(page: number = 1, limit: number = 10): Observable<IPaginatedCategoryResponse> {
@@ -30,5 +36,9 @@ export class CategoryService {
 
   deleteCategory(id: number): Observable<any> {
     return this.http.delete(`${API_ENDPOINT.category.base}/${id}`);
+  }
+
+  searchCategory(searchTerm: string): Observable<any> {
+    return this.http.get<any>(`${API_ENDPOINT.categoryClient.base}/admin/product/search?searchTerm=${searchTerm}`);
   }
 }

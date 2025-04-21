@@ -1,61 +1,81 @@
 import { Component, OnInit } from '@angular/core';
+import { IProduct } from 'src/app/interface/product.interface';
+import { ProductService } from '../../../../services/apis/product.service';
+import { CategoryService } from 'src/app/services/apis/category.service';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ICategory } from 'src/app/interface/category.interface';
-import { IProduct } from 'src/app/interface/product.interface';
-
-
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [MatCardModule, CommonModule, RouterModule],
+  imports: [MatCardModule, CommonModule, RouterModule, FormsModule],
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
 })
-export class AppProductComponent  {
-  // dataSource: IProduct[] = [];
-  // products: any[] = [];
-  // categories: any[] = [];
-  // constructor(private productService: ProductService) { }
+export class AppProductComponent implements OnInit {
+  dataSource: Array<IProduct> = [];
+  categories: Array<{ categoryId: number; categoryName: string }> = [];
+  searchTerm: string = '';  // Biến lưu từ khóa tìm kiếm
 
-  // ngOnInit(): void {
-  //   this.productService.getAllProducts().subscribe({
-  //     next: (res) => {
-  //       console.log('Kết quả API sản phẩm:', res);
-  //       if (res.data && Array.isArray(res.data)) {
-  //         this.dataSource = res.data;
-  //         this.dataSource.forEach(product => {
+  constructor(
+    private productService: ProductService,
+    private categoryService: CategoryService
+  ) { }
 
-  //           product.categoryName = product.Category && product.Category.categoryName
-  //             ? product.Category.categoryName
-  //             : 'Chưa có danh mục';
-  //         });
-  //       } else {
-  //         console.error('Dữ liệu không hợp lệ:', res);
-  //       }
-  //     },
-  //     error: (err) => {
-  //       console.error('Lỗi khi lấy sản phẩm:', err);
-  //     },
-  //   });
-  // }
+  ngOnInit(): void {
+    this.getAllProducts();
+    this.getCategories();
+  }
 
-  // deleteProduct(productId: number): void {
-  //   if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
-  //     this.productService.deleteProduct(productId).subscribe({
-  //       next: () => {
+  // Lấy tất cả sản phẩm
+  getAllProducts(): void {
+    this.productService.getAllProducts().subscribe((res: any) => {
+      const products: IProduct[] = res.data;
+      this.dataSource = products.map((product: IProduct) => {
+        const category = this.categories.find((cat) => cat.categoryId === product.categoryId);
+        return {
+          ...product,
+          categoryName: category ? category.categoryName : 'Chưa có danh mục',
+        };
+      });
+    });
+  }
 
-  //         this.dataSource = this.dataSource.filter(product => product.productId !== productId);
-  //       },
-  //       error: (err) => {
-  //         console.error('Lỗi khi xóa sản phẩm:', err);
-  //       }
-  //     });
-  //   }
-  // }
+  // Lấy tất cả danh mục
+  getCategories(): void {
+    this.categoryService.getCategories().subscribe((categories: any) => {
+      this.categories = categories.data;
+      this.getAllProducts();
+    });
+  }
 
+  // Xóa sản phẩm
+  deleteProduct(productId: number): void {
+    alert('Bạn chắc chắn muốn xóa ???');
+    console.log('Xóa sản phẩm ID:', productId);
+    this.productService.deleteProduct(productId).subscribe(() => {
+      this.getAllProducts();
+    });
+  }
 
+  searchProducts(): void {
+    if (this.searchTerm) {
+      this.productService.searchProducts(this.searchTerm).subscribe((res: any) => {
+        this.dataSource = res.data; // Cập nhật danh sách sản phẩm tìm được
+      });
+    } else {
+      this.getAllProducts();
+    }
+  }
 
-}
+  formatCurrency(value: any): string {
+    const numberValue = typeof value === 'string'
+      ? parseFloat(value.replace(/\D/g, '')) || 0
+      : value;
+  
+    return new Intl.NumberFormat('vi-VN').format(numberValue) + ' VND';
+  }
+  
+};

@@ -19,6 +19,8 @@ import { DecimalPipe } from '@angular/common';
 export class AppOrdersComponent{
   list: IOrder[] = [];
   readonly dialog = inject(MatDialog);
+  searchTerm: string = '';
+  dataSource: any;
   
   constructor(private orderService: OrderService) {
     this.getAll();
@@ -88,4 +90,21 @@ export class AppOrdersComponent{
   formatCurrency(value: number): string {
     return value.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' VND';
   }
+
+  searchProducts(): void {
+    if (this.searchTerm) {
+      this.orderService.searchOrder(this.searchTerm).subscribe({
+        next: (res: any) => {
+          this.list = res.data; // ✅ Gán vào list để hiển thị
+        },
+        error: (err) => {
+          console.error(err);
+          alert('Không tìm thấy đơn hàng hoặc xảy ra lỗi!');
+        }
+      });
+    } else {
+      this.getAll();
+    }
+  }
+  
 }

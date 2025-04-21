@@ -7,7 +7,7 @@
         <div *ngIf="data" class="row">
             <!-- Hình ảnh sản phẩm -->
             <div class="col-md-6">
-                <img [src]="data.image" alt="{{ data.title }}" width="100%">
+                <img src="assets/images/client/{{data.images}}" alt="{{ data.title }}" width="100%">
             </div>
 
             <!-- Thông tin sản phẩm -->
@@ -20,13 +20,16 @@
                     }}</p>
 
                 <h6>Giá tiền:
-                    <b> {{ formatPriceVN(data.price) }}</b>
+                    <b> {{ formatCurrency(data.price) }}</b>
                 </h6>
 
                 <!-- Form Thêm vào giỏ hàng -->
-                <button (click)="addToCart()" class="btn btn-primary mt-2">
-                    Thêm vào giỏ hàng
-                  </button>
+                <form action="/cart/add" method="post">
+                    <input type="hidden" name="product_id" [value]="data.id"
+                        required>
+                    <button type="submit" class="btn btn-primary mt-2">Thêm vào
+                        giỏ hàng</button>
+                </form>
             </div>
 
             <br>

@@ -19,15 +19,19 @@ export class UserService {
     }
 
     addUser(data: Partial<IUser>): Observable<any> {
-        return this.http.post(`${API_ENDPOINT.user.base + API_ENDPOINT.user.add}`,data);
+        return this.http.post(`${API_ENDPOINT.user.base + API_ENDPOINT.user.add}`, data);
     }
 
     updateUser(id: number, userData: { role: string }): Observable<IUser> {
         return this.http.put<IUser>(`${API_ENDPOINT.user.base}/${id}`, userData);
-      }
+    }
 
     deleteUser(id: number): Observable<any> {
         return this.http.delete(`${API_ENDPOINT.user.base}/${id}`);
+    }
+
+    searchOrder(searchTerm: string): Observable<any> {
+        return this.http.get<any>(`${API_ENDPOINT.productClient.base}/admin/user/search?searchTerm=${searchTerm}`);
     }
 }
 export { IUser };

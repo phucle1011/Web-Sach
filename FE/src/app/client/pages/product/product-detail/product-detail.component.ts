@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router} from '@angular/router';
-import { ProductService } from 'src/app/services/apiClient/product.service'; 
-import { CommonModule } from '@angular/common'; 
+import { ActivatedRoute } from '@angular/router';
+import { ProductService } from 'src/app/services/apiClient/product.service';
+import { CommonModule } from '@angular/common';
 import { CommentService } from 'src/app/services/apiClient/comment.service';
 import { FormsModule } from '@angular/forms';
 import { IComment, ICreateComment } from 'src/app/interface/comment.interface';
-import { CartService } from 'src/app/services/apiClient/cart.service';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-product-detail',
@@ -33,9 +31,6 @@ export class ProductDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private CartService: CartService,
-    private router: Router,
-    private cookieService: CookieService,
     private commentService: CommentService
   ) { }
 
@@ -81,6 +76,7 @@ export class ProductDetailComponent implements OnInit {
         error: (err: any) => console.error('Lỗi khi lấy bình luận:', err)
       });
   }
+
   submitComment(): void {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const userId = user.userId;
@@ -101,6 +97,7 @@ export class ProductDetailComponent implements OnInit {
       error: (err: any) => console.error('Lỗi khi gửi bình luận:', err)
     });
   }
+
   goToPage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
@@ -108,63 +105,6 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
-  addToCart(): void {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    const user_id = user.userId;
-
-    if (!user_id) {
-      alert('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng');
-      return;
-    }
-
-    const product_id = Number(this.productId);
-    const quantity = 1;
-
-    console.log('product_id:', product_id);
-
-    let cart = JSON.parse(this.cookieService.get('cart') || '[]');
-
-    const existingItemIndex = cart.findIndex((item: { product_id: number; }) => item.product_id === product_id);
-
-    if (existingItemIndex > -1) {
-      cart[existingItemIndex].quantity += quantity;
-    } else {
-      cart.push({ product_id, quantity });
-    }
-
-    this.cookieService.set('cart', JSON.stringify(cart));
-
-    this.CartService.postCart({ user_id, product_id, quantity }).subscribe({
-      next: (res) => {
-        console.log('Đã thêm vào giỏ hàng:', res);
-        alert('Thêm sản phẩm vào giỏ hàng thành công!');
-
-        let checkoutCart = JSON.parse(this.cookieService.get('checkout_cart') || '[]');
-
-        const checkoutItemIndex = checkoutCart.findIndex((item: { product_id: number; }) => item.product_id === product_id);
-        if (checkoutItemIndex === -1) {
-          checkoutCart.push({ product_id, quantity });
-        }
-
-        this.cookieService.set('checkout_cart', JSON.stringify(checkoutCart));
-      },
-      error: (err) => {
-        console.error('Lỗi khi thêm vào giỏ hàng:', err);
-        alert('Thêm giỏ hàng thất bại');
-      }
-    });
-  }
-
-
-  getCartFromLocalStorage(): any[] {
-    const cart = localStorage.getItem('cart');
-    return cart ? JSON.parse(cart) : [];
-  }
-
-  saveCartToLocalStorage(cart: any[]): void {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }
-  
   getTotalPrice(): number {
     if (!this.data || !Array.isArray(this.data)) return 0;
     return this.data.reduce((total: number, product: any) => {
@@ -184,4 +124,13 @@ export class ProductDetailComponent implements OnInit {
     if (typeof value === 'number') return value;
     return parseFloat(value.replace(/\./g, '').replace('đ', '').trim()) || 0;
   }
+
+  formatCurrency(value: number | string): string {
+    const numericValue = typeof value === 'string'
+      ? parseFloat(value.replace(/\./g, '').replace('đ', '').replace(/[^0-9]/g, ''))
+      : value;
+  
+    return new Intl.NumberFormat('vi-VN').format(numericValue) + ' VND';
+  }
+  
 }

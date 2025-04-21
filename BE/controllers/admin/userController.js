@@ -1,5 +1,7 @@
 const User = require('../../models/userModel');
 const Comment = require('../../models/commentsModel');
+const { UserModel } = require('../../models/connectionModel');
+const { Op } = require("sequelize");
 
 class UserController {
   static async getAllUsers(req, res) {
@@ -82,6 +84,47 @@ class UserController {
       });
     }
   }
+
+  static async searchUser(req, res) {
+    try {
+      const { searchTerm } = req.query;
+  
+      // Kiểm tra nếu không có từ khóa tìm kiếm
+      if (!searchTerm || searchTerm.trim() === '') {
+        return res.status(400).json({ message: 'Vui lòng cung cấp từ khóa tìm kiếm.' });
+      }
+  
+      console.log("Từ khóa tìm kiếm:", searchTerm);
+  
+      // Thực hiện tìm kiếm người dùng
+      const users = await UserModel.findAll({
+        where: {
+          [Op.or]: [
+            { name: { [Op.like]: `%${searchTerm}%` } },
+            { email: { [Op.like]: `%${searchTerm}%` } },
+          ]
+        }
+      });
+  
+      if (users.length === 0) {
+        return res.status(404).json({ message: 'Không tìm thấy người dùng nào khớp với từ khóa.' });
+      }
+  
+      const result = users.map(user => ({
+        ...user.dataValues
+      }));
+  
+      return res.status(200).json({
+        message: 'Tìm kiếm người dùng thành công',
+        data: result
+      });
+  
+    } catch (error) {
+      console.error('Lỗi khi tìm kiếm người dùng:', error);
+      return res.status(500).json({ message: 'Lỗi server' });
+    }
+  }
+  
 }
 
 

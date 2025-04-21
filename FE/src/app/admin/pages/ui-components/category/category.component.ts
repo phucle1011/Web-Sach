@@ -20,8 +20,10 @@ export class CategoryComponent {
   currentPage: number = 1;
   pageSize: number = 10;
   totalPages: number = 1;
+  searchTerm: string = '';
 
   readonly dialog = inject(MatDialog);
+  dataSource: any;
 
   constructor(private categoryService: CategoryService) {
     this.getAll();
@@ -64,4 +66,16 @@ export class CategoryComponent {
       }
     });
   }
+
+  searchCategories(): void {
+    if (this.searchTerm) {
+      this.categoryService.searchCategory(this.searchTerm).subscribe((res: any) => {
+        this.list = res.data;
+        this.totalPages = 1; 
+      });
+    } else {
+      this.getAll();
+    }
+  }
+  
 }

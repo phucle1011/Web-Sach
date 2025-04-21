@@ -1,4 +1,4 @@
-<!-- <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form-container">
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form-container">
   <div class="card product-card">
     <div class="card-body">
       <h3 class="card-title m-b-0">Thêm sản phẩm</h3>
@@ -67,10 +67,12 @@
             {{ category.categoryName }}
           </option>
         </select>
+        
         <div *ngIf="productForm.get('categoryId')?.invalid && productForm.get('categoryId')?.touched" class="text-danger">
           Vui lòng chọn một danh mục.
         </div>
       </div>
+      
 
       <div class="form-group">
         <label for="file">Hình ảnh sản phẩm</label>
@@ -80,4 +82,4 @@
       <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">Thêm sản phẩm</button>
     </div>
   </div>
-</form> -->
+</form>

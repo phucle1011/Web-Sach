@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { IUser, UserService } from 'src/app/services/apis/user.service';
 import { DeleteComponent } from './delete/delete.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
 
 
 export interface User {
@@ -18,13 +19,15 @@ export interface User {
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [MatCardModule, CommonModule, RouterModule],
+  imports: [MatCardModule, CommonModule, RouterModule, FormsModule],
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent {
   dataSource: IUser[] = [];
   readonly dialog = inject(MatDialog);
+  searchTerm: string = ''; 
+
   constructor(private userService: UserService) {
     this.ngOnInit();
   }
@@ -53,5 +56,15 @@ export class UserComponent {
         this.ngOnInit();
       }
     });
+  }
+
+  searchProducts(): void {
+    if (this.searchTerm) {
+      this.userService.searchOrder(this.searchTerm).subscribe((res: any) => {
+        this.dataSource = res.data; // Cập nhật danh sách sản phẩm tìm được
+      });
+    } else {
+      this.ngOnInit();
+    }
   }
 }
